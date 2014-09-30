@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        margin: 0 auto;
+        max-width: 1200px;
+      }
+
+      .header {
+        height: 120px;
+        background-color: aqua;
+      }
+
+      .main {
+        min-height: 700px;
+      }
+
+      .main > div {
+        height: 700px;
+        min-height: 100%;
+      }
+
+      .left {
+        float: left;
+        width: 20%;
+        min-height: 100%;
+        background-color: green;
+      }
+
+      .right {
+        float: right;
+        width: 80%;
+        background-color: yellow;
+      }
+
+      .right:after {
+        content: '';
+        display: block;
+        float: none;
+        clear: both;
+      }
+
+      .breadcrumb {
+        background-color: peru;
+      }
+
+      .footer {
+        height: 80px;
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+  <div class="container">
+    <div class="header">HEADER</div>
+    <div class="main">
+      <div class="left">Left</div>
+      <div class="right">
+        <div class="breadcrumb"> Home > Foo > Bar </div>
+      Right</div>
+    </div>
+    <div class="footer">FOOTER</div>
+  </div>
+  </body>
+</html>
