@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700,800|Roboto:900,400,700,400italic,500,300,100&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
   </head>
   <body>
-  <div class="container">
-    <div class="header">HEADER</div>
-    <div class="main">
-      <div class="left">Left</div>
-      <div class="right">
-        <div class="breadcrumb">Home > Foo > Bar </div>
-        <div class="content">
+  <div id="container">
+    <div id="header">HEADER</div>
+    <div id="main">
+      <div id="left">
+        <div id="sub-menu">
+          <ul class="menu">
+            <li>
+              <span class="icon_house_alt"></span>
+              <a>Home</a>
+            </li>
+            <li>
+              <span class="icon_profile"></span>
+              <a>Profil</a>
+            </li>
+            <li>
+              <span class="icon_tag"></span>
+              <a>Kategorien</a>
+            </li>
+            <li>
+              <span class="icon_cart"></span>
+              <a>Shopping Cart</a>
+            </li>
+            <li>
+              <span class="icon_gift"></span>
+              <a>Ipsum</a>
+            </li>
+            <li>
+              <span class="icon_grid-2x2"></span>
+              <a>Doloret</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="right">
+        <div class="breadcrumb"> <a>Home</a> &gt; <a>Foo</a> &gt; <a>Bar</a> </div>
+        <div id="content">
           <h1>Heading 1</h1>
           <h2>Heading 2</h2>
           <p>Nam at tortor in tellus interdum sagittis. Sed in libero ut nibh placerat accumsan. Praesent egestas tristique nibh. Vivamus consectetuer hendrerit lacus. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam.</p>
@@ -23,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="footer">FOOTER</div>
+    <div id="footer">FOOTER</div>
   </div>
   </body>
 </html>
