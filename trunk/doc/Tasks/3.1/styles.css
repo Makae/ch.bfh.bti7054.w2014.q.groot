@@ -12,14 +12,18 @@ html, body {
   width;: 100%;
 }
 
-#container {
+.container {
   margin: 0 auto;
   max-width: 1200px;
 }
 
 #header {
-  height: 120px;
+  height: 80px;
   background-color: #13353a;
+}
+#header .container {
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 #main {
@@ -77,6 +81,10 @@ html, body {
   font-family: "Roboto", Arial, sans-serif;
   background-color: white;
   font-size: 16px;
+
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
 }
 
 h1,
@@ -85,6 +93,7 @@ h3,
 h4,
 h5 {
   font-family: "Open Sans", Arial, sans-serif;
+  font-weight: lighter;
 }
 h1 {
   font-size: 36px;
@@ -102,7 +111,6 @@ h3 {
 }
 
 p {
-  font-weight: lighter;
   line-height: 1.5em;
 }
 
@@ -123,6 +131,19 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+/*
+ * Header Styles
+ */
+ #header .container {
+   overflow: hidden;
+ }
+
+#header .container > .menu,
+#header .container > #search {
+  float: right;
+}
+
 
 /*
  * Menu Styles
@@ -148,4 +169,65 @@ a:hover {
 .menu li:hover a,
 .menu li:hover>span {
   color: #c7872f;
+}
+
+/*
+ * Main menu
+ */
+.menu.menu-main {
+  margin: 0;
+  padding: 0;
+  height: 80px;
+  font-weight: normal;
+}
+
+.menu-main > li {
+  float: left;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  height: 80px;
+  color: #ffffff;
+}
+
+.menu-main > li a {
+  display: inline-block;
+  padding: 0 1em;
+  line-height: 80px;
+}
+
+.menu-main > li a:hover {
+  color: #13353a;
+  background-color: #ffffff;
+}
+
+#search {
+  height: 80px;
+  line-height: 80px;
+}
+
+#search button:hover {
+  border: 1px solid #ffffff;
+  background-color: #13353a;
+  color: #ffffff;
+}
+
+/*
+ * Form-Styles
+ */
+
+input, select, button {
+  border: 1px solid #ffffff;
+  border-radius: 2px;
+  background: none;
+  background-color: #ffffff;
+  height: 2em;
+  line-height: 2em;
+}
+
+button {
+  margin: 0;
+  padding: 1px 1.25em;
+  box-sizing: content-box;
+  cursor: pointer;
 }

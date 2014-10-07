@@ -6,8 +6,27 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700,800|Roboto:900,400,700,400italic,500,300,100&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
   </head>
   <body>
-  <div id="container">
-    <div id="header">HEADER</div>
+  <div id="header">
+    <div class="container">
+      <div id="logo"></div>
+      <form id="search">
+        <select name="category">
+          <option value="1">Fantasy</option>
+          <option value="2">Horror</option>
+          <option value="3">Mein kleines Reich</option>
+        </select>
+        <input type="text" name="search_text" id="search_text" />
+        <button type="submit" name="search" value="search">Suchen</button>
+      </form>
+      <ul class="menu menu-main">
+        <li><a>Kategorien</a></li>
+        <li><a>Profil</a></li>
+        <li><a>Wunschzettel</a></li>
+        <li><a>Warenkorb</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="container" class="container">
     <div id="main">
       <div id="left">
         <div id="sub-menu">
