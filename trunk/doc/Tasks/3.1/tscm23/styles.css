@@ -1,0 +1,94 @@
+/*
+ * @navi_dark: #13353a;
+ * @orange_red: #c7872f;
+ * @ice_blue: #b8e7e6;
+ * @navi_fair: #3ea7ba;
+ */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width;: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.header {
+  height: 120px;
+}
+
+.main {
+  min-height: 700px;
+}
+
+.main > div {
+  height: 700px;
+  min-height: 100%;
+}
+
+.left {
+  float: left;
+  width: 20%;
+  min-height: 100%;
+  background-color:aqua;
+}
+
+.right {
+  float: right;
+  width: 80%;
+  background-color:green;
+}
+
+.right:after {
+  content: '';
+  display: block;
+  float: none;
+  clear: both;
+  background-color:red;
+}
+
+.breadcrumb {
+background-color:blue;
+}
+
+.footer {
+  height: 80px;
+  background-color:yellow;
+}
+
+
+/*
+ * Font Styles
+ */
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* TSCM 
+
+$font-size: 16px;
+$line-height: 1.4;
+$lines-to-show: 3;*/
+
+.img-preview{
+	/**/margin: 0 auto;
+	height: auto;
+	float:left;
+	width:20%;
+	/*padding:2px,4px,2px,8px;*/
+	border:2px solid black;
+}
+.description{
+	/*height: 100
+	font-size: $font-size;
+	line-height: $line-height;
+	lines-to-show: $lines-to-show;*/
+	float:left;
+	width:75%;
+	padding:2px,4px,2px,11px;
+	border:2px solid black;
+	
+}
