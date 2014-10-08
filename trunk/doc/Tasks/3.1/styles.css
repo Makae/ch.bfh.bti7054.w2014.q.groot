@@ -21,6 +21,7 @@ html, body {
   height: 80px;
   background-color: #13353a;
 }
+
 #header .container {
   padding-left: 1em;
   padding-right: 1em;
@@ -144,6 +145,33 @@ a:hover {
   float: right;
 }
 
+#logo {
+  position: relative;
+  float: left;
+  color: #FFF;
+  font-size: 45px;
+  font-family: "Open Sans";
+  line-height: 80px;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+#logo > span,
+#logo > span:after {
+  display: block;
+  position: absolute;
+  line-height:60px;
+  height: 60px;
+  width: 47px;
+  padding-left: 11px;
+  border: 1px solid #ffffff;
+  border-radius: 30px;
+}
+
+#logo:hover > span {
+  color: #13353a;
+  background-color: #ffffff;
+}
 
 /*
  * Menu Styles
@@ -231,3 +259,57 @@ button {
   box-sizing: content-box;
   cursor: pointer;
 }
+
+
+/*
+ * ANIMATIONS
+ */
+
+ .stdanimation1_4 {
+  -webkit-transition:all 100ms ease-in-out;
+  -moz-transition:all 100ms ease-in-out;
+  -ms-transition:all 100ms ease-in-out;
+  -o-transition:all 100ms ease-in-out;
+  transition:all 100ms ease-in-out;
+}
+
+ .stdanimation1_2 {
+  -webkit-transition:all 200ms ease-in-out;
+  -moz-transition:all 200ms ease-in-out;
+  -ms-transition:all 200ms ease-in-out;
+  -o-transition:all 200ms ease-in-out;
+  transition:all 200ms ease-in-out;
+}
+
+.stdanimation {
+  -webkit-transition:all 400ms ease-in-out, opacity 200ms ease;
+  -moz-transition:all 400ms ease-in-out, opacity 200ms ease;
+  -ms-transition:all 400ms ease-in-out, opacity 200ms ease;
+  -o-transition:all 400ms ease-in-out, opacity 200ms ease;
+  transition:all 400ms ease-in-out, opacity 200ms ease;
+}
+
+.stdanimation2x {
+  -webkit-transition:all 800ms ease-in-out, opacity 400ms ease;
+  -moz-transition:all 800ms ease-in-out, opacity 400ms ease;
+  -ms-transition:all 800ms ease-in-out, opacity 400ms ease;
+  -o-transition:all 800ms ease-in-out, opacity 400ms ease;
+  transition:all 800ms ease-in-out, opacity 400ms ease;
+}
+
+.stdanimation4x {
+  -webkit-transition:all 1600ms ease-in-out, opacity 800ms ease;
+  -moz-transition:all 1600ms ease-in-out, opacity 800ms ease;
+  -ms-transition:all 1600ms ease-in-out, opacity 800ms ease;
+  -o-transition:all 1600ms ease-in-out, opacity 800ms ease;
+  transition:all 1600ms ease-in-out, opacity 800ms ease;
+}
+
+.noanimation {
+  -moz-transition:none !important;
+  -webkit-transition:none !important;
+  -ms-transition:none !important;
+  -o-transition:none !important;
+  transition:none !important;
+}
+ */
