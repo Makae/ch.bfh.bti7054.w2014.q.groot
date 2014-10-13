@@ -1,18 +1,137 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700,800|Roboto:900,400,700,400italic,500,300,100|&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
   </head>
   <body>
-  <div class="container">
-    <div class="header">HEADER</div>
-    <div class="main">
-      <div class="left">Left</div>
-      <div class="right">
-        <div class="breadcrumb"> Home > Foo > Bar </div>
-      Right</div>
+  <div id="header">
+    <div class="container">
+      <div id="logo">
+        <span class="stdanimation1_4">G</span>
+      </div>
+      <form id="search">
+        <select name="category">
+          <option value="1">Fantasy</option>
+          <option value="2">Horror</option>
+          <option value="3">Mein kleines Reich</option>
+        </select>
+        <input type="text" name="search_text" id="search_text" />
+        <button type="submit" name="search" value="search">Suchen</button>
+      </form>
+      <ul class="menu menu-main">
+        <li><a class="stdanimation1_2">Kategorien</a></li>
+        <li><a class="stdanimation1_2">Profil</a></li>
+        <li><a class="stdanimation1_2">Wunschzettel</a></li>
+        <li><a class="stdanimation1_2">Warenkorb</a></li>
+      </ul>
     </div>
-    <div class="footer">FOOTER</div>
+  </div>
+  <div id="container" class="container">
+    <div id="main">
+      <div id="left">
+        <div id="sub-menu">
+          <ul class="menu">
+            <li class="stdanimation">
+              <span class="stdanimation1_2 icon_house_alt"></span>
+              <a class="stdanimation1_4" href='index.html'>Home</a>
+            </li>
+            <li class="stdanimation">
+              <span class="stdanimation1_2 icon_profile"></span>
+              <a class="stdanimation1_4" href='profil.html'>Profil</a>
+            </li>
+            <li class="stdanimation">
+              <span class="stdanimation1_2 icon_tag"></span>
+              <a class="stdanimation1_4">Kategorien</a>
+            </li>
+            <li class="stdanimation">
+              <span class="stdanimation1_2 icon_cart"></span>
+              <a class="stdanimation1_4" href='shoppingcart.html' >Shopping Cart</a>
+            </li>
+            <li class="stdanimation">
+              <span class="stdanimation1_2 icon_gift"></span>
+              <a class="stdanimation1_4">Ipsum</a>
+            </li>
+            <li class="stdanimation">
+              <span class="stdanimation1_2 icon_grid-2x2"></span>
+              <a class="stdanimation1_4">Doloret</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="right">
+        <div class="breadcrumb"> <a>Home</a> &gt; <a>Foo</a> &gt; <a>Bar</a> </div>
+        <div id="content">
+         	<h1>Suche</h1>
+			<p>
+			<div class="product">
+				<div class="img-preview"><img  src="images/test_medizin.jpg"  />
+					
+				</div>
+				<div class="description">
+					<p><a href='product.html?id=123123'>Titel: TDYSDF</a></p>
+					<p>Autor: Herbert Janson</p>
+					<p class="description-text">Beschreibung: Lasdfa dolor sit amet, consectetur adipiscing elit. In vel purus eget nisl efficitur iaculis.
+					Praesent eleifend mauris et nunc suscipit sagittis. Donec suscipit nisi id 
+					quam rhoncus interdum. Donec eu egestas tortor, ac finibus nunc. Interdum 
+					et malesuada fames ac ante ipsum primis in faucibus. Pellentesque porta, 
+					faucibus mattis malesuada sit amet tellus. Ut ac pretium nisl. 
+					Nam maximus lobortis sem, et aliquet nisi imperdiet vel. Suspendisse 
+					potenti. Nam consectetur lobortis est, in faucibus mi egestas non.</p>
+
+					<p>Preis: CHF 19.95 </p>
+					<p>Lieferbar: Sofort</p>
+				</div>
+			</div>
+			<div class="product">
+				<div class="img-preview"><img  src="images/chemibuch.jpg"  />
+					
+				</div>
+				<div class="description">
+					<p><a href='product.html?id=523123'>Titel: Fizz  peng</a></p>
+					<p>Autor: Herbert Janson</p>
+					<p class="description-text">Beschreibung: werwerpsum dolor sit amet, consectetur adipiscing elit. In vel purus eget nisl efficitur iaculis.
+					Praesent eleifend mauris et nunc suscipit sagittis. Donec suscipit nisi id 
+					quam rhoncus interdum. Donec eu egestas tortor, ac finibus nunc. Interdum 
+					et malesuada fames ac ante ipsum primis in faucibus. Pellentesque porta, 
+					faucibus mattis malesuada sit amet tellus. Ut ac pretium nisl. 
+					Nam maximus lobortis sem, et aliquet nisi imperdiet vel. Suspendisse 
+					potenti. Nam consectetur lobortis est, in faucibus mi egestas non.</p>
+
+					<p>Preis: CHF 44.55 </p>
+					<p>Lieferbar: Sofort</p>
+				</div>
+			</div>
+			<div class="product">
+				<div class="img-preview"><img  src="images/sport.jpg"  />
+					
+				</div>
+				<div class="description">
+					<p><a href='product.html?id=123423'>Titel: Sport ist Mord</a></p>
+					<p>Autor: Simon Phelps</p>
+					<p class="description-text">Beschreibung: Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel purus eget nisl efficitur iaculis.
+					Praesent eleifend mauris et nunc suscipit sagittis. Donec suscipit nisi id 
+					quam rhoncus interdum. Donec eu egestas tortor, ac finibus nunc. Interdum 
+					et malesuada fames ac ante ipsum primis in faucibus. Pellentesque porta, 
+					faucibus mattis malesuada sit amet tellus. Ut ac pretium nisl. 
+					Nam maximus lobortis sem, et aliquet nisi imperdiet vel. Suspendisse 
+					potenti. Nam consectetur lobortis est, in faucibus mi egestas non.</p>
+
+					<p>Preis: CHF 22.15 </p>
+					<p>Lieferbar: Vergriffen</p>
+				</div>
+			</div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+	<div class="impressum">Impressum</div>
+	<div class="impressum">Kontakt</div>
+	<div class="impressum">Shopversion</div>
+	<div class="impressum">&Uuml;ber uns</div>
+	<div class="impressum">Support Hotline</div>
+	</div>
   </div>
   </body>
 </html>
