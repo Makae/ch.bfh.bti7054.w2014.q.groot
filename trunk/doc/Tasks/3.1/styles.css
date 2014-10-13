@@ -69,19 +69,28 @@ html, body {
   clear: both;
 }
 
-#content,
-.breadcrumb {
+#content{
   padding-left: 1.25em;
   padding-right: 1.25em;
+  height: 650px;
+  overflow:auto;
+  border:1 solid #black;
 }
 
 .breadcrumb {
+  padding-left: 1.25em;
+  padding-right: 1.25em;
   padding-top: 1em;
 }
 
 #footer {
-  height: 80px;
-  background-color: #13353a;
+	padding-left: 16.5em;
+	/*width: 100%;*/
+	
+	height: 80px;
+	color: #fff;
+	background-color: #13353a;
+	float: none;
 }
 
 /*
@@ -249,6 +258,22 @@ a:hover {
 }
 
 /*
+ * Footer
+ */
+ #footer{
+	font-weight: normal;
+	color: #fff;		
+}
+
+ /*TODO finalisieren, margin etc und links */
+.impressum{
+ display:inline;
+ border:1px solid #fff;
+ margin-top: 10px;
+ padding-left: 10px;
+ padding: 10px;
+}
+/*
  * Main menu
  */
 .menu.menu-main {
@@ -361,4 +386,74 @@ button {
   -ms-transition:none !important;
   -o-transition:none !important;
   transition:none !important;
+}
+
+
+/*
+* Content
+*/
+/*
+$font-size: 16px;
+$line-height: 1.4;
+$lines-to-show: 3;*/
+.product{
+	height:300px;
+	overflow:hidden;
+	padding:2px;
+	border:1px solid black;
+}
+
+
+.img-preview{
+	/**/margin: 0;
+	height: auto;
+	float:left;
+	max-height:740px;
+	width:20%;
+}
+
+
+.description{
+/*
+	font-size: $font-size;
+	line-height: $line-height;
+	lines-to-show: $lines-to-show;*/
+	width:76%;
+	float:left;	
+}
+
+.description-text{
+ width:100%;
+ height:100px;
+ overflow:hidden;
+}
+
+.profil{
+
+}
+
+.picture{
+	float:left;
+	max-height:740px;
+	width:12%;
+}
+
+.settings{
+	width:82%;
+	float:left;
+}
+
+.label1{
+font-size:16px;
+font-weight: bold;
+pointer-events: none;
+float:left;
+}
+
+.input1{
+ border:1px solid #5C5;
+}
+
+.column1{
+ width:20%;
 }
