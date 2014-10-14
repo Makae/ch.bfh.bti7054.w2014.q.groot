@@ -1,4 +1,5 @@
 <?php
-  $controller = Controller::instance();
-  $controller->render();
+  include_once('classes/class.core.php');
+  $core = Core::instance();
+  $core->render();
 ?>
