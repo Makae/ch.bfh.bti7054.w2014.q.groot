@@ -1,4 +1,4 @@
-@import url('css/iconset.css');
+@import url('iconset.css');
 /*
  * @navi_dark: #13353a;
  * @orange_red: #c7872f;
@@ -86,7 +86,7 @@ html, body {
 #footer {
 	padding-left: 16.5em;
 	/*width: 100%;*/
-	
+
 	height: 80px;
 	color: #fff;
 	background-color: #13353a;
@@ -262,7 +262,7 @@ a:hover {
  */
  #footer{
 	font-weight: normal;
-	color: #fff;		
+	color: #fff;
 }
 
  /*TODO finalisieren, margin etc und links */
@@ -419,7 +419,7 @@ $lines-to-show: 3;*/
 	line-height: $line-height;
 	lines-to-show: $lines-to-show;*/
 	width:76%;
-	float:left;	
+	float:left;
 }
 
 .description-text{
