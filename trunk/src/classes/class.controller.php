@@ -45,7 +45,6 @@
       foreach($this->viewlets as $viewlet) {
         $name = $viewlet->name();
         $fn = 'viewlet' . ucfirst($name); // function which is called on th view
-
         $call_pair = array($this->view, $fn);
 
         $val = null;

@@ -16,17 +16,11 @@
     public function render($template, $args) {
       if(!file_exists($template))
         throw new Exception('The template "' . $template . '" does not exist');
-      $fh = fopen($template, 'r');
-      $html = fread($fh, filesize($template));
 
-      foreach($args as $key => $value)
-        $html = str_ireplace($this->varIt($key), $value, $html);
-      fclose($fh);
+      $html = Utilities::getFileContent($template);
+      $html = Utilities::templateReplace($html, $args, static::$var_prefix, static::$var_suffix);
+
       return $html;
-    }
-
-    private function varIt($key) {
-      return static::$var_prefix . $key . static::$var_suffix;
     }
 
   }

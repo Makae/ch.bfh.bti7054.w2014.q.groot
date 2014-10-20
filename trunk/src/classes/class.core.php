@@ -14,8 +14,8 @@
         if($file != __FILE__)
           require_once($file);
 
+      I18N::instance('de')->addFolder('i18n');
       $this->controller = Controller::instance();
-      $this->controller->init();
 
     }
 
@@ -26,6 +26,7 @@
     }
 
     public function render() {
+      $this->controller->init();
       return $this->controller->render();
     }
 

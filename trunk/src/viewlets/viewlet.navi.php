@@ -10,6 +10,7 @@
     }
 
     public function render() {
+
       // Here comes the rendering process
       return '<div id="sub-menu">
           <ul class="menu">

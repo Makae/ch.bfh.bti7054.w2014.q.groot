@@ -11,11 +11,11 @@
 
     public function render() {
       // Here comes the rendering process
-      return '<div class="impressum">Impressum</div>
-      <div class="impressum">Kontakt</div>
-      <div class="impressum">Shopversion</div>
-      <div class="impressum">&Uuml;ber uns</div>
-      <div class="impressum">Support Hotline</div>';
+      return '<div class="impressum stdanimation1_2">Impressum</div>
+      <div class="impressum stdanimation1_2">Kontakt</div>
+      <div class="impressum stdanimation1_2">Shopversion</div>
+      <div class="impressum stdanimation1_2">&Uuml;ber uns</div>
+      <div class="impressum stdanimation1_2">Support Hotline</div>';
     }
 
     public function ajaxCall() {

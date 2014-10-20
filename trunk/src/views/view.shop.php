@@ -9,8 +9,8 @@
       return null;
     }
 
-    public function viewletSubMenu() {
-      return null;
+    public function viewletNavi() {
+      return array();
     }
 
     public function viewletFooter() {

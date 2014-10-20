@@ -2,7 +2,7 @@
   interface IView {
     function name();
     function viewletMainMenu();
-    function viewletSubMenu();
+    function viewletNavi();
     function viewletFooter();
     function process();
     function render();

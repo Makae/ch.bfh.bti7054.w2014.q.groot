@@ -9,7 +9,7 @@
       return null;
     }
 
-    public function viewletSubMenu() {
+    public function viewletNavi() {
       return null;
     }
 
