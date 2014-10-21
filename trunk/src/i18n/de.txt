@@ -1,2 +1,35 @@
 "my sexy key":
 "Mi seggsi Schlüssu {replace_me}"
+
+
+"Title":
+"Titel"
+"Author":
+"Autor"
+"Description":
+"Beschreibung"
+"Price":
+"Preis"
+"Available":
+"Lieferbar"
+"Profile":
+"Profil"
+"Categories":
+"Kategorien"
+"Home":
+"Hauptseite"
+"Shopping Cart":
+"Warenkorb"
+"Search":
+"Suche"
+"Wishlist":
+"Wunschzettel"
+"About Us":
+"Impressum"
+"Support":
+"Support"
+"Contact":
+"Kontakt"
+
+"xxxkeyxxx":
+"xxxtranslationxxx"
