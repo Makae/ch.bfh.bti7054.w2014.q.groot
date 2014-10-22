@@ -33,6 +33,7 @@
     }
 
     public function init() {
+#die($cls);
       $this->view_key = isset($_REQUEST['view']) ? $_REQUEST['view'] : $this->view_key;
 
       $cls = 'Groot' . ucfirst($this->view_key) . 'View';
@@ -40,7 +41,6 @@
       if(!class_exists('Groot' . ucfirst($this->view_key) . 'View'))
         throw new Exception('The view "' . $this->view_key . '" does not exist');
       $this->view = new $cls();
-
       $this->view->process();
       foreach($this->viewlets as $viewlet) {
         $name = $viewlet->name();

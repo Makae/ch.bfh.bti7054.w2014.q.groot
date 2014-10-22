@@ -2,7 +2,7 @@
   class GrootShopView implements IView {
 
     public function name() {
-      return 'home';
+      return 'shop';
     }
 
     public function viewletMainMenu() {
@@ -23,7 +23,7 @@
 
     public function render() {
       // Here comes the rendering process
-      return "shop render";
+      return "Here will be the shop render soon ... ";
     }
 
     public function ajaxCall() {
