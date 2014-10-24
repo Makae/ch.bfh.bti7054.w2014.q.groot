@@ -11,6 +11,8 @@
     private $user = null;
     private $pwd = null;
     private $db = null;
+    // connection to the database, to is necessary for
+    // php to clearly identify the requests
     private $con = null;
 
     private function __construct($host=null, $user=null, $pwd=null, $db=null) {
@@ -22,6 +24,7 @@
       // this is the conneciton to the MySQL-DB
       $this->con = mysql_connect($this->host, $this->user, $this->pwd, $this->db);
       mysql_select_db($this->db, $this->con) or die(mysql_error());
+      mysql_set_charset('utf8', $this->con);
     }
 
     public function __destruct() {
@@ -37,7 +40,22 @@
     // @desc: sugar for mysql_query
     public function query($sql) {
       $result = mysql_query($sql, $this->con) or die(mysql_error());
+      if(SQL_DEBUGGING === true) {
+        echo "<pre>";
+        var_dump($sql);
+        echo "</pre>";
+      }
       return $result;
+    }
+
+    /*
+      @descr: checks if a table exists
+      @copied from: http://php.net/manual/en/function.mysql-tablename.php#41830
+    */
+    public function tableExists($table) {
+      if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) == 1)
+        return true;
+      return false;
     }
 
   /*
@@ -56,6 +74,37 @@
       return $this->_assocRows($result);
     }
 
+
+    /*
+      @desc: sugar for returning the first entry inside the select()-response
+    */
+    public function selectFirst($table, $conditions=null, $columns=null, $orders=null, $limit=null) {
+      $data = $this->select($table, $conditions, $columns, $orders, $limit);
+      if(count($data) > 0)
+        return $data[0];
+      return null;
+    }
+
+  /*
+   @args:
+     $table / $columns: check _prepareEntitiesSql();
+     $conditions: check _prepareConditionsSql();
+  */
+    public function update($table, $values=null, $conditions=null) {
+      $query = 'UPDATE {%table%} SET {%column_values%} {%conditions%}';
+      $args = $this->_prepareArgs($table, $conditions);
+      $args['column_values'] = $this->_prepareUpdateValues($values);
+
+      $query = $this->_queryTemplate($query, $args);
+      echo "<pre>";
+      die(var_dump($quer));
+      $result = $this->query($query);
+      return $this->_assocRows($result);
+    }
+
+    /*
+      @descr: Return a fetched mysql-resource as an associative array
+    */
     private function _assocRows($resource) {
       $rows = array();
 
@@ -63,6 +112,14 @@
         $rows[] = $row;
 
       return $rows;
+    }
+
+    /*
+      @desc: Sugar for single, returns the new id
+    */
+    public function insertSingle($table, $data, $columns=null) {
+      $this->insert($table, $data, $columns);
+      return mysql_insert_id($this->con);
     }
 
     /*
@@ -81,32 +138,37 @@
             @desc: Contains the column-names. When tho $rows-Array is associative only the
                    row-keys which matches the columns are saved.
     */
-    public function insert($table, $rows, $columns=null) {
+    public function insert($table, $data, $columns=null) {
       $query = 'INSERT INTO {%table%} ({%columns%}) VALUES {%values%}';
-      $is_assoc = Utilities::isAssoc($rows[0]);
+      if(Utilities::isAssoc($data) || !is_array($data[0]));
+        $data = array($data);
 
-      if(!$is_assoc && !is_array($columns))
+      if(is_array($data))
+        $data_is_assoc = Utilities::isAssoc($data[0]);
+
+      if(!$data_is_assoc && !is_array($columns))
         throw new Exception("The provided values don't contain any column definitions");
 
-      if(!$is_assoc && count($rows[0]) != count($columns))
+      if(!$data_is_assoc && count($data[0]) != count($columns))
         throw new Exception("The provided column definition dont match the value definition");
 
-      if(is_null($columns))
-        $columns = array_keys($rows[0]);
+      if($data_is_assoc && is_null($columns))
+        $columns = array_keys($data[0]);
 
       $sql_columns = $this->_prepareColumnSql($columns);
       $sql_values = null;
-
-      foreach($rows as $row) {
+      foreach($data as $row) {
         $i = 0;
         $row = $this->_prepareValues($row);
         $row_values = array();
-        foreach($row as $key => $value) {
-          if($is_assoc && !in_array($key, $columns))
-            continue;
 
-          $row_values[] = $value;
+        foreach($columns as $key => $column) {
+          if($data_is_assoc && array_key_exists($column, $row))
+            $row_values[] = $row[$column];
+          else
+            $row_values[] = $row[$key];
         }
+
         $sql_values .= (!is_null($sql_values) ? "," : "\n\t") . '(' . implode(',', $row_values) . ')';
       }
 
@@ -124,13 +186,16 @@
       @args: $table : assoc_array
              $columns : assoc_array
              $add_id_column : Boolean
+             $primary_column : String, name of the column which has the primary key
     */
-    public function createTable($table, $columns=null, $add_id_column=false) {
+    public function createTable($table, $columns=null, $add_id_column=true, $primary_column=false) {
       $template = 'CREATE TABLE IF NOT EXISTS {%table%} ({%columns%} {%primary_key%}) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;' ;
 
       $columns = !is_array($columns) ? array() : $columns;
-      if($add_id_column)
+      if($add_id_column) {
+        $primary_column = 'id';
         array_unshift($columns, array('id', 'INT(10) NOT NULL AUTO_INCREMENT'));
+      }
 
       $column_sql = '';
       $num_cols = count($columns);
@@ -140,7 +205,7 @@
       $query = $this->_queryTemplate($template, array(
         'table' => $this->_prepareTableSql($table),
         'columns' => "\n" . $column_sql,
-        'primary_key' => $add_id_column ? ",\n\tPRIMARY KEY (id)\n" : "\n"
+        'primary_key' => $add_id_column || $primary_column ? ",\n\tPRIMARY KEY (" . $primary_column . ")\n" : "\n"
       ));
 
       $this->query($query);
@@ -197,16 +262,48 @@
 
     /*
       @args
+        $values : array('key' => 'value'
+        eg. array('name' => 'ruedi');
+    */
+    private function _prepareUpdateValues($values=null) {
+      if(is_null($values))
+        return '';
+
+
+      $this->_prepareValues($values);
+
+      if(!is_array($values))
+        return '`' . $key . '` = ' . $this->prepareValues($values);
+
+      $sql = null;
+      foreach($values as $key => $value) {
+        if(!is_null($sql))
+          $sql .= ' , ';
+
+        $sql .= '`' . $key . '` = ' . $this->prepareValues($values);
+      }
+
+      return $sql;
+    }
+
+    /*
+      @args
         $col : string -> Column definition as string
         $col : array(a,b) -> Column name and column definition seperated in 2-value-array
         eg. array('category', 'VARCHAR(50)');'
     */
     private function _prepareColumnDefinition($col=null) {
+      if(is_null($col))
+        return '';
+
       if(is_string($col))
         return $this->_esc($col);
 
       if(count($col) == 0)
         return '';
+
+      if(count($col) == 1)
+        return $this->_esc($col[0]);
 
       return $this->_esc($col[0] . ' ' . $col[1]);
     }
@@ -358,27 +455,6 @@
         $value = '`' . implode('`,`', $value) . '`';
 
       return $value;
-    }
-
-    public function tests() {
-      $columns = array('name', 'password');
-      $values = array(
-        array('Peter', 'Tester'),
-        array('Rudi', 'Rüssel'),
-      );
-
-      $values_assoc = array(
-        array('name' => 'Peter', 'password' => 'Tester'),
-        array('name' => 'Rudi', 'password' => 'Rüssel'),
-      );
-
-      $columns_small = array('name');
-      $this->insert('test_table', $values, $columns);
-      $this->insert('test_table', $values_assoc, $columns);
-      $this->insert('test_table', $values_assoc, $columns_small);
-      $this->insert('test_table', $values_assoc);
-
-      $db->select('test_table', array('name' => array('groot2', 'groot1'), 'id' => 17));
     }
 
   }
