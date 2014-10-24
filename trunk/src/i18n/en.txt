@@ -1,31 +1,36 @@
+"my sexy key":
+"My seggsi Schlüssu {replace_me}"
+
+
 "Title":
-"Titel"
+"Title"
 "Author":
-"Autor"
+"Author"
 "Description":
 "Beschreibung"
 "Price":
 "Preis"
 "Available":
-"Lieferbar"
+"Available"
 "Profile":
-"Profil"
+"Profile"
 "Categories":
-"Kategorien"
+"Categories"
 "Home":
-"Hauptseite"
+"Home"
 "Shopping Cart":
-"Warenkorb"
+"Shopping Cart"
 "Search":
-"Suche"
+"Search"
 "Wishlist":
-"Wunschzettel"
+"Wishlist"
 "About Us":
-"Impressum"
+"About Us"
 "Support":
 "Support"
 "Contact":
-"Kontakt"
+"Contact"
+
 
 "xxxkeyxxx":
 "xxxtranslationxxx"

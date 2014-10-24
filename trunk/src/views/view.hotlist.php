@@ -1,8 +1,8 @@
 <?php
-  class GrootShopView implements IView {
+  class GrootHotlistView implements IView {
 
     public function name() {
-      return 'shop';
+      return 'hotlist';
     }
 
     public function viewletMainMenu() {
@@ -23,7 +23,7 @@
 
     public function render() {
       // Here comes the rendering process
-      return "Here will be the shop render soon ... ";
+      return "Here will be the hotlist render soon ... ";
     }
 
     public function ajaxCall() {
