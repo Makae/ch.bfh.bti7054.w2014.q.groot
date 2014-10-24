@@ -19,7 +19,6 @@
 
       $html = Utilities::getFileContent($template);
       $html = Utilities::templateReplace($html, $args, static::$var_prefix, static::$var_suffix);
-
       return $html;
     }
 

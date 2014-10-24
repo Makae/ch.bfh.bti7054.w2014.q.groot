@@ -1,2 +1,8 @@
 "my sexy key":
 "Mi seggsi Schlüssu {replace_me}"
+
+"my sexy key1":
+"Mi seggsi Schlüssu {replace_me}"
+
+"my sexy key2":
+"Mi seggsi Schlüssu {replace_me}"

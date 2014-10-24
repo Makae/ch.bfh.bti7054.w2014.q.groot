@@ -1,0 +1,385 @@
+<?php
+  /*
+   * @desc: This class provides a simple interface for interacting with
+   *        the MySQL-Database
+   * @author: M. Käser
+   */
+  class DB {
+    private static $instance = null;
+
+    private $host = null;
+    private $user = null;
+    private $pwd = null;
+    private $db = null;
+    private $con = null;
+
+    private function __construct($host=null, $user=null, $pwd=null, $db=null) {
+      $this->host = is_null($host) ? DB_HOST : $host;
+      $this->user = is_null($user) ? DB_USER : $user;
+      $this->pwd = is_null($pwd) ? DB_PASSWORD : $pwd;
+      $this->db = is_null($db) ? DB_DATABASE : $db;
+
+      // this is the conneciton to the MySQL-DB
+      $this->con = mysql_connect($this->host, $this->user, $this->pwd, $this->db);
+      mysql_select_db($this->db, $this->con) or die(mysql_error());
+    }
+
+    public function __destruct() {
+      mysql_close($this->con);
+    }
+
+    public function instance($host=null, $user=null, $pwd=null, $db=null) {
+      if(self::$instance != null)
+        return self::$instance;
+      return self::$instance = new DB($host, $user, $pwd, $db);
+    }
+
+    // @desc: sugar for mysql_query
+    public function query($sql) {
+      $result = mysql_query($sql, $this->con) or die(mysql_error());
+      return $result;
+    }
+
+  /*
+   @args:
+     $table / $columns: check _prepareEntitiesSql();
+     $conditions: check _prepareConditionsSql();
+     $orders: check _prepareOrdersSql();
+     $limit: check _prepareLimitSql();
+  */
+    public function select($table, $conditions=null, $columns=null, $orders=null, $limit=null) {
+      $query = 'SELECT {%columns%} FROM {%table%} {%conditions%} {%orders%} {%limit%}';
+      $args = $this->_prepareArgs($table, $conditions, $columns, $orders, $limit);
+
+      $query = $this->_queryTemplate($query, $args);
+      $result = $this->query($query);
+      return $this->_assocRows($result);
+    }
+
+    private function _assocRows($resource) {
+      $rows = array();
+
+      while($row = mysql_fetch_assoc($resource))
+        $rows[] = $row;
+
+      return $rows;
+    }
+
+    /*
+      @desc: Insert method for sql entries.
+      @args:
+        $table : String
+
+        $rows:
+          Type Assoc-Array
+            @desc: Contains the column-names in the keys and the values in the values
+          Type Index-Array
+            @desc: Contains the values, it requires columns definitions in the $args array
+                    Each row has to have the same number of elements as the columns array
+        $columns:
+          Type Index-Array
+            @desc: Contains the column-names. When tho $rows-Array is associative only the
+                   row-keys which matches the columns are saved.
+    */
+    public function insert($table, $rows, $columns=null) {
+      $query = 'INSERT INTO {%table%} ({%columns%}) VALUES {%values%}';
+      $is_assoc = Utilities::isAssoc($rows[0]);
+
+      if(!$is_assoc && !is_array($columns))
+        throw new Exception("The provided values don't contain any column definitions");
+
+      if(!$is_assoc && count($rows[0]) != count($columns))
+        throw new Exception("The provided column definition dont match the value definition");
+
+      if(is_null($columns))
+        $columns = array_keys($rows[0]);
+
+      $sql_columns = $this->_prepareColumnSql($columns);
+      $sql_values = null;
+
+      foreach($rows as $row) {
+        $i = 0;
+        $row = $this->_prepareValues($row);
+        $row_values = array();
+        foreach($row as $key => $value) {
+          if($is_assoc && !in_array($key, $columns))
+            continue;
+
+          $row_values[] = $value;
+        }
+        $sql_values .= (!is_null($sql_values) ? "," : "\n\t") . '(' . implode(',', $row_values) . ')';
+      }
+
+      $query = $this->_queryTemplate($query, array(
+        'table' => $this->_prepareTableSql($table),
+        'columns' => $sql_columns,
+        'values' => $sql_values
+      ));
+
+      $this->query($query);
+    }
+
+    /*
+      @def: Creates a new Table in the DB. IF no column is an ID Column is automatically generated
+      @args: $table : assoc_array
+             $columns : assoc_array
+             $add_id_column : Boolean
+    */
+    public function createTable($table, $columns=null, $add_id_column=false) {
+      $template = 'CREATE TABLE IF NOT EXISTS {%table%} ({%columns%} {%primary_key%}) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;' ;
+
+      $columns = !is_array($columns) ? array() : $columns;
+      if($add_id_column)
+        array_unshift($columns, array('id', 'INT(10) NOT NULL AUTO_INCREMENT'));
+
+      $column_sql = '';
+      $num_cols = count($columns);
+      for($i = 0; $i < $num_cols; $i++)
+        $column_sql .= "\t" . $this->_prepareColumnDefinition($columns[$i]) . ($i+1 < $num_cols ? ",\n" : '');
+
+      $query = $this->_queryTemplate($template, array(
+        'table' => $this->_prepareTableSql($table),
+        'columns' => "\n" . $column_sql,
+        'primary_key' => $add_id_column ? ",\n\tPRIMARY KEY (id)\n" : "\n"
+      ));
+
+      $this->query($query);
+    }
+
+
+    /*
+      @desc: Add collumns to a Table
+      @args:
+        $table : String
+        $columns : array -> check _prepareColumnDefinietion();
+    */
+    private function addColumns($table, $columns) {
+      $template = 'ALTER TABLE {%table%} ADD COLUMN {%colum%};';
+      $query = 'START TRANSACTION;';
+      foreach($columns as $col) {
+        $query .= $this->_queryTemplate($template, array(
+          'table' => $this->_esc($table),
+          'column' => $this->_prepareColumnDefinition($col)
+          ));
+      }
+      $query .= 'COMMIT;';
+
+      $this->query($query);
+    }
+
+    // @desc: sugar for escaping mysql-String
+    private function _esc($term) {
+      return mysql_real_escape_string($term);
+    }
+
+    /*
+      @desc: Sugar for calling the
+             Uilities::templateReplace method
+             with the right parameters
+    */
+    private function _queryTemplate($template, $args) {
+      return Utilities::templateReplace($template, $args, '{%', '%}');
+    }
+
+    /*
+      @def: prepares multiple arguments and returns an assoc-array
+
+    */
+    private function _prepareArgs($table=null, $conditions=null, $columns=null, $orders=null, $limit=null) {
+      return array(
+        'table' => $this->_prepareTableSql($table),
+        'conditions' => $this->_prepareConditionsSql($conditions),
+        'columns' => $this->_prepareColumnSql($columns, '*'),
+        'orders' => $this->_prepareOrdersSql($orders),
+        'limit' => $this->_prepareLimitSql($limit),
+      );
+    }
+
+    /*
+      @args
+        $col : string -> Column definition as string
+        $col : array(a,b) -> Column name and column definition seperated in 2-value-array
+        eg. array('category', 'VARCHAR(50)');'
+    */
+    private function _prepareColumnDefinition($col=null) {
+      if(is_string($col))
+        return $this->_esc($col);
+
+      if(count($col) == 0)
+        return '';
+
+      return $this->_esc($col[0] . ' ' . $col[1]);
+    }
+
+    /*
+     @desc: Generates the limit part of a select query
+     @args:
+       $limit:
+         Type String:
+           returns "LIMIT $limit"
+         Type Array:
+           Length = 1
+             returns "LIMIT $limit[0]"
+           Length = 2
+             returns "LIMIT $limit[0], $limit[1]"
+    */
+    private function _prepareLimitSql($limit=null) {
+      if(is_null($limit))
+        return '';
+
+      if(is_string($limit))
+        return $this->_esc('LIMIT ' . $limit);
+
+      if(count($limit) == 0)
+        return '';
+
+      if(count($limit) >= 2)
+        return $this->_esc('LIMIT ' . $limit[0] . ', ' . $limit[1]);
+      else
+        return $this->_esc('LIMIT ' . $limit[0]);
+    }
+
+    /*
+     @desc: Generates the orders part of a select query
+     @args:
+       $limit:
+         Type String:
+           returns "ORDER BY $orders"
+         Type Array:
+          returns "ORDER BY $limit[0],$limit[1],$limit[2],..."
+    */
+    private function _prepareOrdersSql($orders=null) {
+      if(is_null($orders))
+        return '';
+
+      if(is_string($orders))
+        return $this->_esc('ORDER BY ' . $orders);
+
+      $orders =  implode(', ', $orders);
+
+      return $this->_esc('ORDER BY ' . $orders);
+    }
+
+    /*
+     @desc: Generates the conditions part of a query
+     @args:
+       $conditions:
+         Type String:
+           returns "WHERE $conditions"
+         Type Indexed 2D-Array: {'key1'=>'value1', 'key2'=>array('value2_1', 'value2_2')}
+           @desc: each array element is concatenated by an " AND " if a value is an array its
+                  values are concatenated inside a Group by an " OR "
+           @args:
+            array-value
+              Type : String
+                adds ... " AND $key == $value"
+              Type : Array
+                adds ... " AND ($key == $value OR $key == $value2) "
+
+         returns "WHERE $composed_conditions"
+    */
+    private function _prepareConditionsSql($conditions=null) {
+      if(is_null($conditions))
+        return '';
+
+      if(is_string($conditions))
+        return 'WHERE ' . $this->_esc($conditions);
+
+      if(!is_array($conditions))
+        throw new Exception('The provided conditions are not valid');
+
+      $cond = null;
+      foreach($conditions as $key => $value) {
+        $key = $this->_esc($key);
+
+        if(!is_null($cond))
+          $cond .= ' AND ';
+
+        if(is_array($value))
+          $cond .= '( ';
+
+        // This generates or-conditions, such that `id`=1 AND ( `cat`='foo' OR `cat`='bar' )
+        if(is_array($value)) {
+          // encase each string value with String-Apostrophes (SQL-Requirement)
+          $value = $this->_prepareValues($value);
+          $cond .= '`' . $key . '` = ' . implode(' OR `' . $key . '` = ',  $value);
+        } else {
+          $cond .= '`' . $key . '` = ' . $this->_prepareValues($value);
+        }
+
+        if(is_array($value))
+          $cond .= ' )';
+
+      }
+
+      return 'WHERE ' . $cond;
+    }
+
+    private function _prepareValues($values) {
+      if(!is_array($values)) {
+        $val = $this->_esc($values);
+        $val = is_string($val) ?  "'" . $val . "'" : $val;
+        return $val;
+      }
+
+      foreach($values as &$val) {
+        $val = $this->_esc($val);
+        $val = is_string($val) ?  "'" . $val . "'" : $val;
+      }
+      return $values;
+    }
+
+    // @desc: sugar for table-Entities
+    private function _prepareTableSql($value=null, $default='*') {
+      return $this->_prepareEntitiesSql($value, $default);
+    }
+
+    // @desc: sugar for column-Entities
+    private function _prepareColumnSql($value=null, $default=null) {
+      return $this->_prepareEntitiesSql($value, $default);
+    }
+
+    /*
+      @desc: Concatenates table Entities
+      @args: $default = null allows for * in cols statement
+    */
+    private function _prepareEntitiesSql($value=null, $default=null) {
+      if(is_null($value)) {
+        if(!is_null($default))
+          return $default;
+        else
+          throw new Exception('No Entity defined for SQL-Query');
+      }
+
+      if(is_string($value))
+        return '`' . $value . '`';
+
+      if(is_array($value))
+        $value = '`' . implode('`,`', $value) . '`';
+
+      return $value;
+    }
+
+    public function tests() {
+      $columns = array('name', 'password');
+      $values = array(
+        array('Peter', 'Tester'),
+        array('Rudi', 'Rüssel'),
+      );
+
+      $values_assoc = array(
+        array('name' => 'Peter', 'password' => 'Tester'),
+        array('name' => 'Rudi', 'password' => 'Rüssel'),
+      );
+
+      $columns_small = array('name');
+      $this->insert('test_table', $values, $columns);
+      $this->insert('test_table', $values_assoc, $columns);
+      $this->insert('test_table', $values_assoc, $columns_small);
+      $this->insert('test_table', $values_assoc);
+
+      $db->select('test_table', array('name' => array('groot2', 'groot1'), 'id' => 17));
+    }
+
+  }
+?>

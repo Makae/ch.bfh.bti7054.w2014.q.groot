@@ -58,6 +58,7 @@
 
     public function render() {
       $args = array(
+        'WWWROOT' => WWWROOT,
         'header' => $this->viewlets['header']->render(),
         'navi' => $this->viewlets['navi']->render(),
         'footer' => $this->viewlets['footer']->render(),
