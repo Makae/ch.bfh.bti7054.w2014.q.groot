@@ -5,7 +5,7 @@
   define('ROOT', $dir);
   define('WWWROOT', $root_dir);
 
-  define('SQL_DEBUGGING', true);
+  define('SQL_DEBUGGING', false);
 
   define('DB_HOST', 'localhost');
   define('DB_USER', 'groot');
