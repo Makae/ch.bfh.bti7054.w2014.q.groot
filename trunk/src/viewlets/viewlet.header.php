@@ -18,7 +18,7 @@
         <select name="category">
           <option value="1">Fantasy</option>
           <option value="2">Horror</option>
-          <option value="3">Mein kleines Reich</option>
+          <option value="3">Mein kleiner Scheich</option>
         </select>
         <input type="text" name="search_text" id="search_text" />
         <button type="submit" name="search" value="search">Suchen</button>

@@ -107,6 +107,9 @@
     private static function loadClasses() {
       $clazzes = get_declared_classes();
       foreach($clazzes as $cls) {
+        if(isset($_REQUEST['test']) && strtolower($cls) != 'test_' . $_REQUEST['test'])
+          continue;
+
         if(!preg_match('/^Test_[a-zA-Z0-9_]*$/', $cls))
           continue;
         new $cls();

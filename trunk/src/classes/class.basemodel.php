@@ -34,7 +34,8 @@
 
       $db = Core::instance()->getDb();
       if(!is_null($id)) {
-        $data = $db->selectFirst(static::$TABLE, array('id' => $id));
+        // Can't use static::findFirst, or it will result in endless recursion
+        $data = Core::instance()->getDb()->selectFirst(static::$TABLE, array('id' => $id));
         $this->data_status = BaseModel::DATA_DB;
       }
       else {
@@ -51,22 +52,18 @@
       $this->data = $data;
     }
 
+
     /*
-      @descr: has to be called by all static methods
-              to ensure the table exists
+      @desc: instantiates a child instance from the BaseModel-Class
+      @return: if the id is not found or not defined null is returned
+               else an instance of the child class
     */
-    private static function _initTable() {
-      $db = Core::instance()->getDb();
+    protected static function childInstance($id=null) {
+      if($id == null)
+        return null;
 
-      if($db->tableExists(static::$TABLE))
-        return;
-
-      $db_columns = array();
-
-      foreach(static::$COLUMN_NAMES as $key => $col)
-        $db_columns[] = array($col, static::$COLUMN_TYPES[$key]);
-
-      $db->createTable(static::$TABLE, $db_columns);
+      $cls = get_called_class();
+      return new $cls($id);
     }
 
     /*
@@ -80,10 +77,28 @@
         if(array_key_exists($key, $data))
           unset($data[$key]);
 
-      $cls = get_called_class();
 
       $id = Core::instance()->getDb()->insertSingle(static::$TABLE, $data, static::$COLUMN_NAMES);
-      return new $cls($id);
+      return static::childInstance($id);
+    }
+
+    public static function find($conditions) {
+      static::_initTable();
+      static::_validateColumns($conditions);
+
+      $result = Core::instance()->getDb()->select(static::$TABLE, $conditions, array('id'));
+
+      $return = array();
+      foreach($result as $data)
+        $return[] = static::childInstance($data['id']);
+      return $return;
+    }
+
+    public static function findFirst($conditions) {
+      static::_initTable();
+      static::_validateColumns($conditions);
+      $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, array('id'));
+      return static::childInstance($data['id']);
     }
 
     /*
@@ -141,6 +156,24 @@
     }
 
     /*
+      @descr: has to be called by all static methods
+              to ensure the table exists
+    */
+    private static function _initTable() {
+      $db = Core::instance()->getDb();
+
+      if($db->tableExists(static::$TABLE))
+        return;
+
+      $db_columns = array();
+
+      foreach(static::$COLUMN_NAMES as $key => $col)
+        $db_columns[] = array($col, static::$COLUMN_TYPES[$key]);
+
+      $db->createTable(static::$TABLE, $db_columns);
+    }
+
+    /*
       @desc: Saves the current data vai the Model::create() method
              and updates the data and data_status properties
     */
@@ -148,6 +181,12 @@
       $instance = static::create($this->data);
       $this->data = $instance->getData();
       $this->data_status = BaseModel::DATA_DB;
+    }
+
+    private static function _validateColumns($columns) {
+      foreach($columns as $key => $value)
+        if(!in_array($key, static::$IGNORE_KEYS) && !in_array($key, static::$COLUMN_NAMES))
+          throw new Exception("The requested column " . static::$TABLE . "::$key in BaseModel::find does not exist");
     }
 
   }

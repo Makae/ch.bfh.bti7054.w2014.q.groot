@@ -3,6 +3,7 @@
     private static $instance = null;
     private $folder = null;
     private static $lang = null;
+    private static $available_languages = null;
     private static $translations = array();
     private static $folders = array();
 
@@ -14,13 +15,42 @@
       static::loadFolders();
     }
 
-    public function instance($lang=null) {
-      $lang = is_string($lang) ? $lang : static::$lang;
-      $lang = is_string($lang) ? $lang : 'de';
+    public static function instance($lang=null) {
+      if($lang == null || !static::validLang($lang))
+       $lang = I18N::lang();
 
-      if(self::$instance != null)
-        return self::$instance;
-      return self::$instance = new I18n($lang);
+      if(static::$instance != null)
+        return static::$instance;
+      return static::$instance = new I18n($lang);
+    }
+
+    public static function lang() {
+      if(static::$lang)
+        return static::$lang;
+
+      if(isset($_REQUEST['lang']) && static::validLang($_REQUEST['lang']))
+        return static::$lang = $_REQUEST['lang'];
+
+      if(isset($_SESSION['lang']) && static::validLang($_SESSION['lang']))
+        return static::$lang = $_SESSION['lang'];
+
+      $user = UserHandler::instance()->user();
+      if(!is_null($user) && static::validLang($user->lang()))
+        return static::$lang = $user->lang();
+
+      return static::$lang = DEFAULT_LANGUAGE;
+    }
+
+    public static function validLang($lang) {
+      if(!in_array($lang, static::availableLanguages()))
+        return false;
+      return true;
+    }
+
+    public static function availableLangauges() {
+      if(is_null(static::$available_languages))
+      static::$available_languages = explode(',', AVAILABLE_LANGUAGES);
+      return static::$available_languages;
     }
 
     public static function translate($key, $args=array()) {

@@ -67,6 +67,7 @@ html, body {
 }
 
 #content{
+  min-height: 700px;
   padding: 1.25em;
   border:1 solid #black;
 }

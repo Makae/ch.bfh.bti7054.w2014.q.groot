@@ -10,13 +10,13 @@
 
     }
 
-//creates the 
+//creates the
 public function makeMenu(){
 
   //Label & class definition
   $idDiv = "sub-menu";
   $classUl = "menu";
-  $classLi = "stdanimation"; 
+  $classLi = "stdanimation1_2";
   $classSpan = "stdanimation1_2";
   $classA = "stdanimation1_4";
 
@@ -54,7 +54,7 @@ public function makeMenu(){
 
         return $html;
 
- 
+
 
   /*
         return '<div id="sub-menu">
@@ -91,7 +91,7 @@ public function makeMenu(){
     public function render() {
 
       // Here comes the rendering process
-    
+
 
         return $this->makeMenu();
 

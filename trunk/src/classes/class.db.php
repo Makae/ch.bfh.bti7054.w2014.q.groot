@@ -1,8 +1,9 @@
 <?php
   /*
+   * @author: M. Käser
+   * @date: 05.10.2014
    * @desc: This class provides a simple interface for interacting with
    *        the MySQL-Database
-   * @author: M. Käser
    */
   class DB {
     private static $instance = null;
@@ -11,8 +12,10 @@
     private $user = null;
     private $pwd = null;
     private $db = null;
-    // connection to the database, to is necessary for
-    // php to clearly identify the requests
+    /*
+      @trivia: connection to the database, it is necessary for
+               php to clearly identify which requests has to be sent where
+    */
     private $con = null;
 
     private function __construct($host=null, $user=null, $pwd=null, $db=null) {
@@ -78,7 +81,7 @@
     /*
       @desc: sugar for returning the first entry inside the select()-response
     */
-    public function selectFirst($table, $conditions=null, $columns=null, $orders=null, $limit=null) {
+    public function selectFirst($table, $conditions=null, $columns=null, $orders=null, $limit='0,1') {
       $data = $this->select($table, $conditions, $columns, $orders, $limit);
       if(count($data) > 0)
         return $data[0];
@@ -100,6 +103,16 @@
       die(var_dump($quer));
       $result = $this->query($query);
       return $this->_assocRows($result);
+    }
+
+    public function truncate($table) {
+      $query = 'TRUNCATE TABLE `' . $this->_esc($table) . '`';
+      $this->query($query);
+    }
+
+    public function drop($table) {
+      $query = 'DROP TABLE `' . $this->_esc($table) . '`';
+      $this->query($query);
     }
 
     /*
@@ -152,21 +165,22 @@
       if(!$data_is_assoc && count($data[0]) != count($columns))
         throw new Exception("The provided column definition dont match the value definition");
 
-      if($data_is_assoc && is_null($columns))
+      if($data_is_assoc)
         $columns = array_keys($data[0]);
 
       $sql_columns = $this->_prepareColumnSql($columns);
       $sql_values = null;
+
       foreach($data as $row) {
         $i = 0;
         $row = $this->_prepareValues($row);
         $row_values = array();
 
         foreach($columns as $key => $column) {
-          if($data_is_assoc && array_key_exists($column, $row))
-            $row_values[] = $row[$column];
-          else
+          if(!$data_is_assoc)
             $row_values[] = $row[$key];
+          else if(array_key_exists($column, $row))
+            $row_values[] = $row[$column];
         }
 
         $sql_values .= (!is_null($sql_values) ? "," : "\n\t") . '(' . implode(',', $row_values) . ')';
@@ -232,7 +246,11 @@
       $this->query($query);
     }
 
-    // @desc: sugar for escaping mysql-String
+    /*
+      @desc: sugar for escaping mysql-String
+      @trivia: Escaping the mysql_string is necessary
+               in order to prevent SQL-Injection attacks
+    */
     private function _esc($term) {
       return mysql_real_escape_string($term);
     }
