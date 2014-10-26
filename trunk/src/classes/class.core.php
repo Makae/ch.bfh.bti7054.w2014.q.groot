@@ -10,6 +10,7 @@
       $this->_loadInterfaces();
       $this->_loadClasses();
       $this->_loadModels();
+      TemplateRenderer::instance()->setTplDir(TEMPLATE_TMP_DIR);
     }
 
     /*
