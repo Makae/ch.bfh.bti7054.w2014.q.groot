@@ -39,5 +39,50 @@
     public static function hash($str, $salt) {
       return md5($str . $salt);
     }
+
+    /**
+    * Creates a Selectbox in html with the option and
+    *@author TSCM
+    *@param array - list of option => Values 
+    *@return string - html code for a select statement
+    */
+    public static function buildSelectbox($array, $selectName) {
+
+
+      //init string 
+      $selectbox_code = "";
+      $selectbox_code .= "
+        <select name='$selectName'>
+      ";
+      /*
+<select name="category">
+          <option value="1">Fantasy</option>
+          <option value="2">Horror</option>
+          <option value="3">Krimi</option>
+          <option value="4">Kinderbuch</option>
+          <option value="5">Berufswelt</option>
+          <option value="6">Kunst</option>
+          <option value="7">Sport</option>
+        </select>
+
+      */
+
+
+        foreach ($array as $row){
+          $row["label"] = i($row["label"]);
+          $selectbox_code .= "
+                  <option value='".$row['value']."'>".$row['label']."</option>
+                ";
+
+          
+        }
+      $selectbox_code .= "
+        </select>
+      ";
+      return $selectbox_code;
+    }
+
+
+
   }
 ?>

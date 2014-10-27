@@ -32,5 +32,22 @@
 "Contact"
 
 
+"children's book":
+"children's book"
+"Fantasy":
+"Fantasy"
+"Thriller":
+"Thriller"
+"Horror":
+"Horror"
+"Professions":
+"Professions"
+"Art":
+"Art"
+"Sport":
+"Sport"
+
+
+
 "xxxkeyxxx":
 "xxxtranslationxxx"
