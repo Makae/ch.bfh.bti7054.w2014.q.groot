@@ -1,8 +1,15 @@
-var core = (function() {
-  var core = {
-    find : function(selector) {
-      return document.querySelectorAll(selector);
+function core(data) {
+  return this;
+};
+
+core.prototype.contructor = function(data) {
+    if(typeof data == 'string') {
+      var entries = core.find(data);
+    } else if(typeof data == 'object') {
+      if(data._entry !== true) {
+        this._entry = data;
+        return this;
+      } else
+        return this;
     }
   };
-  return core;
-})();

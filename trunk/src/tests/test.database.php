@@ -1,6 +1,6 @@
 <?php
 
-  class fTest_Database  extends BaseTest {
+  class Test_Database  extends BaseTest {
     private $db = null;
     public function prepare() {
       $cwd = getcwd();
@@ -21,7 +21,8 @@
         array('name', 'VARCHAR(255) NOT NULL'),
         'password TEXT',
       ));
-
+      $db->drop('only_table');
+      $db->drop('with_arguments');
       return 'Created Table Only_table and with_arguments';
     }
 
@@ -36,6 +37,7 @@
       $db->insert($table, array('ruedi', 'sdf11', 'fff11'), array('name', 'password', 'first_name'));
       $db->insert($table, array('second', 'fff22'), array('name', 'password'));
       $db->insert($table, array('third', 'fff33'), array('name', 'first_name'));
+      $db->drop($table);
     }
 
     public function testInsertAssocArray() {
@@ -76,6 +78,9 @@
       $db->insert($table, array(
           'name' => 'no args columns only name'
         ));
+
+      $db->drop($table);
+
     }
 
   }

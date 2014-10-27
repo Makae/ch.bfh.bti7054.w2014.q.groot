@@ -1,6 +1,14 @@
 <?php
+    /*
+    @author: M. Käser
+    @date:   25.10.2014
+    @desc:   Utilities Class bundles commonly used methods
+  */
   class Utilities {
 
+    /*
+      @desc: returns the contents of a file
+    */
     public static function getFileContent($file_path) {
       if(!file_exists($file_path))
         throw new Exception("File $file_path doesn't exist");
@@ -13,16 +21,26 @@
       return $text;
     }
 
+
+    /*
+      @desc: replaces keys in an associative array inside a template with its values
+    */
     public static function templateReplace($template, $args, $prefix='{', $suffix='}') {
       foreach($args as $key => $value)
         $template = str_ireplace(static::varIt($key, $prefix, $suffix), $value, $template);
       return $template;
     }
 
+    /*
+      @desc: Prefixes and suffixes a value
+    */
     public static function varIt($value, $prefix='{', $suffix='}') {
       return $prefix . $value . $suffix;
     }
 
+    /*
+      @desc: Checks if an array is associative or not
+    */
     public static function isAssoc($array) {
         return array_keys($array) !== range(0, count($array) - 1);
     }

@@ -5,6 +5,9 @@
     @desc:   UserHandler manages the login and logout process of the user
   */
   class UserHandler {
+    const SESSION_KEY = 'user_id';
+    const ERROR_EXISTS = 1;
+
     private static $instance;
     // The salt argument is used in the md5-hashing algorithm
     private static $salt = USER_SALT;
@@ -15,12 +18,12 @@
              if he has its user id in the $_SESSION["user_id"] variable
     */
     private function __construct() {
-      if(!isset($_SESSION['user_id'])) {
+      if(!$this->loggedin()) {
         $this->user = null;
         return;
       }
 
-      $id = $_SESSION['user_id'];
+      $id = $_SESSION[UserHandler::SESSION_KEY];
       $user = new UserModel($id);
     }
 
@@ -54,6 +57,15 @@
       return true;
     }
 
+    public function logout() {
+      unset($_SESSION[UserHandler::SESSION_KEY]);
+      $this->user = null;
+    }
+
+    public function loggedin() {
+      return isset($_SESSION[UserHandler::SESSION_KEY]);
+    }
+
     /*
       @desc: register the user, the user is automatically logged in after call
       @todo: In a REAL SHOP there should be a confirmation mail to the user in
@@ -61,11 +73,16 @@
       @return: returns the UserModel-Object
     */
     public function register($user_name, $password, $first_name, $last_name) {
+
+      if(!is_null(UserModel::findFirst(array('user_name' => $user_name))))
+        return UserHandler::ERROR_EXISTS;
+
       $user = UserModel::create(array(
         'user_name' => $user_name,
-        'password' => $password,
+        'password' => Utilities::hash($password, static::$salt),
         'first_name' => $first_name,
-        'last_name' => $last_name
+        'last_name' => $last_name,
+        'lang' => I18N::lang()
       ));
 
       $this->_login($user);
@@ -75,7 +92,7 @@
 
     private function _login($user) {
       $this->user = $user;
-      $_SESSION['user_id'] = $user->id();
+      $_SESSION[UserHandler::SESSION_KEY] = $user->id();
     }
 
   }

@@ -42,7 +42,7 @@
 
     // @desc: sugar for mysql_query
     public function query($sql) {
-      $result = mysql_query($sql, $this->con) or die(mysql_error());
+      $result = mysql_query($sql, $this->con);
       if(SQL_DEBUGGING === true) {
         echo "<pre>";
         var_dump($sql);
@@ -99,10 +99,15 @@
       $args['column_values'] = $this->_prepareUpdateValues($values);
 
       $query = $this->_queryTemplate($query, $args);
-      echo "<pre>";
-      die(var_dump($quer));
       $result = $this->query($query);
       return $this->_assocRows($result);
+    }
+
+    public function delete($table, $conditions) {
+      $query = 'DELETE FROM {%table%} {%conditions%}';
+      $args = $this->_prepareArgs($table, $conditions);
+      $query = $this->_queryTemplate($query, $args);
+      $this->query($query);
     }
 
     public function truncate($table) {

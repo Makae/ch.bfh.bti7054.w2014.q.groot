@@ -6,7 +6,7 @@
                                            'last_name',
                                            'password',
                                            'lang');
-    protected static $COLUMN_TYPES = array('VARCHAR(20) NOT NULL',
+    protected static $COLUMN_TYPES = array('VARCHAR(20) UNIQUE NOT NULL',
                                            'VARCHAR(50) NOT NULL',
                                            'VARCHAR(50) NOT NULL',
                                            'VARCHAR(32) NOT NULL',

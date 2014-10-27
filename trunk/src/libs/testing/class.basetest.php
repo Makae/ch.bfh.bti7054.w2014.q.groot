@@ -44,8 +44,16 @@
       return $this->assert($first, $second, $msg, BaseTest::CMP_E);
     }
 
+    protected function equals($first, $second, $msg) {
+      return $this->equal($first, $second, $msg);
+    }
+
     protected function notEqual($first, $second, $msg) {
       return $this->assert($first, $second, $msg, BaseTest::CMP_NE);
+    }
+
+    protected function notEquals($first, $second, $msg) {
+      return $this->notEqual($first, $second, $msg);
     }
 
     protected function greater($first, $second, $msg) {

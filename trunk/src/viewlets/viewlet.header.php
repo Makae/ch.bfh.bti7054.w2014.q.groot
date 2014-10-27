@@ -16,6 +16,7 @@
       $main_menu[] = ('Profil');
       $main_menu[] = ('Wunschzettel');
       $main_menu[] = ('Warenkorb');
+
       return TemplateRenderer::instance()->extendedRender('theme/templates/viewlets/viewlet.header.html', array(
         'main_menu' => $main_menu
       ));

@@ -115,6 +115,9 @@
 
       $args = array(
         'WWWROOT' => WWWROOT,
+        'WWWTHEME' => WWWTHEME,
+        'WWWCSS' => WWWCSS,
+        'WWWJS' => WWWJS,
         'header' => $this->viewlets['header']->render(),
         'navi' => $this->viewlets['navi']->render(),
         'footer' => $this->viewlets['footer']->render(),

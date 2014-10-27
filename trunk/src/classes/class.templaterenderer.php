@@ -1,4 +1,9 @@
 <?php
+  /*
+    @author: M. Käser
+    @date:   25.10.2014
+    @desc:   The TemplateRenderer allows the decoupoling of php from html
+  */
   class TemplateRenderer {
     private static $instance = null;
     private static $var_prefix = '{%';
@@ -6,9 +11,18 @@
     private static $tmp_dir = 'TR_TEMP';
     private static $salt = TEMPLATE_SALT;
 
-    private function __construct() {
+    private function __construct() {}
+
+    public function instance() {
+      if(self::$instance != null)
+        return self::$instance;
+      return self::$instance = new TemplateRenderer();
     }
 
+    /*
+      @desc: sets the template directory, please check
+             that the permissions are set correctly
+    */
     public function setTplDir($dir) {
       $dir = realpath($dir);
       if(!file_exists($dir) || !is_dir($dir))
@@ -17,12 +31,11 @@
       TemplateRenderer::$tmp_dir = $dir;
     }
 
-    public function instance() {
-      if(self::$instance != null)
-        return self::$instance;
-      return self::$instance = new TemplateRenderer();
-    }
-
+    /*
+      @desc: Renders a template file
+      @args: $template -> path of template file
+             $args -> associative array
+    */
     public function render($template, $args) {
       if(!file_exists($template))
         throw new Exception('The template "' . $template . '" does not exist');
@@ -32,6 +45,11 @@
       return $html;
     }
 
+    /*
+      @desc: renders a template with additional control keywords like for / ifs and assoc-arrays
+      @args: $template -> path of the template
+             $args -> associative array with the values
+    */
     public function extendedRender($template, $args) {
       $html = Utilities::getFileContent($template);
 
@@ -42,11 +60,18 @@
       return $this->_templateInclude($template, $tpl_php, $args);
     }
 
-    private function _templateInclude($template, $html, $args) {
+    /*
+       @desc: generates a temporary-php File which is then included,
+              the printed values are then returned
+       @args: $template -> template file
+              $php -> PHP / html code to be written in template file
+              $args -> associative array
+    */
+    private function _templateInclude($template, $php, $args) {
       $tmp_path = static::$tmp_dir . '/tmp.' . basename($template). '.' . Utilities::hash($template, static::$salt) . '.php';
 
       $fh = fopen($tmp_path, 'w');
-      fwrite($fh, $html);
+      fwrite($fh, $php);
 
       extract($args);
       ob_start();
@@ -55,12 +80,20 @@
       return $html;
     }
 
+    /*
+      @desc: Replaces Variables-Templates {$value} such that they are echoed when executed
+             Additionally replaces {$value.key} to $value['key'];
+    */
     private function _prepareVariables($html) {
       $html = preg_replace('/\{(\$[^\}]*)\}/mi', '<?php if(isset($1)) echo $1;?>', $html);
       $html = preg_replace('/(\$[a-zA-Z0-9_]+)(\.)([a-zA-Z0-9_]+)/mi', '$1[\'$3\']', $html);
       return $html;
     }
 
+    /*
+       @desc: Replaces {if condition="[COND]"}[IN_IF]{/if} to if([COND]) { [IN_IF]} in order
+              to be properly executed
+    */
     private function _prepareIfs($html) {
       $matches = array();
       preg_match_all('/\{\/?if[^\}]*}/mi', $html, $matches, PREG_OFFSET_CAPTURE);
@@ -90,10 +123,14 @@
           $depth--;
         }
       }
-
       return $html;
     }
 
+    /*
+      @desc: replaces for markers {for array="$entries"}[IN_FOR]{/for} to
+             foreach($entries as $key => $value){ [IN_FOR] } in order to
+             be properly executed when the html is included
+    */
     private function _prepareFors($html) {
       $matches = array();
       preg_match_all('/\{\/?for[^\}]*}/mi', $html, $matches, PREG_OFFSET_CAPTURE);

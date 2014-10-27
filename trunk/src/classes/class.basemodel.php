@@ -98,6 +98,7 @@
       static::_initTable();
       static::_validateColumns($conditions);
       $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, array('id'));
+      var_dump($data);
       return static::childInstance($data['id']);
     }
 
@@ -127,8 +128,9 @@
     }
 
     public function delete() {
-      static::_initTable();
-
+      Core::instance()->getDb()->delete(static::$TABLE, array(
+        'id' => $this->id()
+      ));
     }
 
     public function id() {
@@ -174,7 +176,7 @@
     }
 
     /*
-      @desc: Saves the current data vai the Model::create() method
+      @desc: Saves the current data via the Model::create() method
              and updates the data and data_status properties
     */
     private function _saveUpdate() {
