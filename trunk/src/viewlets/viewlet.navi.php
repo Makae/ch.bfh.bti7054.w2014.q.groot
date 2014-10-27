@@ -10,7 +10,7 @@
 
     }
 
-//creates the
+//creates the Menu from a Navi Array
 public function makeMenu(){
 
   //Label & class definition
