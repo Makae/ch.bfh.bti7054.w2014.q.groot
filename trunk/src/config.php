@@ -10,7 +10,7 @@
   define('WWWCSS', WWWTHEME . '/css');
   define('WWWJS', WWWTHEME . '/js');
 
-  define('SQL_DEBUGGING', true);
+  define('SQL_DEBUGGING', false);
   define('USER_SALT', '!$9*+P/l_o');
 
   define('DEFAULT_LANGUAGE', 'de');

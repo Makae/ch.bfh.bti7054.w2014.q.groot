@@ -125,7 +125,7 @@
       );
 
       header('Content-Type: text/html; charset=utf-8');
-      return TemplateRenderer::instance()->render('theme/templates/index.html', $args);
+      return TemplateRenderer::instance()->extendedRender('theme/templates/index.html', $args);
     }
 
     public function getView() {
