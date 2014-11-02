@@ -41,6 +41,30 @@
 "Kunst"
 "Sport":
 "Sport"
+"ISBN Number":
+"ISBN Nummer"
+"Productview":
+"Produktansicht"
+"Year of publication":
+"Erscheinungsjahr"
+"Currency":
+"Währung"
+"Language":
+"Sprache"
+"Original language":
+"Originalsprache"
+"Picture":
+"Bild"
+"Type":
+"Typ"
+"Version":
+"Version"
+"Genre":
+"Genre"
+"Number of Pages":
+"Anzahl Seiten"
+"Buy":
+"Kaufen"
 
 
 "xxxkeyxxx":

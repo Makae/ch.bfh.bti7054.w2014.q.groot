@@ -24,7 +24,6 @@
     public function render() {
       // Here comes the rendering process
     $htmlContent = "";//Main Content
-    $contentName = "Suche";//Name der Contentseite
     
     //id und class Bezeichnungen der HTML Elementen
     $idContent = "content";
@@ -36,39 +35,45 @@
 
     //local config
     $maxDescriptionCharlenght = 333;
+    $imagePath = "/src/theme/images/";
 
     //translations
     $label_prefix = ": ";
-    $lang_title = "Titel".$label_prefix;
-    $lang_author = "Author".$label_prefix;
-    $lang_description = "Beschreibung".$label_prefix;
-    $lang_price = "Preis".$label_prefix;
-    $lang_available = "Lieferbar".$label_prefix;
-    $lang_search = "Suche";
+    $lang_title = i("Title").$label_prefix;
+    $lang_author = i("Author").$label_prefix;
+    $lang_description = i("Description").$label_prefix;
+    $lang_price = i("Price").$label_prefix;
+    $lang_available = "Available".$label_prefix;
+    $lang_pageTitel = i("Search");
+    $lang_isbn_nr = "ISBN NR";
+    
+
+    //detail link
+    $detailProductLink = "index.php?view=productdetail";
     
     //Product array, TODO get from MYSQL DB
     $products = array();
-    $products[] = array('Titel' => "Medizinal Studie",'Produktid' => "142123", 'Autor' => "Messing Hellbert", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'theme/images/test_medizin.jpg',
+    $products[] = array('Titel' => "Medizinal Studie",'Produktid' => "142123", 'Autor' => "Messing Hellbert", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'test_medizin.jpg',
       'Beschreibung' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
 "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE');
-    $products[] = array('Titel' => "Medizinal Studie1",'Produktid' => "142123", 'Autor' => "Messing Hellbert", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'theme/images/chemibuch.jpg',
-      'Beschreibung' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE');
-
-    $products[] = array('Titel' => "Medizinal Studie2",'Produktid' => "142123", 'Autor' => "Messing Querto", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'theme/images/sport.jpg',
+    $products[] = array('Titel' => "Medizinal Studie1",'Produktid' => "142123", 'Autor' => "Messing Hellbert", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'chemibuch.jpg',
       'Beschreibung' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
 "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE');
 
-    $products[] = array('Titel' => "Medizinal Studie3",'Produktid' => "142123", 'Autor' => "Hueber Selkis", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'theme/images/test_medizin.jpg',
+    $products[] = array('Titel' => "Medizinal Studie2",'Produktid' => "142123", 'Autor' => "Messing Querto", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'sport.jpg',
+      'Beschreibung' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+
+"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE');
+
+    $products[] = array('Titel' => "Medizinal Studie3",'Produktid' => "142123", 'Autor' => "Hueber Selkis", 'Erscheinungsjahr' => 2001, 'Preis' => 29.95,'Waehrung' => 'CHF','Lieferbar' => 'Sofort','Sprache' => 'Deutsch', 'Bild' => 'test_medizin.jpg',
       'Beschreibung' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
@@ -77,29 +82,32 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
     //Array erstellen
     //TODO Array aus DB holen und verifizieren
-    $imageSourcePath = "theme/images/test_medizin.jpg";
-
     foreach($products as $book){
-
-
-     // var_dump(strlen ( $book['Beschreibung'] ));
 
       //too long text?
       if(strlen ( $book['Beschreibung'] ) > $maxDescriptionCharlenght)
       {
         $modDescription = substr ( $book['Beschreibung'] , 0 , $maxDescriptionCharlenght );
         $modDescription = $modDescription . "...";
+      }else{
+        //not too long, display it all
+         $modDescription = $book['Beschreibung'];
       }
  
       $htmlContent .= "
         <div class=\"$classProduct\">
-          <div class=\"$classImage\"><img  src=\"".$book['Bild']."\"  />
+          <div class=\"$classImage\"><img  src=\"".$imagePath.$book['Bild']."\"  />
           </div>
           <div class=\"$classDescription\">
-           <p><a href='product.html?id=123123'><div class=\"$label1\">$lang_title</div>{$book['Titel']}</a></p>
+           <p><a href=\"$detailProductLink&id={$book['Produktid']}\"><div class=\"$label1\">$lang_title</div>{$book['Titel']}</a></p>
            <p><div class=\"$label1\">$lang_author</div>{$book['Autor']}</p>
            <div class=\"$classDescriptionText\"><div class=\"$label1\">$lang_description</div>$modDescription</div>
            <p><div class=\"$label1\">$lang_price</div> {$book['Waehrung']} {$book['Preis']}</p>
+           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
+
+
+           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
+           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
            <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
           </div>
         </div>";
@@ -109,11 +117,10 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
 $htmlContentBody = "
         <div id=\"content\">
-          <h1> $lang_search</h1>
+          <h1> $lang_pageTitel</h1>
            $htmlContent
         </div>
 ";
-
 
 return $htmlContentBody;
 

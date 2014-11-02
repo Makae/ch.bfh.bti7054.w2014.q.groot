@@ -405,12 +405,24 @@ $lines-to-show: 3;*/
   border:1px solid black;
 }
 
+.product-detail{
+  padding:2px;
+  border:0px solid black;
+}
+
 
 .img-preview{
   /**/margin: 0;
   height: auto;
   float:left;
   max-height:740px;
+  width:20%;
+}
+
+.img-preview-detail{
+  /**/margin: 0;
+  height: auto;
+  float:left;
   width:20%;
 }
 
@@ -430,6 +442,9 @@ $lines-to-show: 3;*/
  overflow:hidden;
 }
 
+.description-text-detail{
+ width:100%;
+}
 .profil{
 
 }
@@ -450,6 +465,7 @@ font-size:16px;
 font-weight: bold;
 pointer-events: none;
 float:left;
+margin-right:5px;
 }
 
 .input1{
@@ -458,4 +474,13 @@ float:left;
 
 .column1{
  width:20%;
+}
+
+.buy_button{
+  padding:15px,2px,15px,2px;
+  margin:2px;
+  background-color:#5C5;
+  border:2px solid #000;
+  font-weight:bolder;
+  font-size:24px;
 }

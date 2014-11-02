@@ -47,7 +47,30 @@
 "Sport":
 "Sport"
 
-
+"ISBN Number":
+"ISBN Number"
+"Productview":
+"Productview"
+"Year of publication":
+"Year of publication"
+"Currency":
+"Currency"
+"Language":
+"Language"
+"Original language":
+"Original language"
+"Picture":
+"Picture"
+"Type":
+"Type"
+"Version":
+"Version"
+"Genre":
+"Genre"
+"Number of Pages":
+"Number of Pages"
+"Buy":
+"Buy"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"
