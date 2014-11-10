@@ -39,8 +39,15 @@
     $lang_pageTitel = i("Productview");
     $button1 = ("Buy");
     
-    //Product array, TODO get from MYSQL DB
+    //Product array
     $products = array();
+
+    //TSCM TODO get from DB instead from Session..
+    $products = $_SESSION['products'];
+
+
+
+    /*
     $products[] = array('Title' => "Medizinal Studie",
       'ISBN Number' => "142123", 
       'Author' => "Messing Hellbert", 
@@ -61,10 +68,17 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 'Type' => 'Taschenbuch',
 'Genre' => 'Krimi',
 );
+*/
 
     //Array erstellen
     //TODO Array aus DB holen und verifizieren
     foreach($products as $book){
+// var_dump($book);
+// exit;
+       if($_GET['id'] != $book['ISBN Number']){
+          continue;
+        }
+
       $paragraph = Utilities::buildParagraph($book);
 
       //too long text?

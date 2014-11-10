@@ -13,3 +13,16 @@ core.prototype.contructor = function(data) {
         return this;
     }
   };
+
+
+function orderConfirmation() {
+  var orderConfirmationInfo = "Are you really sure you want to buy all the previous Stuff? Last chance to abort!"
+  result = window.confirm(orderConfirmationInfo);
+    if (result){
+      document.getElementById("realSubmitButton").click();
+      //return true;
+    }else{
+      //return false;
+    }
+
+  };

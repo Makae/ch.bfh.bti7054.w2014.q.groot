@@ -128,6 +128,57 @@
       return $html;
     }
 
+/**
+  * copyed from 06_php_part03_v08.pdf from web programming lession and altered
+  * returns a String with the html insted of echoing it directly
+  * @author TSCM
+  * @since 20141102
+  * @param string - id of the option
+  * @param string - visible to the user text
+  * @return string - html code line
+  */
+    //
+    public static function makeOption($value, $text) {
+      $html = "";
+      $html = "<option value=\"$value\">$text</option>";
+      return $html;
+    }
+
+/**
+  *  copyed from 06_php_part03_v08.pdf from web programming lession and altered
+  * returns a String with the html insted of echoing it directly
+  * @author TSCM
+  * @since 20141102
+  * @param string - id of the option
+  * @param string - visible to the user text
+  * @param string - visible to the user text
+  * @return string - html code line
+  */
+    public static function makeSelection($name, $options, $size = 3) {
+      $html = "";
+      $html .= "<select name=\"$name\" size=\"$size\">";
+      foreach($options as $value => $text){
+        $html .= makeOption($value, $text);
+      }
+      $html .=  "</select>";
+    }
+
+/**
+  *  copyed from 06_php_part03_v08.pdf from web programming lession and altered
+  * returns a String with the html insted of echoing it directly
+  * @author TSCM
+  * @since 20141102
+  * @return string - html code line
+  */
+  public static function hiddenInputsFromPost() {
+    $html = "";
+    if (isset($_POST))
+    foreach ($_POST as $name => $value){
+      $html .=  "<input class=\"hidden input2\" type=\"input\" name=\"$name\" value=\"$value\">";
+    }
+    return $html;
+    
+  }
 
 
   }
