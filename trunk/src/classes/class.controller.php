@@ -16,25 +16,22 @@
     public function instance() {
       if(self::$instance != null)
         return self::$instance;
+
       self::$instance = new Controller();
       self::$instance->postConstruct();
       return self::$instance;
     }
 
     private function postConstruct() {
-      $files = glob('views/view.*.php');
-      foreach($files as $file)
-        include_once($file);
-
       $files = glob('viewlets/viewlet.*.php');
       foreach($files as $file) {
-        include_once($file);
+
         $matches = array();
-
         //preg_match takes the variable $matches by reference and alters it inside the function body
-        preg_match('/viewlet\.(.+)\.php$/', $file, $matches);
-        $cls = 'Groot' . $matches[1] . 'Viewlet';
+        if(!preg_match('/viewlet\.(.+)\.php$/', $file, $matches))
+          continue;
 
+        $cls = 'Groot' . $matches[1] . 'Viewlet';
         if(class_exists($cls))
           $this->viewlets[$cls::name()] = new $cls();
 
