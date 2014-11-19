@@ -1,0 +1,332 @@
+h3 {
+	font-size: 15px;
+	text-decoration: underline;
+}
+h2 {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+/* LOGIN */
+
+#debugDiv {
+	width: 20%;
+	float: left;
+	color: white;
+	font-size: 15pt;
+}
+
+.loginFormDiv {
+	//background-color: white;
+	margin: 5pt;
+	width: 40%;
+	float: right;
+	color: black;
+	font-size: 10pt;
+	text-align: right;	
+}
+/* PRODUCTS*/
+
+.buttonDiv {
+	float: right;
+ 	vertical-align: middle;
+	width: 20%;
+	text-align: center;
+}
+
+.picDiv {
+	float: left;
+	height: 100%;
+	width: 10%;
+}
+
+.productPic {
+	float: left;
+	width: 65px;
+	height: 60px;
+	margin-right: 15px;
+	margin-left: 2px;
+}
+
+/* Die width bezeichnet den bereich des parent divs, den es nutzen kann*/
+.productDescription {
+	float: left;
+	width: 60%;
+/* 	background-color: yellow; */
+}
+
+.productDiv {
+	float: left;
+	width: 100%;
+/* 	margin: 15px; */
+	background-color: #E6F8E0; 
+}
+
+.ProductWrapper {
+	font-size: 16px;
+	border: thin;
+	border-style: dotted;
+}
+
+#productprice {
+	float: left;
+	width: 10%;
+	font-weight: 30;
+	font-weight: bold;
+}
+
+/* ENDER DER PRODUCTS */
+
+
+/*Add to Card & Warenkorb */
+
+.cardDiv {
+	
+	float left;
+/* 	font-weight: bold; */
+}
+
+
+
+/* IfoView */
+.infoForm {
+	background-color: yellow;
+}
+
+/*confirmation*/
+
+
+.pageContent {
+	float: left;
+	width: 95%;	
+}
+.subjects {
+	float: left;
+	width: 25%;
+	font-weight: 200;
+	text-decoration: underline;
+	/*background-color: #CCFF99;*/
+}
+
+.values {
+	float: left;
+	width: 50%;
+}
+
+
+/* Shipping Infos */
+
+.contactInfos {
+	background-color: #F3F781;
+}
+.contactInfos>form>input {
+/* 	margin-top: 8px; */
+}
+.contactInfos>form>select {
+/* 	margin-top: 8px; */
+}
+
+
+
+/* End of Shipping */
+
+
+.contentArea {
+	background-color: #F6E3CE;
+	font-size: 13px;
+	float: left;
+	height: 100%;
+	width: 80%;
+	margin-left: 50px;
+}
+
+.formData {
+	margin-left: 50px;
+	font-size: 12px;
+}
+
+.formData>form>input {
+	left: 300px;
+}
+
+.pageText {
+	margin: 10px;
+}
+
+#productsTable {
+	margin-left: 50px;
+}
+
+#contentTitle {
+/* 		margin-left: 50px; */
+/* 		margin-top: 50px; */
+text-align: center;
+font-weight: bold;
+font-size: 14px;
+}
+
+.descriptionText {
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+.langLink {
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+
+#defaultLink {
+	cursor: pointer;
+}
+
+#NavHeader {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.navigation {
+	border: thin;
+	border-style: dotted;
+	float: left;
+	height: 100%;
+	width: 10%;
+	background-color: #F2F5A9;
+}
+
+.myDiv {
+	font-size: 30px;
+	border: thick;
+	border-style: solid;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1200px;
+}
+
+#header {
+	height: 80px;
+	background-color: #BDBDBD;
+}
+
+#header .container {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+#content {
+	padding-left: 1.25em;
+	padding-right: 1.25em;
+	height: 650px;
+	overflow: auto;
+	border: 1 solid #black;
+}
+
+/*
+ * Header Styles
+ */
+#header .container {
+	overflow: hidden;
+}
+
+#header .container>.menu,#header .container>#search {
+	float: right;
+}
+
+/*
+
+Navigation
+*/
+.navMenuList {
+	color: black;
+	list-style: none;
+}
+
+.navMenuList li {
+	margin-bottom: 10px;
+}
+
+/* Alle link items auf der ersten Ebene unterhalb der navMenuList Klasse */
+.navMenuList a {
+	color: gray;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+.navMenuList li:hover>span {
+	color: #black;
+}
+
+.navMenuList li:hover a {
+	color: green;
+}
+
+.chosenLink {
+	color: black !important;
+}
+
+.span1 {
+	color: black;
+}
+
+/*
+ * Main menu
+ */
+.menu.menu-main {
+	margin: 0;
+	padding: 0;
+	height: 80px;
+	font-weight: normal;
+}
+
+.menu-main>li {
+	float: left;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	height: 80px;
+	color: #ffffff;
+}
+
+.menu-main>li a {
+	display: inline-block;
+	padding: 0 1em;
+	line-height: 80px;
+	color: white;
+	text-decoration: none;
+}
+
+.menu-main>li a:hover {
+	color: #13353a;
+	background-color: #ffffff;
+}
+
+#search {
+	margin-left: 1em;
+	height: 80px;
+	line-height: 80px;
+}
+
+#search button:hover {
+	border: 1px solid #ffffff;
+	background-color: #13353a;
+	color: #ffffff;
+}
+
+.description {
+	/*
+	font-size: $font-size;
+	line-height: $line-height;
+	lines-to-show: $lines-to-show;*/
+	width: 76%;
+	float: left;
+}
+
+.description-text {
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+}

@@ -1,0 +1,35 @@
+@CHARSET "ISO-8859-1";
+
+.navMenuList {
+ color: black;
+ list-style: none;
+ margin-left: -15px;
+}
+
+.navMenuList li {
+ margin-bottom: 10px;		
+}
+
+/* Alle link items auf der ersten Ebene unterhalb der navMenuList Klasse */
+.navMenuList a {
+    color: gray;
+    text-decoration: none;
+    font-weight: normal;
+ }
+ 
+.navMenuList li:hover>span {
+  color: #black;
+}
+ 
+ .navMenuList li:hover a {
+ color: green;
+ }
+ 
+.chosenLink {
+ color: black !important;
+}
+
+.span1 {
+color: black;
+
+}
