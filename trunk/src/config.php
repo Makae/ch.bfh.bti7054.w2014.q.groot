@@ -37,6 +37,7 @@
     array('interfaces',     '/I[A-Z][a-z]+/',     '/^I([A-Z][a-z]+)$/',   'interface.$1.php'),
     array('classes',        '/.*/',               '/^(.*)$/',             'class.$1.php'),
     array('classes/models', '/^.*Model$/',        '/^(.*)Model$/',        'class.$1.php'),
+    array('classes/joins', '/^.*Join$/',        '/^(.*)Join$/',        'class.$1.php'),
     array('viewlets',       '/^Groot.*Viewlet$/', '/^Groot(.*)Viewlet$/', 'viewlet.$1.php'),
     array('views',          '/^Groot.*View$/',    '/^Groot(.*)View$/',    'view.$1.php')
     )));

@@ -37,8 +37,7 @@
         // Can't use static::findFirst, or it will result in endless recursion
         $data = Core::instance()->getDb()->selectFirst(static::$TABLE, array('id' => $id));
         $this->data_status = BaseModel::DATA_DB;
-      }
-      else {
+      } else {
         foreach($data as $key)
           if(in_array($key, static::$IGNORE_KEYS))
             unset($data[$key]);

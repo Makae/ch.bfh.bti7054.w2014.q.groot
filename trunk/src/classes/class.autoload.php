@@ -15,8 +15,10 @@
         if(preg_match($folder['match'], $cls)) {
           $file = preg_replace($folder['search'], $folder['replace'], $cls);
 
-          if(file_exists($folder['path'] .'/' . strtolower($file)))
+          if(file_exists($folder['path'] .'/' . strtolower($file))) {
             require_once($folder['path'] .'/' . strtolower($file));
+            return;
+          }
         }
       }
     }

@@ -77,6 +77,15 @@
       return $this->_assocRows($result);
     }
 
+    public function join($left, $right, $type, $conditions=null, $columns=null, $orders=null, $limit=null) {
+      $query = 'SELECT {%columns%} FROM {%table_left%} as {%name_left%} {%join%} {%table_right%} AS {%name_right%} ON ({%name_left%}.{%column_left%} = {%name_right%}.{%column_right%}) {%conditions%} {%orders%} {%limit%}';
+      $args = $this->_prepareArgs(null, $conditions, $columns, $orders, $limit);
+      $join_args = $this->_prepareJoinArgs($left, $right, $type);
+      $args = array_merge($args, $join_args);
+      $query = $this->_queryTemplate($query, $args);
+      return $this->_assocRows($this->query($query));
+    }
+
 
     /*
       @desc: sugar for returning the first entry inside the select()-response
@@ -280,6 +289,18 @@
         'columns' => $this->_prepareColumnSql($columns, '*'),
         'orders' => $this->_prepareOrdersSql($orders),
         'limit' => $this->_prepareLimitSql($limit),
+      );
+    }
+
+    private function _prepareJoinArgs($left, $right, $type='LEFT') {
+      return array(
+        'table_left' => $this->_prepareEntitiesSql($left[0]),
+        'name_left' => $this->_prepareEntitiesSql($left[1]),
+        'column_left' => $this->_prepareEntitiesSql($left[2]),
+        'table_right' => $this->_prepareEntitiesSql($right[0]),
+        'name_right' => $this->_prepareEntitiesSql($right[1]),
+        'column_right' => $this->_prepareEntitiesSql($right[2]),
+        'join' => $type . ' JOIN'
       );
     }
 
