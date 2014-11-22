@@ -174,6 +174,14 @@
       $db->createTable(static::$TABLE, $db_columns);
     }
 
+    public static function table() {
+      return static::$TABLE;
+    }
+
+    public static function column_names() {
+      return static::$COLUMN_NAMES;
+    }
+
     /*
       @desc: Saves the current data via the Model::create() method
              and updates the data and data_status properties

@@ -77,12 +77,14 @@
       return $this->_assocRows($result);
     }
 
-    public function join($left, $right, $type, $conditions=null, $columns=null, $orders=null, $limit=null) {
+    public function join($left, $right, $type, $conditions=null, $join_columns=null, $orders=null, $limit=null) {
       $query = 'SELECT {%columns%} FROM {%table_left%} as {%name_left%} {%join%} {%table_right%} AS {%name_right%} ON ({%name_left%}.{%column_left%} = {%name_right%}.{%column_right%}) {%conditions%} {%orders%} {%limit%}';
-      $args = $this->_prepareArgs(null, $conditions, $columns, $orders, $limit);
+      $args = $this->_prepareArgs(null, $conditions, $join_columns, $orders, $limit);
       $join_args = $this->_prepareJoinArgs($left, $right, $type);
+
       $args = array_merge($args, $join_args);
       $query = $this->_queryTemplate($query, $args);
+
       return $this->_assocRows($this->query($query));
     }
 
@@ -492,13 +494,26 @@
           throw new Exception('No Entity defined for SQL-Query');
       }
 
-      if(is_string($value))
-        return '`' . $value . '`';
+      if(!is_array($value))
+        $value = array($value);
 
-      if(is_array($value))
-        $value = '`' . implode('`,`', $value) . '`';
+      $result = '';
+      $add = '';
+      foreach($value as $val) {
+        $val = trim($val);
+        if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.?)([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)) {
+          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.?)([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3` $4 `$5`', $val) . ' ';
+        } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)) {
+          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1` $4 `$5`', $val) . ' ';
+        } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)){
+          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3`', $val) . ' ';
+        } else {
+          $add = '`' . $val . '`';
+        }
+        $result .= $result == '' ? $add : ', ' . $add;
+      }
 
-      return $value;
+      return $result;
     }
 
   }

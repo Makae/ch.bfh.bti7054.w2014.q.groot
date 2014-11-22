@@ -32,24 +32,24 @@
   }
 
   // TESTS für JOIN
-  // BookModel::create(array(
-  //   'name' => "My Book",
-  //   'isbn' => "asofuz9p24griugr"
-  // ));
+  BookModel::create(array(
+    'name' => "My Book",
+    'isbn' => "asofuz9p24griugr"
+  ));
 
-  // OrderModel::create(array(
-  //   'user_id' => 1,
-  //   'datetime' => "2014-11-11 11:11:11"
-  // ));
+  OrderModel::create(array(
+    'user_id' => 1,
+    'datetime' => "2014-11-11 11:11:11"
+  ));
 
-  // PositionModel::create(array(
-  //   'order_id' => 1,
-  //   'book_id' => 1,
-  //   'amount' => 1,
-  //   'price' => 12.50
-  // ));
+  PositionModel::create(array(
+    'order_id' => 1,
+    'book_id' => 1,
+    'amount' => 1,
+    'price' => 12.50
+  ));
 
-  // echo "<pre>";
-  // die(var_dump(OrderPositionJoin::find()));
+  echo "<pre>";
+  die(var_dump(OrderPositionJoin::find()));
 
 ?>
