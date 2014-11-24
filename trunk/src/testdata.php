@@ -70,6 +70,14 @@ if(!$db->tableExists('bookcategory')) {
       'description' => 'E-Book',
       'lang' => 'en'
     ));
+    BookcategoryModel::create(array(
+      'description' => 'Hardcover',
+      'lang' => 'de'
+    ));
+    BookcategoryModel::create(array(
+      'description' => 'Prospekt',
+      'lang' => 'de'
+    ));
   }
 
 
@@ -79,15 +87,35 @@ if(!$db->tableExists('bookgenre')) {
       'lang' => 'en'
     ));
     BookgenreModel::create(array(
-      'description' => 'Wissenschaft',
-      'lang' => 'de'
-    ));
-    BookgenreModel::create(array(
       'description' => 'Fantasy',
       'lang' => 'de'
     ));
     BookgenreModel::create(array(
       'description' => 'Krimi',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Kinderbuch',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Horror',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Kunst',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Sport',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Roman',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Comic',
       'lang' => 'de'
     ));
   }
