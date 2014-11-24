@@ -22,14 +22,14 @@
     //checks if the user and password is correct
     public function login($user=false,$password=false){
 
-var_dump($_POST);
+
         $user = isset($_POST['Loginname']) ? $_POST['Loginname'] : $user ;
         $password = isset($_POST['Password']) ? $_POST['Password'] : $password ;
-        return UserHandler::login($user, $password);
+        return UserHandler::instance()->login($user, $password);
 
         //if( && isset($_POST['Password']) && trim($_POST['Loginname']) != "" && trim($_POST['Password']) != "" &&GrootHeaderViewlet::checkLogin($name,$password)){
            //var_dump("waoeifjwaofeiuaoefha XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-          
+
         //}
 
 
@@ -38,7 +38,7 @@ var_dump($_POST);
 
     //checks if the user and password is correct
     public function logout($function){
-        return UserHandler::logout();
+        return UserHandler::instance()->logout();
     }
 
 
@@ -85,12 +85,9 @@ var_dump($_POST);
   </a>
   ';
 
-<<<<<<< Updated upstream
+
 //Searchbar
 $html .= '<form id="search">
-=======
-$html .= '<form id="search" method="POST">
->>>>>>> Stashed changes
         '.$selectBoxHtml.'
         <input type="hidden" name="view" value="search" />
         <input type="text" name="query" id="query" />
@@ -121,10 +118,10 @@ $html .= '<ul class="menu menu-main">
       //setcookie("password", $_POST["lastname"], $t);
 
     //Deside, if user is logged in or not and change appearance
-    if(Userhandler::loggedin()){
+    if(Userhandler::instance()->loggedin()){
       $buttons = '<input type="submit" class="headerbutton" value="Logout">';
-      
-      $loginMask = 'Hello '.Userhandler::user();
+
+      $loginMask = 'Hello '.Userhandler::instance()->user();
     }else{
       $buttons = '<input type="submit" class="headerbutton" value="Login"/>';
       $loginMask = 'Loginname: <input class="input3 " name="Loginname"  style="width:90px;height:18px;"></input>  <br />

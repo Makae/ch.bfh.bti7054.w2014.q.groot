@@ -18,7 +18,7 @@
              occured.
     */
     private function postConstruct() {
-      $this->db = DB::instance();
+      $this->db = Grootdb::instance();
       I18N::instance()->addFolder('i18n');
 
       UserHandler::instance();

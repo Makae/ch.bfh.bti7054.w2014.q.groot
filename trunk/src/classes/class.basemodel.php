@@ -97,7 +97,7 @@
       static::_initTable();
       static::_validateColumns($conditions);
       $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, array('id'));
-      var_dump($data);
+
       return static::childInstance($data['id']);
     }
 
@@ -116,8 +116,8 @@
       }
 
       $data = $this->data;
-      foreach(static::$COLUMN_NAMES as $column)
-        if(!array_key_exists($column, $data) || !array_key_exists($column, static::$IGNORE_KEYS))
+      foreach($data as $key => $value)
+        if(!in_array($key, static::$COLUMN_NAMES) || in_array($key, static::$IGNORE_KEYS))
           unset($data[$key]);
 
       Core::instance()->getDb()->update(static::$TABLE, $data, array(
@@ -153,7 +153,7 @@
     public function setValue($key, $value) {
       if(in_array($key, static::$IGNORE_KEYS))
         return;
-      $this->data[$key] = $data[$key];
+      $this->data[$key] = $value;
     }
 
     /*

@@ -34,10 +34,12 @@
       mysql_close($this->con);
     }
 
-    public function instance($host=null, $user=null, $pwd=null, $db=null) {
+    public static function instance($host=null, $user=null, $pwd=null, $db=null) {
       if(self::$instance != null)
         return self::$instance;
-      return self::$instance = new DB($host, $user, $pwd, $db);
+
+      $cls = get_called_class();
+      return self::$instance = new $cls($host, $user, $pwd, $db);
     }
 
     // @desc: sugar for mysql_query
@@ -111,7 +113,7 @@
 
       $query = $this->_queryTemplate($query, $args);
       $result = $this->query($query);
-      return $this->_assocRows($result);
+      return $result;
     }
 
     public function delete($table, $conditions) {
@@ -319,16 +321,15 @@
       $this->_prepareValues($values);
 
       if(!is_array($values))
-        return '`' . $key . '` = ' . $this->prepareValues($values);
+        return '`' . $key . '` = ' . $this->_prepareValues($values);
 
       $sql = null;
       foreach($values as $key => $value) {
         if(!is_null($sql))
           $sql .= ' , ';
 
-        $sql .= '`' . $key . '` = ' . $this->prepareValues($values);
+        $sql .= '`' . $key . '` = ' . $this->_prepareValues($value);
       }
-
       return $sql;
     }
 

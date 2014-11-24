@@ -46,7 +46,7 @@
     public function login($user, $password) {
       $user = UserModel::findFirst(array(
         'user_name' => $user,
-        'password' => Utilities::hash($password, $salt)
+        'password' => Utilities::hash($password, static::$salt)
       ));
 
       if($user == null)

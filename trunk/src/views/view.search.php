@@ -22,7 +22,8 @@
     }
 
     private function _getSearchResult($str, $category) {
-      $result = GrootDB::searchBooks($str, $category);
+
+      $result = Core::instance()->getDb()->searchBooks($str, $category);
     }
 
     public function render() {
