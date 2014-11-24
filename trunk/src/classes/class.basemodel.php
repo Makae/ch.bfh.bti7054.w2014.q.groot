@@ -97,7 +97,6 @@
       static::_initTable();
       static::_validateColumns($conditions);
       $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, array('id'));
-      var_dump($data);
       return static::childInstance($data['id']);
     }
 
