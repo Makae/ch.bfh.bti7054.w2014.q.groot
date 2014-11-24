@@ -38,6 +38,7 @@
     ));
   }
 
+<<<<<<< Updated upstream
   // TESTS für JOIN
   BookModel::create(array(
     'name' => "My Book",
@@ -133,5 +134,44 @@ if(!$db->tableExists('bookgenre')) {
 
   //echo "<pre>";
   //die(var_dump(OrderPositionJoin::find()));
+=======
+  if(!$db->tableExists('book')) {
+    BookModel::create(array(
+      'name' => 'alpha',
+      'isbn' => 'isbn_alpha'
+    ));
+    BookModel::create(array(
+      'name' => 'beta',
+      'isbn' => 'isbn_beta'
+    ));
+    BookModel::create(array(
+      'name' => 'gamma',
+      'isbn' => 'isbn_gamma'
+    ));
+  }
+
+  if(!$db->tableExists('category')) {
+    CategoryModel::create(array(
+      'key' => 'alpha',
+      'name' => 'alpha',
+      'lang' => 'de'
+    ));
+    CategoryModel::create(array(
+      'key' => 'alpha',
+      'name' => 'alpha_fr',
+      'lang' => 'fr'
+    ));
+    CategoryModel::create(array(
+      'key' => 'beta',
+      'name' => 'beta',
+      'lang' => 'de'
+    ));
+    CategoryModel::create(array(
+      'key' => 'gamma',
+      'name' => 'gamma_fr',
+      'lang' => 'fr'
+    ));
+  }
+>>>>>>> Stashed changes
 
 ?>

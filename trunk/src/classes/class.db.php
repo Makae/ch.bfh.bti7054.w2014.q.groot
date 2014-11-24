@@ -6,19 +6,19 @@
    *        the MySQL-Database
    */
   class DB {
-    private static $instance = null;
+    protected static $instance = null;
 
-    private $host = null;
-    private $user = null;
-    private $pwd = null;
-    private $db = null;
+    protected $host = null;
+    protected $user = null;
+    protected $pwd = null;
+    protected $db = null;
     /*
       @trivia: connection to the database, it is necessary for
                php to clearly identify which requests has to be sent where
     */
-    private $con = null;
+    protected $con = null;
 
-    private function __construct($host=null, $user=null, $pwd=null, $db=null) {
+    protected function __construct($host=null, $user=null, $pwd=null, $db=null) {
       $this->host = is_null($host) ? DB_HOST : $host;
       $this->user = is_null($user) ? DB_USER : $user;
       $this->pwd = is_null($pwd) ? DB_PASSWORD : $pwd;
@@ -134,7 +134,7 @@
     /*
       @descr: Return a fetched mysql-resource as an associative array
     */
-    private function _assocRows($resource) {
+    protected function _assocRows($resource) {
       $rows = array();
 
       while($row = mysql_fetch_assoc($resource))
@@ -248,7 +248,7 @@
         $table : String
         $columns : array -> check _prepareColumnDefinietion();
     */
-    private function addColumns($table, $columns) {
+    protected function addColumns($table, $columns) {
       $template = 'ALTER TABLE {%table%} ADD COLUMN {%colum%};';
       $query = 'START TRANSACTION;';
       foreach($columns as $col) {
@@ -267,7 +267,7 @@
       @trivia: Escaping the mysql_string is necessary
                in order to prevent SQL-Injection attacks
     */
-    private function _esc($term) {
+    protected function _esc($term) {
       return mysql_real_escape_string($term);
     }
 
@@ -276,7 +276,7 @@
              Uilities::templateReplace method
              with the right parameters
     */
-    private function _queryTemplate($template, $args) {
+    protected function _queryTemplate($template, $args) {
       return Utilities::templateReplace($template, $args, '{%', '%}');
     }
 
@@ -284,7 +284,7 @@
       @def: prepares multiple arguments and returns an assoc-array
 
     */
-    private function _prepareArgs($table=null, $conditions=null, $columns=null, $orders=null, $limit=null) {
+    protected function _prepareArgs($table=null, $conditions=null, $columns=null, $orders=null, $limit=null) {
       return array(
         'table' => $this->_prepareTableSql($table),
         'conditions' => $this->_prepareConditionsSql($conditions),
@@ -294,7 +294,7 @@
       );
     }
 
-    private function _prepareJoinArgs($left, $right, $type='LEFT') {
+    protected function _prepareJoinArgs($left, $right, $type='LEFT') {
       return array(
         'table_left' => $this->_prepareEntitiesSql($left[0]),
         'name_left' => $this->_prepareEntitiesSql($left[1]),
@@ -311,7 +311,7 @@
         $values : array('key' => 'value'
         eg. array('name' => 'ruedi');
     */
-    private function _prepareUpdateValues($values=null) {
+    protected function _prepareUpdateValues($values=null) {
       if(is_null($values))
         return '';
 
@@ -338,7 +338,7 @@
         $col : array(a,b) -> Column name and column definition seperated in 2-value-array
         eg. array('category', 'VARCHAR(50)');'
     */
-    private function _prepareColumnDefinition($col=null) {
+    protected function _prepareColumnDefinition($col=null) {
       if(is_null($col))
         return '';
 
@@ -366,7 +366,7 @@
            Length = 2
              returns "LIMIT $limit[0], $limit[1]"
     */
-    private function _prepareLimitSql($limit=null) {
+    protected function _prepareLimitSql($limit=null) {
       if(is_null($limit))
         return '';
 
@@ -391,7 +391,7 @@
          Type Array:
           returns "ORDER BY $limit[0],$limit[1],$limit[2],..."
     */
-    private function _prepareOrdersSql($orders=null) {
+    protected function _prepareOrdersSql($orders=null) {
       if(is_null($orders))
         return '';
 
@@ -421,7 +421,7 @@
 
          returns "WHERE $composed_conditions"
     */
-    private function _prepareConditionsSql($conditions=null) {
+    protected function _prepareConditionsSql($conditions=null) {
       if(is_null($conditions))
         return '';
 
@@ -458,7 +458,7 @@
       return 'WHERE ' . $cond;
     }
 
-    private function _prepareValues($values) {
+    protected function _prepareValues($values) {
       if(!is_array($values)) {
         $val = $this->_esc($values);
         $val = is_string($val) ?  "'" . $val . "'" : $val;
@@ -473,12 +473,12 @@
     }
 
     // @desc: sugar for table-Entities
-    private function _prepareTableSql($value=null, $default='*') {
+    protected function _prepareTableSql($value=null, $default='*') {
       return $this->_prepareEntitiesSql($value, $default);
     }
 
     // @desc: sugar for column-Entities
-    private function _prepareColumnSql($value=null, $default=null) {
+    protected function _prepareColumnSql($value=null, $default=null) {
       return $this->_prepareEntitiesSql($value, $default);
     }
 
@@ -486,7 +486,7 @@
       @desc: Concatenates table Entities
       @args: $default = null allows for * in cols statement
     */
-    private function _prepareEntitiesSql($value=null, $default=null) {
+    protected function _prepareEntitiesSql($value=null, $default=null) {
       if(is_null($value)) {
         if(!is_null($default))
           return $default;

@@ -50,7 +50,7 @@ var_dump($_POST);
 
 
   #label of selectbox
-  $selectName = "category";
+  $selectName = "cat";
   $divId  = "logo";
   $classIcon = "stdanimation1_4";
   $grootLogoChar = "G";
@@ -68,7 +68,7 @@ var_dump($_POST);
   $selectBox[] = array("value" => "1", "label" => "Fantasy" );
   $selectBox[] = array("value" => "2", "label" => "Horror" );
   $selectBox[] = array("value" => "3", "label" => "Thriller" );
-  $selectBox[] = array("value" => "4", "label" => "children's book" );
+  $selectBox[] = array("value" => "4", "label" => "Children's book" );
   $selectBox[] = array("value" => "5", "label" => "Professions" );
   $selectBox[] = array("value" => "6", "label" => "Art" );
   $selectBox[] = array("value" => "7", "label" => "Sport" );
@@ -85,10 +85,15 @@ var_dump($_POST);
   </a>
   ';
 
+<<<<<<< Updated upstream
 //Searchbar
 $html .= '<form id="search">
+=======
+$html .= '<form id="search" method="POST">
+>>>>>>> Stashed changes
         '.$selectBoxHtml.'
-        <input type="text" name="search_text" id="search_text" />
+        <input type="hidden" name="view" value="search" />
+        <input type="text" name="query" id="query" />
         <button type="submit" name="search" value="search">Suchen</button>
       </form>';
 
