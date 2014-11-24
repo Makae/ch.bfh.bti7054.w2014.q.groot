@@ -29,14 +29,68 @@
       'last_name' => 'Odinsson',
       'lang' => 'de'
     ));
+    UserModel::create(array(
+      'user_name' => 'max',
+      'password' => Utilities::hash('12345', USER_SALT),
+      'first_name' => 'Max',
+      'last_name' => 'Muster',
+      'lang' => 'en'
+    ));
   }
 
   // TESTS für JOIN
   BookModel::create(array(
     'name' => "My Book",
-    'isbn' => "asofuz9p24griugr"
+    'isbn' => "D2342f3i",
+    'Title' => "Kennzahlen aus der Wirtschaft",
+    'Year_of_publication' => 1998,
+    'Price' => 43.10,
+    'Currency' => "CHF",
+    'Available' => "Sofort",
+    'Language' => "Deutsch",
+    'Description' => "Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text ",
+    'Original_language' => "Englisch",
+    'Number_of_Pages' => 1872,
+    'Version' => 1.2,
+    'Type' => "Taschenbuch",
+    'Genre' => "Krimi"
   ));
 
+
+if(!$db->tableExists('bookcategory')) {
+    BookcategoryModel::create(array(
+      'description' => 'Taschenbuch',
+      'lang' => 'de'
+    ));
+    BookcategoryModel::create(array(
+      'description' => 'Hörspiel',
+      'lang' => 'de'
+    ));
+    BookcategoryModel::create(array(
+      'description' => 'E-Book',
+      'lang' => 'en'
+    ));
+  }
+
+
+if(!$db->tableExists('bookgenre')) {
+    BookgenreModel::create(array(
+      'description' => 'Science',
+      'lang' => 'en'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Wissenschaft',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Fantasy',
+      'lang' => 'de'
+    ));
+    BookgenreModel::create(array(
+      'description' => 'Krimi',
+      'lang' => 'de'
+    ));
+  }
   OrderModel::create(array(
     'user_id' => 1,
     'datetime' => "2014-11-11 11:11:11"
@@ -49,7 +103,7 @@
     'price' => 12.50
   ));
 
-  echo "<pre>";
-  die(var_dump(OrderPositionJoin::find()));
+  //echo "<pre>";
+  //die(var_dump(OrderPositionJoin::find()));
 
 ?>

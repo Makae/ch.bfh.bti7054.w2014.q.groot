@@ -9,8 +9,43 @@
       // Here comes the processing of the field-parameters
     }
 
+    //checks if the user and password is correct
+    public function checkLogin($name,$password){
+
+      //wird vom userhandler gemacht
+      //TODO
+      return true;
+
+
+    }
+
+    //checks if the user and password is correct
+    public function login($user=false,$password=false){
+
+var_dump($_POST);
+        $user = isset($_POST['Loginname']) ? $_POST['Loginname'] : $user ;
+        $password = isset($_POST['Password']) ? $_POST['Password'] : $password ;
+        return UserHandler::login($user, $password);
+
+        //if( && isset($_POST['Password']) && trim($_POST['Loginname']) != "" && trim($_POST['Password']) != "" &&GrootHeaderViewlet::checkLogin($name,$password)){
+           //var_dump("waoeifjwaofeiuaoefha XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+          
+        //}
+
+
+
+    }
+
+    //checks if the user and password is correct
+    public function logout($function){
+        return UserHandler::logout();
+    }
+
+
+
+
     //creates the Menu from a Navi Array
-public function makeMenu(){
+  public function makeMenu(){
 
 
 
@@ -41,6 +76,7 @@ public function makeMenu(){
   //build the select html element
   $selectBoxHtml = Utilities::buildSelectbox($selectBox, $selectName);
 
+  //Logo
   $html .= '
   <a href="index.php?view=home">
     <div id="'.$divId.'">
@@ -49,6 +85,7 @@ public function makeMenu(){
   </a>
   ';
 
+//Searchbar
 $html .= '<form id="search">
         '.$selectBoxHtml.'
         <input type="text" name="search_text" id="search_text" />
@@ -73,47 +110,46 @@ $html .= '<ul class="menu menu-main">
         '.$naviElement.'
       </ul>';
 
+      //Add a login form
+      //$t = time()+60*60*24*30; // expires in 30 days
+      //setcookie("loginname", $_POST["firstname"], $t);
+      //setcookie("password", $_POST["lastname"], $t);
+
+    //Deside, if user is logged in or not and change appearance
+    if(Userhandler::loggedin()){
+      $buttons = '<input type="submit" class="headerbutton" value="Logout">';
+      
+      $loginMask = 'Hello '.Userhandler::user();
+    }else{
+      $buttons = '<input type="submit" class="headerbutton" value="Login"/>';
+      $loginMask = 'Loginname: <input class="input3 " name="Loginname"  style="width:90px;height:18px;"></input>  <br />
+  Password: <input class="input3 " name="Password" style="width:90px;height:18px;"></input>  <br />';
+    }
+
+     // $html .= "<div id='login' class='login' style='float:left'>";
+      $html .= '<div style="float:right;margin:0px;padding:0px;text-align:right;color:#FFFF00;" >
+<form action="" method="POST">
+  '.$loginMask.'
+  '.$buttons.'
+</form>
+</div>
+      ';
+
   return $html;
-
-/*
-return '<a href="index.php?view=home"><div id="logo">
-
-            <span class="stdanimation1_4"  >G</span>
-      </div></a>
-      <form id="search">
-        <select name="category">
-          <option value="1">Fantasy</option>
-          <option value="2">Horror</option>
-          <option value="3">Krimi</option>
-          <option value="4">Kinderbuch</option>
-          <option value="5">Berufswelt</option>
-          <option value="6">Kunst</option>
-          <option value="7">Sport</option>
-        </select>
-        <input type="text" name="search_text" id="search_text" />
-        <button type="submit" name="search" value="search">Suchen</button>
-      </form>
-      <ul class="menu menu-main">
-        <li><a class="stdanimation1_2" href="index.php?view=categories">Kategorien</a></li>
-        <li><a class="stdanimation1_2" href="index.php?view=profile">Profil</a></li>
-        <li><a class="stdanimation1_2" href="index.php?view=wishlist">Wunschzettel</a></li>
-        <li><a class="stdanimation1_2" href="index.php?view=shoppingcart">Warenkorb</a></li>
-      </ul>';
-      */
 }
 
-    public function render() {
+  public function render() {
       // Here comes the rendering process
 
-
+      $this->login();
       return $this->makeMenu();
 
 
-    }
+  }
 
-    public function ajaxCall() {
-
-    }
+  public function ajaxCall() {
 
   }
+
+}
 ?>

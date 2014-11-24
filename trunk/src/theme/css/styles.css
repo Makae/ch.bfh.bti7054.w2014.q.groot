@@ -509,3 +509,12 @@ margin-right:5px;
 .bottomButton{
   clear:both;
 }
+
+.headerbutton{
+  padding:15px,2px,15px,2px;
+  margin:2px;
+  background-color:#7CFC00;
+  border:2px solid #000;
+  font-weight:bolder;
+  font-size:14px;
+}
