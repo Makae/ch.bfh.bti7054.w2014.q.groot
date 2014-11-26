@@ -49,6 +49,12 @@ echo $_SESSION["cart"]->display();
 echo "<div class='cardDiv'>";
 echo "<br><button onclick='history.go(-1);'>Back </button><br>";
 echo "<br><form action='index.php?view=addToCart&lan=$lan' method='post'><input type='submit' value='EmptyCart'></input><input type='hidden' name='cleanCart' value='true'></input></form>";
+//Checkout
+echo "<br><form action='index.php?view=checkOut&lan=$lan' method='post'>
+<input type='submit' value='Check-Out'></input>
+<input type='hidden' name=' ' value=' '></input>
+</form>";
+
 echo "</div>"; //ENDE DES CARD DIVS
 
 $lan = getCurrentLanguage();

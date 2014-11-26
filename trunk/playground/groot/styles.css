@@ -7,6 +7,11 @@ h2 {
 	font-weight: bold;
 }
 
+/* TESTS */
+
+
+
+
 /* LOGIN */
 
 #debugDiv {
@@ -28,7 +33,7 @@ h2 {
 /* PRODUCTS*/
 
 .buttonDiv {
-	float: right;
+	float: left;
  	vertical-align: middle;
 	width: 20%;
 	text-align: center;
@@ -51,8 +56,8 @@ h2 {
 /* Die width bezeichnet den bereich des parent divs, den es nutzen kann*/
 .productDescription {
 	float: left;
-	width: 60%;
-/* 	background-color: yellow; */
+	width: 40%;
+
 }
 
 .productDiv {
@@ -68,6 +73,11 @@ h2 {
 	border-style: dotted;
 }
 
+#optionDiv {
+	
+	float: left;
+	width: 10%;	
+}
 #productprice {
 	float: left;
 	width: 10%;

@@ -36,7 +36,12 @@ echo "<input type='submit' value='Delete ShoppingCard'></input><br><br>";
 echo "<input type='hidden' name='clean' value='true'></input>";
 echo "</form>";
 
-
+//Checkout
+//Checkout
+echo "<br><form action='index.php?view=checkOut&lan=$lan' method='post'>
+<input type='submit' value='Check-Out'></input>
+<input type='hidden' name=' ' value=' '></input>
+</form>";
 
 ?>
 </body>
