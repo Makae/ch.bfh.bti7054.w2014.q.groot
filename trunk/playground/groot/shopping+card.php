@@ -1,8 +1,6 @@
 <?php
 //session_start(); //unnötig, da schon in index.php gestartet
 
-//echo "SHOPPING CARD blablab";
-
 ?>
 <html>
 <head>
@@ -14,8 +12,9 @@
 //GetLanguage from Cookie:
 
 $lan = $_COOKIE["language"];
+
 if(isset($_POST["clean"]) && $_POST["clean"]=='true') {
-	$_SESSION["chosenProducts"]=array();
+	unset($_SESSION["cart"]);
 	$_POST["clean"]=='false';
 	echo "Warenkorb gelöscht.";
 		//Arraylänge: ".sizeof($_SESSION["chosenProducts"]);
@@ -23,18 +22,14 @@ if(isset($_POST["clean"]) && $_POST["clean"]=='true') {
 
 echo "<p id = 'contentTitle'>".translate("shopping card", $lan)."</p>";
 
-echo "<b>Ihr Warenkorb enthält folgende Produkte:</b>";
+if(isset($_SESSION["cart"])) {
+	echo "<b><br>Ihr Warenkorb enthält folgende Produkte:</br></b>";
+	$_SESSION["cart"]->display();
+	
+}
 
-$productArray = array();
-if(isset($_SESSION["chosenProducts"]))
-	$productArray = $_SESSION["chosenProducts"];
-
-if(sizeof($productArray)==0)
-	echo "<br><br><br> Keine Produkte im Körbchen.<br><br><br>";
-
-foreach ($productArray as $value)
-	echo "<br><br><br>Produkt mit Bestell-ID: ".$value."<br><br>";
-
+else
+echo "<b><br>Ihr Warenkorb enthält noch keine Produkte.</br></b>";
 
 echo "<br><form action='index.php?view=shopping%20card&lan=$lan' method='post'>";
 echo "<input type='submit' value='Delete ShoppingCard'></input><br><br>";
@@ -43,14 +38,20 @@ echo "</form>";
 
 
 
-
-
-
-
-
-
-
 ?>
 </body>
 </html>
 
+<!-- 
+Archiv:
+$productArray = array();
+if(isset($_SESSION["chosenProducts"]))
+	$productArray = $_SESSION["chosenProducts"];
+	
+	if(sizeof($productArray)==0)
+	echo "<br><br><br> Keine Produkte im Körbchen.<br><br><br>";
+
+foreach ($productArray as $value)
+	echo "<br><br><br>Produkt mit Bestell-ID: ".$value."<br><br>"; -->
+
+	

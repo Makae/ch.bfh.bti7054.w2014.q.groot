@@ -1,17 +1,16 @@
 <?php
 class Item {
 	
-	private $title;
-	private $ID;
-	private $price;
+	public $ID;
+	public $price;
+	public $quantity;
 	
-	function __construct($ID, $title, $price) {
-		$this->title = $title;
+	function __construct($ID, $price, $quantity) {
 		$this->ID = $ID;
 		$this->price = $price;
+		$this->quantity = $quantity;
 	}
-	
-	
+		
 }
 
 ?>

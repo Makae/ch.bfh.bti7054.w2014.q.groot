@@ -1,7 +1,11 @@
+<!-- Autor: Fabian Schwab -->
+<!-- Zweck: ShoppingCart Item, welches verwendet wird, um anzuzeigen, welche Items in den Cart gelegt wurden und diese zu verwalten -->
+
 <?php
 
 class ShoppingCart {
 	
+	const classInfo = "WARENKORB";
 	private	$items = array();
 	private $totalPrice=0;
 
@@ -9,32 +13,37 @@ class ShoppingCart {
 		return true;
 	}
 	
-	public function addItem($ID, $quant) { //Artikel und - in seinem Beispiel - die Anzahl der Items/Artikel
+	//Add a ShoppingcartItem - Einfach Items aus einer Klasse zu machen als multidimensinale Arrays zu bruachen
+
+	public function addItem($ID, $price, $quant) { //Artikel und - in seinem Beispiel - die Anzahl der Items/Artikel
 		/*Falls es den Artikel noch nicht gibt, muss die Stelle im assoziativen Array zuerst initialisiert werden
 		Bsp. items['5'] //für Artikel 5 muss zuerst initialisiert werden mit 0 damit dannn damit gearbeitet werden kann
 		*/
-		if(!isset($this->items[$ID])) {
-			$this->items[$ID]=0;
-			$this->items[$ID]+=$quant;
-		}
-		else 
-			$this->items[$ID]=$quant;
+		$itemToAdd = new Item($ID, $price, $quant);
+		//echo "Item erstellt:".var_dump($itemToAdd);
 		
+		
+		if(!isset($this->items[$itemToAdd->ID])) {//wenn es mit dieser ID noch keinen Eintrag hat, initialisieren und dann hinzufügen
+			echo "Neues Item";
+			$this->items[$itemToAdd->ID]=0;
+			$this->items[$itemToAdd->ID]=$itemToAdd;
+		}
+		else { //Wenn es es schon gab, die Items "mergen"
+			echo "Item schon drin, wird angepasst<br>";
+			echo "".$this->items[$itemToAdd->ID]->quantity." war vor dem hinzufügen die Quantity";
+			
+			$this->items[$itemToAdd->ID]->quantity+=$itemToAdd->quantity;
+			echo "".$this->items[$itemToAdd->ID]->quantity." ist nun nach hinzufügen die Quantity";
 	 } 	
 
-      	
-      	/*
-      	There are two ways to create an associative array: 
+	}     	
 
-		$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
-			or:
-
-		$age['Peter'] = "35";
-		$age['Ben'] = "37";
-		$age['Joe'] = "43"; 
-      	  
-      	 */
-   
+	 
+	public function emptyCart() {
+	$this->items=array();
+	}
+	
+	
 	 public function removeItemCompletely($ID) {
 	 	unset($this->items[$ID]);
 	 }
@@ -53,8 +62,9 @@ class ShoppingCart {
 	
 	public function calculatePrice() {
 		$totalPrice = 0;	
-		foreach($this->items as $article=>$quantity) { //foreach loop für assoziatives array: Index und dann den Wert mit => auflösen
-			$totalPrice += $quantity;
+		foreach($this->items as $ID=>$itemObject) { //foreach loop für assoziatives array: Index und dann den Wert mit => auflösen
+			$totalItemPrice = $itemObject->price * $itemObject->quantity;
+			$totalPrice +=$totalItemPrice;
 		}
 		return $totalPrice;
 	}
@@ -65,20 +75,30 @@ class ShoppingCart {
 
 	$lan = $_COOKIE["language"];
 	
+	if(sizeof($this->items)==0)
+		echo "Ihr Warenkorb ist leer";
+
+	else		{
 		
 		echo "In ihrem Warenkorb befinden sich folgende Produkte:<br><br><br>";
-		
 		echo "<table border='1'>";
-		echo "<tr><td>Artikel-Nr.</td><td>Anzahl</td>";
-			foreach ($this->items as $index=>$value) {
-				
-				echo "<tr><td>$index</td><td>$value</td><td><form action='index.php?view=addToCart&lan=$lan' method='post'><input type='submit' value='Remove'></input><input type='hidden' name='delete' value='$index'></input></form></td></tr>";
-				
-			}
+		echo "<tr id='tableTopics'><td>Artikel-Nr.</td><td>Anzahl</td><td>Preis</td>";
+		foreach ( $this->items as $index => $value ) { //$value ist neu das ItemObjekt
+			$subtotal = $value->quantity * $value->price;
+			
+			echo "<tr><td>$index</td><td>$value->quantity</td><td>$subtotal</td>";
+			
+			echo "<td><form action='index.php?view=addToCart&lan=$lan' method='post'><input type='submit' value='Remove'></input><input type='hidden' name='delete' value='$index'></input></form></td></tr>";
+		}
+		$price = $this->calculatePrice();
 		
-		
-		
+		echo "<tr></tr>";
+		echo "<tr><td></td><td></td><td>Total</td>";
+		echo "<tr><td></td><td></td><td>$price</td>";
 		echo "</table>";
+		
+	}
+	
 	}
 	
 }

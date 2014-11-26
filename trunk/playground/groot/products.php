@@ -35,7 +35,7 @@ for ($j=1; $j < 8; $j++) {
 		echo 	"dvi ivni ndn sv isn dinds ivnsdi nvidsnv isdnvi sdnvi n dsinv vi ivni ndn sv isn dinds ivnsdi nvidsnv isdnvi sdnvi n dsinv </div>";
 		
 		echo "<div id='productprice'>";
-		$price =  (double) rand(5 , 10);
+		$price =  11;
 		echo "<p>PRICE: $price SFr.";
 		echo "</div>";
 		
@@ -55,6 +55,7 @@ for ($j=1; $j < 8; $j++) {
 		
 		echo "Anzahl: <input type='text' name='quantity' size='3'></input>";
 		echo "<input type='hidden' name='productID' value=$j> </input>";
+		echo "<input type='hidden' name='price' value=$price> </input>";
 		echo "(ID: $j)";
 		echo "</form></div>"; //Ende Div für Button
 
