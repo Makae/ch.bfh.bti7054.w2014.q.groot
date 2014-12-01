@@ -15,7 +15,9 @@ $cart->display();
 
 echo "add Order";
 $mysqli = new grootDB('localhost', 'root', '', 'grootDB');
-$mysqli->addOrder(1, "by train", "cash", "lorem");
+
+//Test ob schon Order gemacht werden kann:
+$mysqli->addOrder(3, "TEST", "Sonntagspost", "Kommentar vom Sonntag");
 
 //Hier nun die Optionen angeben und nachdem man auf Buy geklickt hat, den Eintrag in der Order DB machen und Positionen dazu erstellen
 

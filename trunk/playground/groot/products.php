@@ -2,13 +2,10 @@
 <HTML>
 <head>
 <link rel="stylesheet" href="styles.css" />
-<script type="text/javascript" src="functions.js"></script>
-</head>
-
 </head>
 
 <?php
-//session_start(); //unnötig, da schon in index.php gestartet
+
 
 include_once ('dictionary.php');
 
@@ -18,15 +15,30 @@ echo "<p id = 'contentTitle'>".translate("product", $lan)."</p>";
 
 /*Implementation mit Datenbankanbindung*/
 
-$mysqli = new grootDB('localhost', 'root', '', 'grootDB');
-
-
+$mysqli = new grootDB();
 $bookResult = $mysqli->getAllBooks();
 
-$result = $mysqli->query("SELECT * FROM book"); //Returns a mysqli_result-Objekt, also eine Instanz der mysqli_result Class / ein Ergebnisobjekt zurück
+if(isset($_GET["cmd"])) {
+	$command = $_GET["cmd"];
 
-if($result->num_rows > 0)
-	echo "Anzahl Bücher im Store: ". $result->num_rows . "<br><br>";
+	if($command=='ins') {
+		$mysqli->addBook($_POST["Title"], $_POST["Genre"], $_POST["ISBN"], $_POST["Year"], $_POST["Price"], $_POST["Author"], $_POST["Pages"], $_POST["Description"]);
+		$mysqli->commit();
+	}
+	else if($command=='del') {
+		echo $_POST["titleToDel"];
+		$mysqli->deleteBook($_POST["titleToDel"]);
+	}
+
+	echo "
+	<script type='text/javascript'>
+	console.log('$lan');
+	</script>";
+}
+
+
+if($bookResult->num_rows > 0)
+	echo "Anzahl Bücher im Store: ". $bookResult->num_rows . "<br><br>";
 
 
 for ($j=0; $j < $bookResult->num_rows; $j++) {
@@ -62,38 +74,118 @@ for ($j=0; $j < $bookResult->num_rows; $j++) {
 		echo "<input type='hidden' name='price' value=$book->price> </input>";
 		echo "<input type='submit' value='Add to Card' width='48' height='48 name='addButton'</input></form></div>";
 
-	echo "(ID: $book->id)";
+	echo "(ID: $book->id)</div>"; //+/div is the end of the product div
 
 
 }
 
 /*
- * 
- * Alte Idee mit bereits gekauften Dingen
- * 
- * 		
-		
-			
-		
-		foreach($IDArray as $ID) {
-				if ($ID == $j) $bought = true;	}
+Alte Idee mit bereits gekauften Dingen
+
+	foreach($IDArray as $ID) {
+		if ($ID == $j) $bought = true;	}
 				
 		if($bought)
 			echo "<input type='submit' value='already in Card' width='48' height='48 name='addButton' disabled='disabled'</input>";
- * 
  */
+$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 
-$bla   = $mysqli -> query('INSERT INTO bla ...)');
-$blubb = $mysqli -> query('INSERT INTO blubb ...)');
-if ($bla && $blubb) {
-	$mysqli -> commit();
+echo "<div class='bookAdministration'><br><h2>Buch-Administration</h2>";
+
+//Aufbereiten der Genreliste zur Auswahl
+$genres = $mysqli->getGenres();
+$genreArray = array();
+
+while($genreObject = $genres->fetch_object()) { //Solange da noch ein Objekt kommt
+	$genreArray[$genreObject->id] = $genreObject->name;
 }
+
+echo "<table><tr>
+		<td>Title</td>
+		<td>Genre</td>
+		<td>ISBN</td>
+		<td>Year</td>
+		<td>Price</td>
+		<td>Author</td>
+		<td>Pages</td>
+		<td>Description</td></tr>";
+
+echo "<tr>";//Am Anfang der Zeile mit den Inputfields muss der form-Action Command kommen
+echo "<form action=$actual_link&cmd=ins method='post'>";
+echo "<td><input name='Title' id='titleField' value='enter a title'/>
+		
+		<td><select name='Genre' id='genreField'>";
+		foreach($genreArray as $index => $value) {
+		echo "<option>$value</option>";
+		}			
+		echo "</select></td>		
+		<td><input name='ISBN'/>	
+		<td><input name='Year' id='yearField'/>	
+		<td><input name='Price'/>
+		<td><input name='Author'/>	
+		<td><input name='Pages'/>
+		<td><input name='Description'/>
+		<td><input type='submit' value='Add Book'/>
+		</tr></table>";
+
+//Als Übung: Mit Javascript eingebettet in PHP default Werte setzen
+$date = date("m.d.Y"); 
+$value = 2014;
+
+echo "<script type='text/javascript'>
+document.getElementById('titleField').setAttribute('value', 'Pflichtfeld');
+				document.getElementById('yearField').setAttribute('value', $value);	
+
+</script>";
+		
+		
+		
+//neue Table mit Auflistung der Bücher oben schon gemacht, aber hier noch um sie auch updaten zu können.
+$titleArray = $mysqli->getTitles();
+		
+echo "<br><br><table border='1'><tr>
+				<td><h2>Delete Titles: </h2></td></tr>";
+	//Für jeden Eintrag in der Buchtabelle nun eine Zeile
+	for($i=0; $i < sizeof($titleArray); $i++) {
+		echo "<tr><td>$titleArray[$i]</td>";
+		echo "<td><form action='$actual_link&cmd=del' method='post'>
+				<input type=submit value='Delete'></input></tr>
+				<input type='hidden' name='titleToDel' value='$titleArray[$i]'></input></form>";
+	}		
+echo "</table>";				
+		
+		
+echo "</div>"; //Ende des Divs für die BookAdministration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
  * LÖSUNG OHNE DB
  */
-echo "<br><br><br><br><br><br><br><br><br><br><br><br><br>";
 $IDArray = array();
 for ($j=1; $j < 8; $j++) {
 	$bought = false;
@@ -102,9 +194,6 @@ for ($j=1; $j < 8; $j++) {
 	
 }	
 	
-
-
-
 
 ?>
 

@@ -33,7 +33,7 @@ function translate($key, $targetLan) {
 				"categorieTitle" => "Our categories are:",
 				"confirmation" => "Confirmation & Checkout",
 				"confirmationMessage" => "Your order has been confirmed",
-				"navigationList" => "Navigationlist",
+				"navigationList" => "Navigationlist"
 		),
 			
 
