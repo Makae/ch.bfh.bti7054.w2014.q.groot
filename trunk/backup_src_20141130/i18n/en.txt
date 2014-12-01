@@ -1,0 +1,76 @@
+"my sexy key":
+"My seggsi Schlüssu {replace_me}"
+
+
+"Title":
+"Title"
+"Author":
+"Author"
+"Description":
+"Beschreibung"
+"Price":
+"Preis"
+"Available":
+"Available"
+"Profile":
+"Profile"
+"Categories":
+"Categories"
+"Home":
+"Home"
+"Shopping Cart":
+"Shopping Cart"
+"Search":
+"Search"
+"Wishlist":
+"Wishlist"
+"About Us":
+"About Us"
+"Support":
+"Support"
+"Contact":
+"Contact"
+
+
+"children's book":
+"children's book"
+"Fantasy":
+"Fantasy"
+"Thriller":
+"Thriller"
+"Horror":
+"Horror"
+"Professions":
+"Professions"
+"Art":
+"Art"
+"Sport":
+"Sport"
+
+"ISBN Number":
+"ISBN Number"
+"Productview":
+"Productview"
+"Year of publication":
+"Year of publication"
+"Currency":
+"Currency"
+"Language":
+"Language"
+"Original language":
+"Original language"
+"Picture":
+"Picture"
+"Type":
+"Type"
+"Version":
+"Version"
+"Genre":
+"Genre"
+"Number of Pages":
+"Number of Pages"
+"Buy":
+"Buy"
+
+"xxxkeyxxx":
+"xxxtranslationxxx"

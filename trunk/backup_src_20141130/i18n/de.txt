@@ -1,0 +1,102 @@
+"Title":
+"Titel"
+
+"Author":
+"Autor"
+
+"Description":
+"Beschreibung"
+
+"Price":
+"Preis"
+
+"Available":
+"Lieferbar"
+
+"Profile":
+"Profil"
+
+"Categories":
+"Kategorien"
+
+"Home":
+"Hauptseite"
+
+"Shopping Cart":
+"Warenkorb"
+
+"Search":
+"Suche"
+
+"Wishlist":
+"Wunschzettel"
+
+"About Us":
+"Impressum"
+
+"Support":
+"Support"
+
+"Contact":
+"Kontakt"
+
+"children's book":
+"Kinderbuch"
+
+"Fantasy":
+"Fantasy"
+
+"Thriller":
+"Krimi"
+
+"Horror":
+"Horror"
+
+"Professions":
+"Berufe"
+
+"Art":
+"Kunst"
+
+"Sport":
+"Sport"
+
+"ISBN Number":
+"ISBN Nummer"
+
+"Productview":
+"Produktansicht"
+
+"Year of publication":
+"Erscheinungsjahr"
+
+"Currency":
+"Währung"
+
+"Language":
+"Sprache"
+
+"Original language":
+"Originalsprache"
+
+"Picture":
+"Bild"
+
+"Type":
+"Typ"
+
+"Version":
+"Version"
+
+"Genre":
+"Genre"
+
+"Number of Pages":
+"Anzahl Seiten"
+
+"Buy":
+"Kaufen"
+
+
+"xxxkeyxxx":
+"xxxtranslationxxx"

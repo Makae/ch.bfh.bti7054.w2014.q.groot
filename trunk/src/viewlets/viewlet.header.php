@@ -22,7 +22,6 @@
     //checks if the user and password is correct
     public function login($user=false,$password=false){
 
-
         $user = isset($_POST['Loginname']) ? $_POST['Loginname'] : $user ;
         $password = isset($_POST['Password']) ? $_POST['Password'] : $password ;
         return UserHandler::instance()->login($user, $password);
@@ -87,7 +86,7 @@
 
 
 //Searchbar
-$html .= '<form id="search">
+$html .= '<form id="search" method="POST">
         '.$selectBoxHtml.'
         <input type="hidden" name="view" value="search" />
         <input type="text" name="query" id="query" />
