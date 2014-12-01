@@ -97,7 +97,10 @@
       static::_initTable();
       static::_validateColumns($conditions);
       $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, array('id'));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4dee4ac489d10dcc474e563b617d36290fc1e080
       return static::childInstance($data['id']);
     }
 
