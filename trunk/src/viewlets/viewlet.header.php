@@ -22,7 +22,7 @@
     //checks if the user and password is correct
     public function login($user=false,$password=false){
 
-var_dump($_POST);
+//var_dump($_POST);
         $user = isset($_POST['Loginname']) ? $_POST['Loginname'] : $user ;
         $password = isset($_POST['Password']) ? $_POST['Password'] : $password ;
         return UserHandler::login($user, $password);
@@ -85,12 +85,10 @@ var_dump($_POST);
   </a>
   ';
 
-<<<<<<< Updated upstream
+
 //Searchbar
-$html .= '<form id="search">
-=======
+//$html .= '<form id="search">';
 $html .= '<form id="search" method="POST">
->>>>>>> Stashed changes
         '.$selectBoxHtml.'
         <input type="hidden" name="view" value="search" />
         <input type="text" name="query" id="query" />
