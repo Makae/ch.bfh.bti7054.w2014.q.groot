@@ -6,16 +6,30 @@
 function alerting() {
 	window.alert("TEST");
 }
-
-
 </script>
 
+<!-- session_start(); nicht nötig, da index.php die session bereits startet-->
 
 </head>
 <body>
-<?php
 
-session_start();
+Ihre Bestellung wurde aufgenommen und wird von uns bearbeitet.
+
+<?php
+//Das Cartobjekt das mitkam
+$cart = $_SESSION["cart"];
+$mysqli = $_SESSION["db"];
+$cart->getUserID();
+
+//Damit ein Order generieren, worauf man dann mit den Positionen referenziert: addOrder($userid, $shipping, $payment, $notes)
+$mysqli->addOrder();
+
+
+
+//Bauen der einzelnen Positionen:
+
+
+
 include_once 'dictionary.php';
 include_once 'utility.php';
 $lan = getCurrentLanguage();
@@ -27,12 +41,6 @@ echo "Ausgewählte Form: <br>";
 echo "Ausgewählte Zahlungsart: <br>";
 echo "Ausgewählte Versandart:<br>";
 
-echo "Vorname: <br>";
-echo "Nachname: <br>";
-echo "Strasse:<br>";
-echo "Nummer:<br>";
-echo "City:<br>";
-echo "Land:<br>";
 
 echo "Ihr Kommentar:<br><br>";
 
@@ -40,17 +48,11 @@ echo "</div>";
 
 echo "<div class='values'>";
 echo $_SESSION['infos']["shape"]."<br>";
-echo $_SESSION['infos']["payMethod"]."<br>";
-echo $_SESSION['infos']["delivery"]."<br>";
+// echo $_SESSION['infos']["payMethod"]."<br>";
+// echo $_SESSION['infos']["delivery"]."<br>";
 
-echo $_POST['firstname']."<br>";
-echo $_POST['lastname']."<br>";
-echo $_POST['streetname']."<br>";
-echo $_POST['streetnr']."<br>";
-echo $_POST['city']."<br>";
-echo $_POST['country']."<br>";
 
-echo $_SESSION['infos']["comment"]."<br>";
+// echo $_SESSION['infos']["comment"]."<br>";
 
 echo "</div>";
 

@@ -32,6 +32,7 @@ function getCurrentView() {
 }
 
 function openRequestedView() {
+
 	if(isset($_GET['view']))
 	include_once urlencode($_GET['view']).".php"; //Bsp. view = infoCall -> include_once infoCall.php
 	else

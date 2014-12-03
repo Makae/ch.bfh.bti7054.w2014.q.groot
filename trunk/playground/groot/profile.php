@@ -10,33 +10,51 @@
 <?php
 include_once ('dictionary.php');
 
-if(isset($_GET["lan"])) $lan = $_GET["lan"];
-	else $lan = "de";
-	
-	
+$lan = getCurrentLanguage();
+
+$mysqli = new grootDB();
+
 echo '<p id="contentTitle">';
-echo translate("profileText", $lan);
+echo translate("profileText", $lan)."</p>";
+
+if(isset($_SESSION["userInfo"])) {
+	//Dann zeige das Profil an, weil man da schon angemeldet ist
+	echo "Willkommen: ". $_SESSION["userInfo"]["username"];
+	echo "<br><br><h3>Angaben zu deinem Profil: </h3><br>";
+	echo "Vorname: <br>";
+	echo "Nachname: <br>";
+	
+	echo "<input type='submit' value='Save changed values'>";
+}
+	
+
+else {
+
+echo "<br><br>Melden sie sich an, oder erstellen sie ein neues Profil.";
+
+//Login
+echo "<form action='index.php?view=profile&lan=$lan' method='post'>";
+echo "<br><br>Username:<input name='username'/> Password: <input name='password'/>";
+echo "<input type='submit' value='Log In'/></form>";
+
+//Erstellen eines neuen Profils
+
+echo "<br><br><h3>Erstellen sie ein neues Profil:</h3>";
+
+//Login
+echo "<form action='index.php?view=newProfile&lan=$lan' method='post'>";
+echo "<br><br>Username:<input name='new_username'/><br><br> Password: <input name='new_pw'/><br><br>";
+echo "	Forename:<input name='forename'/><br><br> Surename: <input name='surename'/><br><br>";
+echo "<input type='submit' value='Create profile'/>";
+
+}
+
 
 
 ?>
 
-<div class="formData">
 
 
-<h3><br> Infos zu ihrere Person </h3>
-<form action="profilForm.php" method ="get"> 
-
-  First name: <input type="text" value="blabla" name="firstname"><br>
-  Last name: <input type="text" name="lastname"> <br>
- Birthday: <input type="text" name="birthday"> <br> 
-  Nationality: <input type="text" name="nationality"> <br>
-  
-  <input type="radio" name="age" value="age_1">not from Hydra <br/><br>
-  <input type ="submit" value="Submit"/>
-  
-</form> 
-
-</div>
 
 </body>
 

@@ -3,8 +3,7 @@
  * AUTOLOAD !!!! Das muss bereits hier geschehen in meinem index File weil:
  * Wenn das erste Mal ein Produkt gekauft wird, wird beim Wechsel zur addToCart.php die Session["cart"] Variable geschrieben.
  * Wenn man dann zu den produkten zurückkehrt und noch ein Produkt auswählt, ist diese Variable gesetzt, aber sie muss auch ausgelesen werden
- * können und hier kommt das Problem:
- * !!!!!!!!!!!! Vor dem Session Start müssen die Klassen eingebunden werden !!!!!!!!!!!!!!!!!!
+ * können und hier kommt das Problem: * !!!!!!!!!!!! Vor dem Session Start müssen die Klassen eingebunden werden !!!!!!!!!!!!!!!!!!
  * Und da ich mein Session_Start immer im index.php habe und nicht im addToCart, muss das Index die Klassen laden
  */
 function __autoload($class_name) {				
@@ -12,25 +11,29 @@ function __autoload($class_name) {
 }
 
 session_start();
-
-
 $pageRebuild = false;
+$loggedIn = false;
+$mysqli = new grootDB();
+
+if(isset($_SESSION["userInfo"])) {
+	$loggedIn = true;
+}
+
 
 /*Log In / Log Out Procedure */
 
 if(isset($_GET["do"])) {
 	if($_GET["do"]=='logOut')
-		unset($_SESSION["username"]);
-		unset($_SESSION["loggedIn"]);
+		unset($_SESSION["userInfo"]);
+		$loggedIn = false;		
 }
 
-
+//CHECK LOGIN CREDENTIELS
 if(isset($_POST["username"])) {
-	if(checkCredentials($_POST["username"], $_POST["password"])){
-	$_SESSION["username"]=$_POST["username"];
-	$_SESSION["password"]=$_POST["password"];
-	$_SESSION["loggedIn"]=true;
-	} //Wenn ja, die Session Variablen setzen
+	if($mysqli->checkCredentials($_POST["username"], $_POST["password"])){
+	$loggedIn = true;	
+	$_SESSION["userInfo"] = array("username"=>$_POST["username"]);
+	} 
 }
 
 /*END OF Log In / Log Out Procedure */
@@ -46,12 +49,6 @@ $lanID="de";
 if(isset($_GET["lan"])) {			
 	setcookie("language", $_GET["lan"]);
 	$lanID=$_GET["lan"];
-}
-
-function checkCredentials($username, $password) {
-	if($username!="" && $password!="")
-		return true;
-	else return false;
 }
 
 ?>
@@ -81,9 +78,8 @@ else $view = getCurrentView();
 echo "</div>";
 
 echo "<div class='loginFormDiv'>";
-if(isset($_SESSION["loggedIn"])) {
-	echo "Logged in as: ". $_SESSION['username'];
-		
+if($loggedIn) {
+	echo "Logged in as: ". $_SESSION["userInfo"]["username"];
 	echo "<br><a href='index.php?view=$view&lan=$lanID&do=logOut'>Log Out</a>";
 }
 else 
@@ -91,9 +87,9 @@ else
 echo "<form action='index.php?view=$view&lan=$lanID' method='post'>";
 echo "Username: <input name='username'></input>";
 echo "Password <input type='password' name='password'></input>";
-echo "<input type='submit' value='LogIn'></input></form></div>"; //End of Div for LoginUser/PW
+echo "<input type='submit' value='LogIn'></input></form>"; //End of Div for LoginUser/PW
 }
-
+echo "</div>";
     
 ?>   
 </div> 
@@ -150,8 +146,7 @@ echo "</div>";
 <div class="contentArea"> 
 <?php 	
 
-openRequestedView();
-
+	openRequestedView();
 ?>
       
 </div>

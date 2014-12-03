@@ -10,6 +10,7 @@ function __construct() {
 	//sonst noch mit parent::select_db("grootDB"); die gewünschte DB selektieren
 }
 
+
 public function getGenres() {
 	
 	$result = $this->query("SELECT * FROM genre");
@@ -88,22 +89,23 @@ public function getGenres() {
 	
 
 
-	/* ORDERTABLE: Enthält die Bestellungen, die ihrerseits aus verschiedenen Positionen bestehen
-	
-	+----------+--------------+------+-----+---------+----------------+
-	| Field    | Type         | Null | Key | Default | Extra          |
-	+----------+--------------+------+-----+---------+----------------+
-	| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
-	| user_id  | int(11)      | NO   | MUL | NULL    |                |
-	| date     | date         | YES  |     | NULL    |                |
-	| shipping | varchar(15)  | YES  |     | NULL    |                |
-	| payment  | varchar(15)  | YES  |     | NULL    |                |
-	| notes    | varchar(200) | YES  |     | NULL    |                |
-	+----------+--------------+------+-----+---------+----------------+
-	
-	*/
+
 	public function addOrder($userid, $shipping, $payment, $notes) {
-		//INSERT INTO ordertable VALUES(NULL, 1, '2012-12-09', 'traiddn', 'cash', 'lorem'); OHNE FEHLER IN CONSOLE
+		
+		/* ORDERTABLE: Enthält die Bestellungen, die ihrerseits aus verschiedenen Positionen bestehen
+		
+		+----------+--------------+------+-----+---------+----------------+
+		| Field    | Type         | Null | Key | Default | Extra          |
+		+----------+--------------+------+-----+---------+----------------+
+		| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+		| user_id  | int(11)      | NO   | MUL | NULL    |                |
+		| date     | date         | YES  |     | NULL    |                |
+		| shipping | varchar(15)  | YES  |     | NULL    |                |
+		| payment  | varchar(15)  | YES  |     | NULL    |                |
+		| notes    | varchar(200) | YES  |     | NULL    |                |
+		+----------+--------------+------+-----+---------+----------------+
+		
+		*/
 		
 		echo $currentDay = date('Y-m-d');
 		$success = $this->query("INSERT INTO ordertable VALUES(NULL, '$userid', '$currentDay', '$shipping', '$payment', '$notes')");
@@ -119,28 +121,72 @@ public function getGenres() {
 		}
 	}
 	
-	public function addPosition() {
-		
+
+
+	public function addPosition($orderID, $bookID, $amount, $price) {
+		/* position - table:
+		 +----------+---------+------+-----+---------+-------+
+		| Field    | Type    | Null | Key | Default | Extra |
+		+----------+---------+------+-----+---------+-------+
+		| order_id | int(11) | NO   | PRI | NULL    |       |
+		| book_id  | int(11) | NO   | PRI | NULL    |       |
+		| amount   | int(11) | YES  |     | NULL    |       |
+		| price    | float   | YES  |     | NULL    |       |
+		+----------+---------+------+-----+---------+-------+
+		*/
+	
+		$this->query("INSERT INTO position VALUES(", $query);
+	
 	}
 
 
+public function addAccount($username, $password, $fname, $sname) {
+	
+	/*
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(12) | NO   |     | NULL    |                |
+| password | varchar(20) | NO   |     | NULL    |                |
+| fname    | varchar(20) | NO   |     | NULL    |                |
+| sname    | varchar(20) | NO   |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	 */
+	
+	$success = $this->query("INSERT INTO accounts VALUES('$username', '$password', '$fname', '$sname')");
+	
+	
+	if($success) {
+		$this->commit();
+		//echo "Eingetragen";
+	}
+	else {
+		echo "NOK - Fehler:<br>"; //Wenn es einen Fehler beim Eintragen gab, gebe ich diesen mit der geerbten Funktion error aus
+		echo $this->error; //Error ist eine Stringvariable.
+		}
+	}
+	
+public function checkCredentials($username, $password) {
+	
+	$result = $this->query("SELECT password FROM accounts WHERE username='$username'");
+	$pwObject = $result->fetch_object();
+	$pw = $pwObject->password;
+	
+	if($password == $pw) {
+		echo "Auth. OK";
+		return true;
+	}
+	else {
+		echo "Falsches Passwort";
+		echo "Korrekt wäre: ".$pw;
+		return false;
+	}
 }
+	
+}
+
 
 
 

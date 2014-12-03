@@ -6,20 +6,20 @@
 
 <?php
 //session_start(); ist nicht nötig, weil die index.php die Session schon eröffnet hat
-
+$lan = getCurrentLanguage();
 $cart = new ShoppingCart();
 $cart = $_SESSION["cart"];
 
 $cart->display();
 
 
-echo "add Order";
 $mysqli = new grootDB('localhost', 'root', '', 'grootDB');
+$_SESSION["db"] = $mysqli;
 
-//Test ob schon Order gemacht werden kann:
-$mysqli->addOrder(3, "TEST", "Sonntagspost", "Kommentar vom Sonntag");
+//Dieses Form übergibt die notwendigen Informationen über Post. Die Informationen aus dem ShoppingCart bleiben im Cart Objekt in der SessionVariable und werden
+//im nächsten Screen, dem "confirmation"-Screen wo auch die Order/Position Objekte gebaut werden ausgelesen
 
-//Hier nun die Optionen angeben und nachdem man auf Buy geklickt hat, den Eintrag in der Order DB machen und Positionen dazu erstellen
+echo "<form action='index.php?view=confirmation&lan=$lan' method='post'>";
 
 echo "<h2>Shipping<br></h2>
 <input type='radio' name='radio_list[]' value='Standard' checked='checked'>Standard</input><br>
@@ -38,8 +38,17 @@ echo '<textarea name="comments" rows=5 cols=80 placeholder="Insert your comment 
 
 echo "<br><br>";
 echo "If you have completed the necessary informations click on the  \"Confirm-\"Button in order to proceed to the checkout.<br><br>";
+
+//Form mit action, welches die Confirmation Site anzeigt, die auch die nötigen Scripts ausführt
+
 echo "<input type='submit' onclick='return nextValidation()' value='FINISH ORDER'></input>";
-echo " Durch klicken auf diesen Button wird die Bestellung ausgelöst.";
+echo "Durch klicken auf diesen Button wird die Bestellung ausgelöst.</form>";
+
+//Beim Klick auf Finish Order, wird
+//1. Eine Order erstellt und danach werden die einzelnen Positionen erstellt und mit dem Fremdschlüssel auf die OrderID
+//Dazu w
+
+
 
 
 ?>

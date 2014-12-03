@@ -22,7 +22,7 @@ echo "<br><button onClick=\"self.location='index.php?view=products'\">Back to pr
 <?php
 $lan = $_COOKIE["language"];
 
-
+//Wenn noch nichts im Warenkorb ist, wird ein neuer Warenkorb erstellt
 if(!isset($_SESSION["cart"])) {
 	$_SESSION["cart"] = new ShoppingCart;
 }
@@ -37,12 +37,16 @@ else if (isset($_POST["cleanCart"])) {
 	$_SESSION["cart"]->emptyCart();
 }
 
+//Wenn schon ein Warenkorb existiert, wird das Produkt, welches über die POST Variable "productID" kam zum Cart hinzugefügt
 else { 
 	echo "Neues Produkt hinzugefügt:<br>";
 	echo $_SESSION["cart"]->addItem($_POST["productID"], $_POST["price"], $_POST["quantity"]); 
 	//Noch den Preis hinzufügen - nun wohl besser mit Item arbeiten
 	
 }
+
+
+
 
 echo $_SESSION["cart"]->display();
 
