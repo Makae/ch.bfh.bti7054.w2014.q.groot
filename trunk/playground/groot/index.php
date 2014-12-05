@@ -15,6 +15,7 @@ $pageRebuild = false;
 $loggedIn = false;
 $mysqli = new grootDB();
 
+//Wenn ein Benutzer angemeldet ist, wäre das SessionCookie "UserInfo" gesetzt:
 if(isset($_SESSION["userInfo"])) {
 	$loggedIn = true;
 }

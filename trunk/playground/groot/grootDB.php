@@ -108,7 +108,7 @@ public function getGenres() {
 		*/
 		
 		echo $currentDay = date('Y-m-d');
-		$success = $this->query("INSERT INTO ordertable VALUES(NULL, '$userid', '$currentDay', '$shipping', '$payment', '$notes')");
+		$success = $this->query("INSERT INTO ordertable VALUES(NULL, '1', '$currentDay', '$shipping', '$payment', '$notes')");
 
 				
 		if($success) {
@@ -170,7 +170,10 @@ public function addAccount($username, $password, $fname, $sname) {
 	
 public function checkCredentials($username, $password) {
 	
+	echo "übergebenes user/pw combo:".$username . " ". $password;
 	$result = $this->query("SELECT password FROM accounts WHERE username='$username'");
+	echo "NOK";
+	
 	$pwObject = $result->fetch_object();
 	$pw = $pwObject->password;
 	

@@ -8,9 +8,17 @@ class ShoppingCart {
 	const classInfo = "WARENKORB";
 	private	$items = array();
 	private $totalPrice=0;
+	private $userID = "";
 
 	public function doit() {
 		return true;
+	}
+	
+	public function getUserID() {
+		return $this->userID; }
+		
+	public function setUserID($userID) {
+		$this->userID = $userID;
 	}
 	
 	//Add a ShoppingcartItem - Einfach Items aus einer Klasse zu machen als multidimensinale Arrays zu bruachen

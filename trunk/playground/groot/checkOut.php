@@ -41,7 +41,7 @@ echo "If you have completed the necessary informations click on the  \"Confirm-\
 
 //Form mit action, welches die Confirmation Site anzeigt, die auch die nötigen Scripts ausführt
 
-echo "<input type='submit' onclick='return nextValidation()' value='FINISH ORDER'></input>";
+echo "<input type='submit' value='FINISH ORDER'></input>";
 echo "Durch klicken auf diesen Button wird die Bestellung ausgelöst.</form>";
 
 //Beim Klick auf Finish Order, wird
