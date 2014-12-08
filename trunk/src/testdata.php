@@ -7,20 +7,15 @@
 //Delete all tables if Request is clear_tables, for test purpuses
 //TODO if you go live, delete this part.
   $db = Core::instance()->getDb();
-  if(isset($_REQUEST['clear_tables']) && $_REQUEST['clear_tables'] == true) {
+  //if(isset($_REQUEST['clear_tables']) && $_REQUEST['clear_tables'] == true) {
     $db->drop('user');
     $db->drop('book');
     $db->drop('order');
     $db->drop('position');
     $db->drop('genre');
     $db->drop('type');
-  }
+ // }
 
-  TypeModel::create(array(
-      'id' => 'Taschenbuch2',
-      'key' => 'Taschenbuch2',
-      'name' => 'Taschenbuch2'
-    ));
 
 //Check if there is the user Table, if not, create some entries
   if(!$db->tableExists('user')) {
@@ -691,128 +686,128 @@ Neu bei Amazon.de: Der Gartenkalender für einen schnellen Überblick jeden Mona
 //Check if there is the type Table, if not, create some entries
 if(!$db->tableExists('type')) {
   TypeModel::create(array(
-      'id' => 'alpha',
       'key' => 'alpha',
-      'name' => 'de'
+      'name' => 'de',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'alpha_fr',
       'key' => 'alpha',
-      'name' => 'fr'
+      'name' => 'fr',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'beta',
       'key' => 'beta',
-      'name' => 'de'
+      'name' => 'de',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'gamma',
       'key' => 'gamma_fr',
-      'lang' => 'fr'
+      'lang' => 'fr',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'Taschenbuch',
       'key' => 'Taschenbuch',
-      'name' => 'Taschenbuch'
+      'name' => 'Taschenbuch',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'Hörspiel',
       'key' => 'Hörspiel',
-      'name' => 'Hörspiel'
+      'name' => 'Hörspiel',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'E-Book',
       'key' => 'E-Book',
-      'name' => 'E-Book'
+      'name' => 'E-Book',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'Hardcover',
       'key' => 'Hardcover',
-      'name' => 'Hardcover'
+      'name' => 'Hardcover',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'Prospekt',
       'key' => 'Prospekt',
-      'name' => 'Prospekt'
+      'name' => 'Prospekt',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'Comic',
       'key' => 'Comic',
-      'name' => 'Comic'
+      'name' => 'Comic',
+      'lang' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'Heft',
       'key' => 'Heft',
-      'name' => 'Heft'
+      'name' => 'Heft',
+      'lang' => 'de'
     ));
   }
 
 
 if(!$db->tableExists('genre')) {
     GenreModel::create(array(
-      'id' => 'Wissenschaft',
       'key' => 'Wissenschaft',
-      'name' => 'Wissenschaft'
+      'name' => 'Wissenschaft',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Fantasy',
       'key' => 'Fantasy',
-      'name' => 'Fantasy'
+      'name' => 'Fantasy',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Krimi',
       'key' => 'Krimi',
-      'name' => 'Krimi'
+      'name' => 'Krimi',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Kinderbuch',
       'key' => 'Kinderbuch',
-      'name' => 'Kinderbuch'
+      'name' => 'Kinderbuch',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Horror',
       'key' => 'Horror',
-      'name' => 'Horror'
+      'name' => 'Horror',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Kunst',
       'key' => 'Kunst',
-      'name' => 'Kunst'
+      'name' => 'Kunst',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Sport',
       'key' => 'Sport',
-      'name' => 'Sport'
+      'name' => 'Sport',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Roman',
       'key' => 'Roman',
-      'name' => 'Roman'
+      'name' => 'Roman',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Comic',
       'key' => 'Comic',
-      'name' => 'Comic'
+      'name' => 'Comic',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Reisen',
       'key' => 'Reisen',
-      'name' => 'Reisen'
+      'name' => 'Reisen',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Geografie',
       'key' => 'Geografie',
-      'name' => 'Geografie'
+      'name' => 'Geografie',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Fachliteratur',
       'key' => 'Fachliteratur',
-      'name' => 'Fachliteratur'
+      'name' => 'Fachliteratur',
+      'lang' => 'de'
     ));
     GenreModel::create(array(
-      'id' => 'Kochen',
       'key' => 'Kochen',
-      'name' => 'Kochen'
+      'name' => 'Kochen',
+      'lang' => 'de'
     ));
   }
 
