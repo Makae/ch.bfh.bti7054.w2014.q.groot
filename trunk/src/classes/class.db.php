@@ -12,6 +12,7 @@
     protected $user = null;
     protected $pwd = null;
     protected $db = null;
+    // Prevents executing the create table method if the table was already created
     protected $table_cache = array();
     /*
       @trivia: connection to the database, it is necessary for

@@ -17,6 +17,10 @@
       return null;
     }
 
+    public function ajaxBooklist() {
+      return "lol";
+    }
+
     public function process() {
       // Here comes the processing of the field-parameters
     }

@@ -64,6 +64,7 @@
   ';
 */
   #create selectbox from array
+  //GenreModel::distinct('key');
   $selectBox[] = array("value" => "1", "label" => "Fantasy" );
   $selectBox[] = array("value" => "2", "label" => "Horror" );
   $selectBox[] = array("value" => "3", "label" => "Thriller" );

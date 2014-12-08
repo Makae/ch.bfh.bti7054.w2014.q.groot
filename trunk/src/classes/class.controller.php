@@ -105,8 +105,8 @@
     */
     public function render() {
       if($this->isAjaxRequest()) {
-        $response = $this->renderAjax();
         header('Content-Type: text/json; charset=utf-8');
+        $response = $this->renderAjax();
         return $response;
       }
 

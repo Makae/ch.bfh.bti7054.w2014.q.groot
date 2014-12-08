@@ -7,7 +7,7 @@
 //Delete all tables if Request is clear_tables, for test purpuses
 //TODO if you go live, delete this part.
   $db = Core::instance()->getDb();
-  if(isset($_REQUEST['clear_tables']) && $_REQUEST['clear_tables'] == true) {
+  //if(isset($_REQUEST['clear_tables']) && $_REQUEST['clear_tables'] == true) {
     $db->drop('user');
     $db->drop('book');
     $db->drop('order');
@@ -15,7 +15,7 @@
     $db->drop('genre');
     $db->drop('bookgenre');
     $db->drop('type');
-  }
+ // }
 
   TypeModel::create(array(
       'key' => 'Taschenbuch2',
@@ -690,49 +690,26 @@ Neu bei Amazon.de: Der Gartenkalender für einen schnellen Überblick jeden Mona
 
 //Check if there is the type Table, if not, create some entries
 if(!$db->tableExists('type')) {
-  TypeModel::create(array(
-      'key' => 'alpha',
-      'name' => 'de'
+    TypeModel::create(array(
+      'key' => 'pocketbook'
     ));
     TypeModel::create(array(
-      'key' => 'alpha',
-      'name' => 'fr'
+      'key' => 'audio_book'
     ));
     TypeModel::create(array(
-      'key' => 'beta',
-      'name' => 'de'
+      'key' => 'ebook'
     ));
     TypeModel::create(array(
-      'key' => 'gamma_fr',
-      'lang' => 'fr'
+      'key' => 'hard_cover'
     ));
     TypeModel::create(array(
-      'key' => 'Taschenbuch',
-      'name' => 'Taschenbuch'
+      'key' => 'leaflet'
     ));
     TypeModel::create(array(
-      'key' => 'Hörspiel',
-      'name' => 'Hörspiel'
+      'key' => 'comic'
     ));
     TypeModel::create(array(
-      'key' => 'E-Book',
-      'name' => 'E-Book'
-    ));
-    TypeModel::create(array(
-      'key' => 'Hardcover',
-      'name' => 'Hardcover'
-    ));
-    TypeModel::create(array(
-      'key' => 'Prospekt',
-      'name' => 'Prospekt'
-    ));
-    TypeModel::create(array(
-      'key' => 'Comic',
-      'name' => 'Comic'
-    ));
-    TypeModel::create(array(
-      'key' => 'Heft',
-      'name' => 'Heft'
+      'key' => 'booklet'
     ));
   }
 
@@ -740,56 +717,43 @@ if(!$db->tableExists('type')) {
 if(!$db->tableExists('genre')) {
 
     GenreModel::create(array(
-      'key' => 'Wissenschaft',
-      'name' => 'Wissenschaft'
+      'key' => 'Wissenschaft'
     ));
     GenreModel::create(array(
-      'key' => 'Fantasy',
-      'name' => 'Fantasy'
+      'key' => 'fantasy'
     ));
     GenreModel::create(array(
-      'key' => 'Krimi',
-      'name' => 'Krimi'
+      'key' => 'crime'
     ));
     GenreModel::create(array(
-      'key' => 'Kinderbuch',
-      'name' => 'Kinderbuch'
+      'key' => 'childrens_book'
     ));
     GenreModel::create(array(
-      'key' => 'Horror',
-      'name' => 'Horror'
+      'key' => 'horror'
     ));
     GenreModel::create(array(
-      'key' => 'Kunst',
-      'name' => 'Kunst'
+      'key' => 'art'
     ));
     GenreModel::create(array(
-      'key' => 'Sport',
-      'name' => 'Sport'
+      'key' => 'sports'
     ));
     GenreModel::create(array(
-      'key' => 'Roman',
-      'name' => 'Roman'
+      'key' => 'roman'
     ));
     GenreModel::create(array(
-      'key' => 'Comic',
-      'name' => 'Comic'
+      'key' => 'comic'
     ));
     GenreModel::create(array(
-      'key' => 'Reisen',
-      'name' => 'Reisen'
+      'key' => 'travelling'
     ));
     GenreModel::create(array(
-      'key' => 'Geografie',
-      'name' => 'Geografie'
+      'key' => 'geographic'
     ));
     GenreModel::create(array(
-      'key' => 'Fachliteratur',
-      'name' => 'Fachliteratur'
+      'key' => 'professional_literature'
     ));
     GenreModel::create(array(
-      'key' => 'Kochen',
-      'name' => 'Kochen'
+      'key' => 'cooking'
     ));
   }
 
