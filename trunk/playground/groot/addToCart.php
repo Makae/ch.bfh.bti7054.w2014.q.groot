@@ -22,9 +22,19 @@ echo "<br><button onClick=\"self.location='index.php?view=products'\">Back to pr
 <?php
 $lan = $_COOKIE["language"];
 
-//Wenn noch nichts im Warenkorb ist, wird ein neuer Warenkorb erstellt
+// if(isset($_COOKIE["ShoppingCart"])) {
+	
+// 	$shoppingCart = unserialize($_COOKIE["ShoppingCart"]);
+// 	echo "Deserialisiert! Ihr ShoppingCart vom letzten Besuch:";
+// 	$_SESSION["cart"] = $shoppingCart;
+// 	$_SESSION["cart"]->display();
+// }
+
+//Wenn noch nichts im Warenkorb ist, wird ein neuer Warenkorb erstellt + das Cookie auf dem Client angelegt mit dem Inhalt des Warenkorbs
 if(!isset($_SESSION["cart"])) {
 	$_SESSION["cart"] = new ShoppingCart;
+	setcookie("ShoppingCart", serialize($_SESSION["cart"]), time()+3000);
+	
 }
 
 if(isset($_POST["delete"])) {
@@ -41,8 +51,10 @@ else if (isset($_POST["cleanCart"])) {
 else { 
 	echo "Neues Produkt hinzugefügt:<br>";
 	echo $_SESSION["cart"]->addItem($_POST["productID"], $_POST["price"], $_POST["quantity"]); 
-	//Noch den Preis hinzufügen - nun wohl besser mit Item arbeiten
 	
+	setcookie("ShoppingCart", serialize($_SESSION["cart"]), time()+3000);
+	echo "<br>gespeichert in lokalem cookie. Ausgabe des Lokalen Cookies:<br>";
+	unserialize($_COOKIE["ShoppingCart"])->display();
 }
 
 

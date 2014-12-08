@@ -15,6 +15,17 @@ if(isset($_GET["lan"])) $lan = $_GET["lan"];
 echo '<p id="contentTitle">';
 echo translate("welcome", $lan);
 
+$client = new SoapClient("http://www.webservicex.net/geoipservice.asmx?WSDL"); 
+
+//Im Beschrieb steht des SOAP Request steht: <IPAddress>string</IPAddress>
+//XML-Element= Identifiere in einem associated Array und der Value zu diesem Index im Array entspricht dann der TextValue
+
+//Das Resultset besitzt als Attribute die Elemente
+$result = $client->GetGeoIP(array("IPAddress" => "83.251.30.62")); //change was made here
+
+echo "<br>Die IP:83.251.30.62 kommt aus: ";
+echo $result->GetGeoIPResult->CountryName ." mit dem Countrycode: ".$result->GetGeoIPResult->CountryCode;
+
 
 //echo "<a href=\"".add_param($url,"lan","en")."\">EN</a> ";
 

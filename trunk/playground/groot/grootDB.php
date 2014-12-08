@@ -171,7 +171,7 @@ public function addAccount($username, $password, $fname, $sname) {
 public function checkCredentials($username, $password) {
 	
 	echo "übergebenes user/pw combo:".$username . " ". $password;
-	$result = $this->query("SELECT password FROM accounts WHERE username='$username'");
+	$result = $this->query("SELECT password FROM user WHERE username='$username'");
 	echo "NOK";
 	
 	$pwObject = $result->fetch_object();

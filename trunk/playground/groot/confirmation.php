@@ -40,6 +40,7 @@ else {
 	
 if(isset($_POST["user"])) {
 	if($mysqli->checkCredentials($_POST["user"], $_POST["pw"])) {
+			echo "Credentials ok";
 			$loggedIn = true;
 			$_SESSION["userInfo"] = array("username"=>$_POST["user"]);
 			$userArray = $_SESSION["userInfo"];
