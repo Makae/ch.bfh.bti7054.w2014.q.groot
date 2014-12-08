@@ -12,6 +12,7 @@
     protected $user = null;
     protected $pwd = null;
     protected $db = null;
+    protected $table_cache = array();
     /*
       @trivia: connection to the database, it is necessary for
                php to clearly identify which requests has to be sent where
@@ -221,6 +222,9 @@
              $primary_column : String, name of the column which has the primary key
     */
     public function createTable($table, $columns=null, $add_id_column=true, $primary_column=false) {
+      if(in_array($table, $this->table_cache))
+        return;
+
       $template = 'CREATE TABLE IF NOT EXISTS {%table%} ({%columns%} {%primary_key%}) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;' ;
 
       $columns = !is_array($columns) ? array() : $columns;
@@ -241,6 +245,7 @@
       ));
 
       $this->query($query);
+      $this->table_cache[] = $table;
     }
 
 

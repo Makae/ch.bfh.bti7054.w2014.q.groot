@@ -13,11 +13,11 @@
     $db->drop('order');
     $db->drop('position');
     $db->drop('genre');
+    $db->drop('bookgenre');
     $db->drop('type');
   }
 
   TypeModel::create(array(
-      'id' => 'Taschenbuch2',
       'key' => 'Taschenbuch2',
       'name' => 'Taschenbuch2'
     ));
@@ -691,57 +691,46 @@ Neu bei Amazon.de: Der Gartenkalender für einen schnellen Überblick jeden Mona
 //Check if there is the type Table, if not, create some entries
 if(!$db->tableExists('type')) {
   TypeModel::create(array(
-      'id' => 'alpha',
       'key' => 'alpha',
       'name' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'alpha_fr',
       'key' => 'alpha',
       'name' => 'fr'
     ));
     TypeModel::create(array(
-      'id' => 'beta',
       'key' => 'beta',
       'name' => 'de'
     ));
     TypeModel::create(array(
-      'id' => 'gamma',
       'key' => 'gamma_fr',
       'lang' => 'fr'
     ));
     TypeModel::create(array(
-      'id' => 'Taschenbuch',
       'key' => 'Taschenbuch',
       'name' => 'Taschenbuch'
     ));
     TypeModel::create(array(
-      'id' => 'Hörspiel',
       'key' => 'Hörspiel',
       'name' => 'Hörspiel'
     ));
     TypeModel::create(array(
-      'id' => 'E-Book',
       'key' => 'E-Book',
       'name' => 'E-Book'
     ));
     TypeModel::create(array(
-      'id' => 'Hardcover',
       'key' => 'Hardcover',
       'name' => 'Hardcover'
     ));
     TypeModel::create(array(
-      'id' => 'Prospekt',
       'key' => 'Prospekt',
       'name' => 'Prospekt'
     ));
     TypeModel::create(array(
-      'id' => 'Comic',
       'key' => 'Comic',
       'name' => 'Comic'
     ));
     TypeModel::create(array(
-      'id' => 'Heft',
       'key' => 'Heft',
       'name' => 'Heft'
     ));
@@ -749,72 +738,194 @@ if(!$db->tableExists('type')) {
 
 
 if(!$db->tableExists('genre')) {
+
     GenreModel::create(array(
-      'id' => 'Wissenschaft',
       'key' => 'Wissenschaft',
       'name' => 'Wissenschaft'
     ));
     GenreModel::create(array(
-      'id' => 'Fantasy',
       'key' => 'Fantasy',
       'name' => 'Fantasy'
     ));
     GenreModel::create(array(
-      'id' => 'Krimi',
       'key' => 'Krimi',
       'name' => 'Krimi'
     ));
     GenreModel::create(array(
-      'id' => 'Kinderbuch',
       'key' => 'Kinderbuch',
       'name' => 'Kinderbuch'
     ));
     GenreModel::create(array(
-      'id' => 'Horror',
       'key' => 'Horror',
       'name' => 'Horror'
     ));
     GenreModel::create(array(
-      'id' => 'Kunst',
       'key' => 'Kunst',
       'name' => 'Kunst'
     ));
     GenreModel::create(array(
-      'id' => 'Sport',
       'key' => 'Sport',
       'name' => 'Sport'
     ));
     GenreModel::create(array(
-      'id' => 'Roman',
       'key' => 'Roman',
       'name' => 'Roman'
     ));
     GenreModel::create(array(
-      'id' => 'Comic',
       'key' => 'Comic',
       'name' => 'Comic'
     ));
     GenreModel::create(array(
-      'id' => 'Reisen',
       'key' => 'Reisen',
       'name' => 'Reisen'
     ));
     GenreModel::create(array(
-      'id' => 'Geografie',
       'key' => 'Geografie',
       'name' => 'Geografie'
     ));
     GenreModel::create(array(
-      'id' => 'Fachliteratur',
       'key' => 'Fachliteratur',
       'name' => 'Fachliteratur'
     ));
     GenreModel::create(array(
-      'id' => 'Kochen',
       'key' => 'Kochen',
       'name' => 'Kochen'
     ));
   }
+
+  if(!$db->tableExists('bookgenre')) {
+    BookGenreModel::create(array(
+        'book_id' => 0,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 1,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 2,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 3,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 4,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 5,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 6,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 8,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 9,
+        'genre_id' => 0
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 10,
+        'genre_id' => 0
+    ));
+
+
+    BookGenreModel::create(array(
+        'book_id' => 10,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 11,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 12,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 13,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 14,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 15,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 16,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 18,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 19,
+        'genre_id' => 1
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 20,
+        'genre_id' => 1
+    ));
+
+    BookGenreModel::create(array(
+        'book_id' => 20,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 21,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 22,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 23,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 24,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 25,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 26,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 28,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 29,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 30,
+        'genre_id' => 2
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 31,
+        'genre_id' => 3
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 32,
+        'genre_id' => 3
+    ));
+}
 
 if(!$db->tableExists('order')) {
   OrderModel::create(array(
