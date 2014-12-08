@@ -22,7 +22,6 @@
     }
 
     private function _getSearchResult($str, $category) {
-
       $result = Core::instance()->getDb()->searchBooks($str, $category);
     }
 

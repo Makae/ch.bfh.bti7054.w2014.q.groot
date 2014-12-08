@@ -344,15 +344,15 @@
         return '';
 
       if(is_string($col))
-        return $this->_esc($col);
+        return '`' . $this->_esc($col) . '`';
 
       if(count($col) == 0)
         return '';
 
       if(count($col) == 1)
-        return $this->_esc($col[0]);
+        return '`' . $this->_esc($col[0]) . '`';
 
-      return $this->_esc($col[0] . ' ' . $col[1]);
+      return '`' . $this->_esc($col[0]). '` ' . $this->_esc($col[1]);
     }
 
     /*
