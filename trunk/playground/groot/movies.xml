@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<movies>
+  <movie>
+    <title>Star Trek</title>
+    <characters>
+      <character>
+        <name>Captain James T. Kirk</name>
+        <actor>William Shatner</actor>
+      </character>
+      <character>
+        <name>Mr. Spock</name>
+        <actor>Leonard Nimoy</actor>
+      </character>
+    </characters>
+    <plot> When a destructive space entity is spotted approaching Earth, Admiral Kirk resumes command of the Starship Enterprise in order to intercept, examine, and hopefully stop it.</plot>
+    <rating type="thumbs">7</rating>
+    <rating type="stars">5</rating>
+  </movie>
+  <movie>
+    <title>Star Wars</title>
+    <characters>
+      <character>
+        <name>Luke Skywalker</name>
+        <actor>Mark Hamill</actor>
+      </character>
+      <character>
+        <name>Han Solo</name>
+        <actor>Harrison Ford</actor>
+      </character>
+    </characters>
+    <plot> Luke Skywalker leaves his home planet, teams up with other rebels, and tries to save Princess Leia from the evil clutches of Darth Vader.</plot>
+    <rating type="thumbs">8</rating>
+    <rating type="stars">7</rating>
+  </movie>
+</movies>
