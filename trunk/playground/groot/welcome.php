@@ -50,6 +50,18 @@ while ($person = $res->fetch_object()) {
 }
 
 
+$movies = simplexml_load_file("movies.xml"); 
+$newMovie=$movies->addChild("checksum", "test"); 
+//$newMovie->addChild("title", "Lord of the Rings"); 
+
+echo $movies->checksum;
+
+    foreach ($movies->movie as $movie) 
+      echo "<h3>".$movie->title."</h3>"; 
+echo $movies->asXML();
+
+
+
 
 ?>
 </body>
