@@ -1,0 +1,16 @@
+{if condition="isset($title)"}
+  {$title}
+{/if}
+<ul class="showcase style-{$style} row">
+{for array="$books"}
+  <li class="col col_3_12">
+    <a href="?view=productdetail&id={$value.id}" class="">
+      <img src="{$value.cover}" class="cover" />
+      <div class="overlay stdanimation1_2">
+        <h4>{$value.title}</h4>
+        <div class="author">{$value.author}</div>
+      </div>
+    </a>
+  </li>
+{/for}
+</ul>

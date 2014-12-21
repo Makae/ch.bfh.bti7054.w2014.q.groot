@@ -75,7 +75,7 @@
 
       extract($args);
       ob_start();
-      require_once($tmp_path);
+      require($tmp_path);
       $html = ob_get_clean();
       return $html;
     }
@@ -181,10 +181,10 @@
 
     private function _replaceForClose($html, $position, $tmpl_for, $depth) {
       $php_for = '<?php } ' .
-                 '  $key = $_key' . $depth . ';' .
-                 '  $value = $_value' . $depth . ';' .
-                 '  unset($_key' . $depth . ');' .
-                 '  unset($_value' . $depth . ');' .
+                 '  if(isset($_key)) { $key = $_key' . $depth . ';' .
+                 '  unset($_key' . $depth . ');}' .
+                 '  if(isset($_value)) { $value = $_value' . $depth . ';' .
+                 '  unset($_value' . $depth . ');}' .
                  '?>';
       $num = 1;
       $html = str_replace($tmpl_for, $php_for, $html, $num);

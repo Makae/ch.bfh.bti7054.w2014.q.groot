@@ -1,0 +1,8 @@
+- installation manual
+ - berechtigungen für temp-folder von template renderer!
+ - login
+ - was wo ausführen
+ - urls für den aufruf
+- anhand der task was wir gemacht haben
+ - Alles was wir an der Präsentation zeigen muss nicht explizit dokumentiert sein
+- Feature liste

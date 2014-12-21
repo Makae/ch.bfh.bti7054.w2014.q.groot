@@ -1,0 +1,17 @@
+{if condition="isset($title)"}
+  {$title}
+{/if}
+<ul class="book-list style-{$style}">
+{for array="$books"}
+  <li class="row">
+    <div class="col col_2_12 no-padding">
+     <img src="{$value.cover}" class="cover" />
+    </div>
+    <div class="col col_10_12">
+      <h4>{$value.title} - <span class="author">{$value.author}</span></h4>
+      <p>{$value.description}</p>
+      <a href="?view=productdetail&id={$value.id}" class="button button-primary clearfix">{$text_details}</a>
+    </div>
+  </li>
+{/for}
+</ul>

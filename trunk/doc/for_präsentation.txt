@@ -1,0 +1,9 @@
+1. Check out Groot from Github
+2. Create folder groot in htdocs of apache
+3. Create db with name "groot" -> utf8_unicode_ci
+4. Create user for the db "groot"
+5. Set rights for template engine
+
+
+Für die Präsentation:
+- Sequenzdiagramm von einem Beispiel wie der Aufruf einer View vonstatten geht.

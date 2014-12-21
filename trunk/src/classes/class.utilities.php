@@ -21,6 +21,9 @@
       return $text;
     }
 
+    public static function highlight($str, $search, $replace="<span class='highlight'>$0</span>") {
+      return preg_replace('/' . $search .'/i', $replace, $str);
+    }
 
     /*
       @desc: replaces keys in an associative array inside a template with its values
@@ -60,14 +63,14 @@
 
     /**
     * Creates a Selectbox in html with the option and
-    *@author TSCM
-    *@param array - list of option => Values 
+    * @author TSCM
+    *@param array - list of option => Values
     *@return string - html code for a select statement
     */
-    public static function buildSelectbox($array, $selectName) {
+    public static function buildSelectbox($array, $selectName, $activeValue) {
 
 
-      //init string 
+      //init string
       $selectbox_code = "";
       $selectbox_code .= "
         <select name='$selectName'>
@@ -89,10 +92,10 @@
         foreach ($array as $row){
           $row["label"] = i($row["label"]);
           $selectbox_code .= "
-                  <option value='".$row['value']."'>".$row['label']."</option>
+                  <option value='".$row['value']."' " . ($row['value'] == $activeValue ? 'selected="selected"' : '')  . " >".$row['label']."</option>
                 ";
 
-          
+
         }
       $selectbox_code .= "
         </select>
@@ -104,7 +107,7 @@
    /**
     * Creates a Paragraph for each entry in the array and wrap around html
     *@author TSCM
-    *@param multi dim. array - list of products: e.g.  books [] => $key => $valueoption => Values 
+    *@param multi dim. array - list of products: e.g.  books [] => $key => $valueoption => Values
     *@return string - html code for a paragraph list
     */
     public static function buildParagraph($array) {
@@ -112,7 +115,7 @@
       $label1 = "label1";
       $html = "";
       /*
-        
+
 
       */
 
@@ -177,7 +180,7 @@
       $html .=  "<input class=\"hidden input2\" type=\"input\" name=\"$name\" value=\"$value\">";
     }
     return $html;
-    
+
   }
 
 

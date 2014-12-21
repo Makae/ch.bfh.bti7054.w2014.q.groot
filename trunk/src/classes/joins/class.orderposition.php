@@ -1,4 +1,7 @@
 <?php
+  /**
+   * This is experimental / in Dev
+   */
   class OrderPositionJoin extends Join {
     protected static $JOIN_TYPE = 'LEFT';
     protected static $CONFIG_LEFT = array('Order', 'o', 'id');

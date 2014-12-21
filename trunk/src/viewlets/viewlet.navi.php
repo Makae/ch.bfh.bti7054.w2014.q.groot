@@ -24,7 +24,7 @@ public function makeMenu(){
   // mit i übersetzen
   $naviArray[] = array("link" => "index.php?view=home", "icon" => "icon_house_alt", "label" => "Home" );
   $naviArray[] = array("link" => "index.php?view=profile", "icon" => "icon_profile", "label" => "Profile" );
-  $naviArray[] = array("link" => "index.php?view=categories", "icon" => "icon_tag", "label" => "Categories" );
+  $naviArray[] = array("link" => "index.php?view=genres", "icon" => "icon_tag", "label" => "Genres" );
   $naviArray[] = array("link" => "index.php?view=shoppingcart", "icon" => "icon_cart", "label" => "Shopping Cart" );
   $naviArray[] = array("link" => "index.php?view=wishlist", "icon" => "icon_gift", "label" => "Wishlist" );
   $naviArray[] = array("link" => "index.php?view=hotlist", "icon" => "icon_grid-2x2", "label" => "Hotlist" );

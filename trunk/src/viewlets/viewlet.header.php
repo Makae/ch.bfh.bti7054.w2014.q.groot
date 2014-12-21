@@ -65,16 +65,11 @@
 */
   #create selectbox from array
   //GenreModel::distinct('key');
-  $selectBox[] = array("value" => "1", "label" => "Fantasy" );
-  $selectBox[] = array("value" => "2", "label" => "Horror" );
-  $selectBox[] = array("value" => "3", "label" => "Thriller" );
-  $selectBox[] = array("value" => "4", "label" => "Children's book" );
-  $selectBox[] = array("value" => "5", "label" => "Professions" );
-  $selectBox[] = array("value" => "6", "label" => "Art" );
-  $selectBox[] = array("value" => "7", "label" => "Sport" );
-
+  $selectBox = GenreModel::getTranslatedGenres();
+  array_unshift($selectBox, array('value' => '', 'label'=> i('All')));
+  $cat = isset($_REQUEST['cat']) ? htmlspecialchars($_REQUEST['cat']) : null;
   //build the select html element
-  $selectBoxHtml = Utilities::buildSelectbox($selectBox, $selectName);
+  $selectBoxHtml = Utilities::buildSelectbox($selectBox, $selectName, $cat);
 
   //Logo
   $html .= '
@@ -85,15 +80,15 @@
   </a>
   ';
 
+$query_val = isset($_REQUEST['query']) ? htmlspecialchars($_REQUEST['query']) : '';
 
 //Searchbar
 $html .= '<form id="search" method="POST">
         '.$selectBoxHtml.'
         <input type="hidden" name="view" value="search" />
-        <input type="text" name="query" id="query" />
+        <input type="text" name="query" id="query" value="' . $query_val . '"/>
         <button type="submit" name="search" value="search">Suchen</button>
       </form>';
-
   //Build up all the navigation points from an array
   $naviElement = "";
   $naviArray[] = array("link" => "index.php?view=profile", "icon" => "icon_profile", "label" => "Profile" );

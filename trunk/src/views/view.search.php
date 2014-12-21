@@ -26,15 +26,32 @@
     }
 
     private function _getSearchResult($str, $category) {
-      $result = Core::instance()->getDb()->searchBooks($str, $category);
+      $category = !isset($category) || $category == null || $category == '' ? null : $category;
+      $books = Core::instance()->getDb()->searchBooks($str, $category);
+      if($str != '') {
+        foreach($books as $key => $book) {
+          $books[$key]['title'] = Utilities::highlight($book['title'], $str);
+          $books[$key]['description'] = Utilities::highlight($book['description'], $str);
+        }
+      }
+      return $books;
     }
 
     public function render() {
-      $result = $this->_getSearchResult($_REQUEST['query'], $_REQUEST['cat']);
+      $query = isset($_REQUEST['query']) ? $_REQUEST['query'] : null;
+      $cat = isset($_REQUEST['cat']) ? $_REQUEST['cat'] : null;
+      $result = $this->_getSearchResult($query, $cat);
       $args = array(
         'title' => 'Search',
-        'result' => $result
+        'books' => $result,
+        'text_details' => i('To the details')
       );
+
+      $content = TemplateRenderer::instance()->extendedRender('theme/templates/snippets/booklist.html', $args);
+      $args = array(
+        'title' => i('We found following books for you'),
+        'result' => $content
+        );
       return TemplateRenderer::instance()->extendedRender('theme/templates/views/search.html', $args);
     }
 

@@ -9,7 +9,9 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  width;: 100%;
+  width: 100%;
+
+  background-color: #FAFAFA;
 }
 
 .container {
@@ -56,7 +58,7 @@ html, body {
 #right {
   float: right;
   width: 80%;
-  background-color: #ffffff;
+  background-color: #FAFAFA;
 }
 
 #right:after {
@@ -68,7 +70,7 @@ html, body {
 
 #content{
   min-height: 700px;
-  padding: 1.25em;
+  padding: 0 1.25em 1.25em 1.25em;
   border:1 solid #black;
 }
 
@@ -84,7 +86,7 @@ html, body {
   /*width: 100%;*/
 
   height: 80px;
-  color: #fff;
+  color: #FAFAFA;
   background-color: #13353a;
   float: none;
 }
@@ -92,15 +94,14 @@ html, body {
 #footer > div:hover {
   cursor: pointer;
   color: #13353a;
-  background-color: #ffffff;
+  background-color: #FAFAFA;
 }
 
 /*
  * Font Styles
  */
 html, body {
-  font-family: "Roboto", Arial, sans-serif;
-  background-color: white;
+  font-family: "Open Sans", Arial, sans-serif;
   font-size: 16px;
 
   font-smoothing: antialiased;
@@ -154,6 +155,34 @@ a:hover {
 }
 
 /*
+ * GLOBAL STYLES
+ */
+
+.button,
+a.button {
+  display: inline-block;
+  box-sizing: content-box;
+  margin: 0;
+  padding: 1px 1.25em;
+  height: 2em;
+  line-height: 2em;
+  border: 1px solid #13353a;
+  border-radius: 2px;
+  background: none;
+  background-color: #FAFAFA;
+  color: #13353a;
+}
+
+.button:hover {
+  background-color: #13353a;
+  color: #FAFAFA;
+}
+
+span.highlight {
+  background-color: #b8e7e6;
+}
+
+/*
  * Header Styles
  */
  #header {
@@ -172,7 +201,7 @@ a:hover {
 #logo {
   position: relative;
   float: left;
-  color: #FFF;
+  color: #FAFAFA;
   font-size: 45px;
   font-family: "Open Sans";
   line-height: 80px;
@@ -188,13 +217,13 @@ a:hover {
   height: 60px;
   width: 47px;
   padding-left: 11px;
-  border: 1px solid #ffffff;
+  border: 1px solid #FAFAFA;
   border-radius: 30px;
 }
 
 #logo:hover > span {
   color: #13353a;
-  background-color: #ffffff;
+  background-color: #FAFAFA;
   transform: translate3d(0, 0, 0) scale(1.25);
 }
 
@@ -229,11 +258,11 @@ a:hover {
 }*/
 
 .menu li>span {
-  color: #ffffff;
+  color: #FAFAFA;
 }
 
 .menu a {
-  color: #ffffff;
+  color: #FAFAFA;
   padding-left: 0.35em;
 }
 
@@ -264,13 +293,13 @@ a:hover {
  */
  #footer{
   font-weight: normal;
-  color: #fff;
+  color: #FAFAFA;
 }
 
  /*TODO finalisieren, margin etc und links */
 .impressum{
  display:inline;
- border:1px solid #fff;
+ border:1px solid #FAFAFA;
  margin-top: 10px;
  padding-left: 10px;
  padding: 10px;
@@ -291,7 +320,7 @@ a:hover {
   padding: 0;
   margin: 0;
   height: 80px;
-  color: #ffffff;
+  color: #FAFAFA;
 }
 
 .menu-main > li a {
@@ -302,7 +331,7 @@ a:hover {
 
 .menu-main > li a:hover {
   color: #13353a;
-  background-color: #ffffff;
+  background-color: #FAFAFA;
 }
 
 #search {
@@ -312,9 +341,9 @@ a:hover {
 }
 
 #search button:hover {
-  border: 1px solid #ffffff;
+  border: 1px solid #FAFAFA;
   background-color: #13353a;
-  color: #ffffff;
+  color: #FAFAFA;
 }
 
 /*
@@ -322,10 +351,10 @@ a:hover {
  */
 
 input, select, button {
-  border: 1px solid #ffffff;
+  border: 1px solid #FAFAFA;
   border-radius: 2px;
   background: none;
-  background-color: #ffffff;
+  background-color: #FAFAFA;
   height: 2em;
   line-height: 2em;
 }
@@ -335,6 +364,87 @@ button {
   padding: 1px 1.25em;
   box-sizing: content-box;
   cursor: pointer;
+}
+
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ROWS / COLUMNS */
+.row {
+  box-sizing: border-box;
+  overflow: hidden;
+  width : 100%;
+  padding: 0 0 14px 0;
+}
+
+.col {
+  float:left;
+  box-sizing: border-box;
+
+  padding: 0 14px;
+}
+
+.col.no-padding {
+  padding: 0;
+}
+
+/* shorthand clearfix */
+/*.col:after {
+  content: "";
+  display: table;
+  clear: both;
+*/}
+
+.col_1_12 {
+  width: 8.333%;
+}
+
+.col_2_12 {
+  width: 16.666%;
+}
+
+.col_3_12 {
+  width: 24.999%;
+}
+
+.col_4_12 {
+  width: 33.333%;
+}
+
+.col_5_12 {
+  width: 41.666%;
+}
+
+.col_6_12 {
+  width: 50%;
+}
+
+.col_7_12 {
+  width: 58.333%;
+}
+
+.col_8_12 {
+  width: 66.666%;
+}
+
+.col_9_12 {
+  width: 74.999%;
+}
+
+.col_10_12 {
+  width: 83.333%;
+}
+
+.col_11_12 {
+  width: 91.666%;
+}
+
+.col_12_12 {
+  width: 100%;
 }
 
 
@@ -390,6 +500,104 @@ button {
   transition:none !important;
 }
 
+/*****************
+* SNIPPETS START *
+******************/
+
+/*
+ * showcase.html
+ */
+.showcase li a {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.showcase img {
+  width: 100%;
+  height: 100%;
+}
+
+.showcase .overlay {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 10%;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  background-color: rgba(19,53,58, 0);
+}
+
+.showcase li:hover .overlay {
+  opacity: 1;
+  background-color: rgba(19,53,58, 0.7);
+}
+
+.showcase a,
+.showcase a:link,
+.showcase a:visited,
+.showcase a:focus,
+.showcase a:hover {
+  color: #FAFAFA;
+}
+
+.showcase h4 {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+  font-style: italic;
+}
+
+.showcase .author {
+  font-size: 0.75em;
+  font-style: normal;
+  font-weight: lighter;
+}
+
+/*
+ * booklist.html
+ */
+.book-list {
+  padding: 0;
+  max-width: 650px;
+  list-style-type: none;
+}
+
+.book-list .row {
+  margin-bottom: 12px;
+}
+
+.book-list .cover {
+  width: 100%;
+}
+
+
+.book-list h4 {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+  font-style: italic;
+}
+
+.book-list .author {
+  font-size: 0.75em;
+  font-style: normal;
+  font-weight: lighter;
+}
+
+.book-list p {
+  margin-top: 0;
+  font-weight: lighter;
+}
+
+.book-list .button {
+  float: right;
+}
+/*****************
+* SNIPPETS END *
+******************/
 
 /*
 * Content

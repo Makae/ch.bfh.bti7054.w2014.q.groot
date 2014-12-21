@@ -13,9 +13,9 @@
     // Those keys are ignored when setting data
     protected static $IGNORE_KEYS = array('id');
 
-    // defines the status of the data and if it has already an id / version in the db
+    // defines the status of the data and if it has already an id / instance in the db
     protected  $data_status = BaseModel::DATA_UNDEF;
-    // associative array. The keys in this arrays correspondent to the $COLUMN_NAMES-values
+    // associative array. The keys in this arrays correspond to the $COLUMN_NAMES-values
     protected $data;
 
     /*
@@ -51,7 +51,6 @@
       $this->data = $data;
     }
 
-
     /*
       @desc: instantiates a child instance from the BaseModel-Class
       @return: if the id is not found or not defined null is returned
@@ -81,22 +80,44 @@
       return static::childInstance($id);
     }
 
-    public static function find($conditions) {
-      static::_initTable();
-      static::_validateColumns($conditions);
-
-      $result = Core::instance()->getDb()->select(static::$TABLE, $conditions, array('id'));
-
+    /**
+     * Find all the model-instances which match the provided conditions.
+     *
+     * @param array $conditions The conditions array.
+     *
+     * @return array<ConcreteModel> Array with the instantiate models
+     */
+    public static function find($conditions=null) {
+      $result = static::findList($conditions);
       $return = array();
       foreach($result as $data)
         $return[] = static::childInstance($data['id']);
       return $return;
     }
 
-    public static function findFirst($conditions) {
+    /**
+     * Find all rows in the db which match the provided conditions.
+     * Use this method if the interaction via the model is not necessary.
+     *
+     * @param array $conditions The conditions array.
+     * @param array $columns The columns which will be returned
+     *
+     * @return array<array<mixed>> Associative-table array
+     */
+    public static function findList($conditions=null, $columns=array('id')) {
       static::_initTable();
-      static::_validateColumns($conditions);
-      $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, array('id'));
+      if(!is_null($conditions))
+        static::_validateColumns($conditions);
+
+      $result = Core::instance()->getDb()->select(static::$TABLE, $conditions, $columns);
+      return $result;
+    }
+
+    public static function findFirst($conditions, $columns=array('id')) {
+      static::_initTable();
+      if(!is_null($conditions))
+        static::_validateColumns($conditions);
+      $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, $columns);
 
       return static::childInstance($data['id']);
     }

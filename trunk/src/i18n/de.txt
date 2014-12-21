@@ -1,3 +1,54 @@
+"Check out these books":
+"Schau dir diese Bücher an!"
+
+"To the details":
+"Zur Detailansicht"
+
+"All":
+"Alle"
+
+"We found following books for you":
+"Wir haben folgende Bücher für dich gefunden"
+
+"db_genre_key_art":
+"Kunst"
+
+"db_genre_key_childrens_book":
+"Kinderbuch"
+
+"db_genre_key_comic":
+"Comic"
+
+"db_genre_key_cooking":
+"Kochen"
+
+"db_genre_key_crime":
+"Krimi"
+
+"db_genre_key_fantasy":
+"Fantasy"
+
+"db_genre_key_geographic":
+"Geographie"
+
+"db_genre_key_horror":
+"Horror"
+
+"db_genre_key_professional_literature":
+"Fachbuch"
+
+"db_genre_key_roman":
+"Roman"
+
+"db_genre_key_sports":
+"Sport"
+
+"db_genre_key_travelling":
+"Reisen"
+
+"db_genre_key_science":
+"Wissenschaft"
+
 "Title":
 "Titel"
 

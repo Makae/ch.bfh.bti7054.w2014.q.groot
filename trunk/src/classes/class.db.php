@@ -80,7 +80,11 @@
       $result = $this->query($query);
       return $this->_assocRows($result);
     }
-
+    /**
+     * Joins two tables and returns relation
+     *
+     * @state indevelopment
+     */
     public function join($left, $right, $type, $conditions=null, $join_columns=null, $orders=null, $limit=null) {
       $query = 'SELECT {%columns%} FROM {%table_left%} as {%name_left%} {%join%} {%table_right%} AS {%name_right%} ON ({%name_left%}.{%column_left%} = {%name_right%}.{%column_right%}) {%conditions%} {%orders%} {%limit%}';
       $args = $this->_prepareArgs(null, $conditions, $join_columns, $orders, $limit);
@@ -437,11 +441,13 @@
 
       if(!is_array($conditions))
         throw new Exception('The provided conditions are not valid');
+      else if(count($conditions) == 0)
+        return '';
 
       $cond = null;
       foreach($conditions as $key => $value) {
         $key = $this->_esc($key);
-
+        $key = preg_replace('/\./', '`$0`', $key);
         if(!is_null($cond))
           $cond .= ' AND ';
 
