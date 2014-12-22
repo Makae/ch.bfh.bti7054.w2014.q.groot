@@ -83,7 +83,7 @@
 $query_val = isset($_REQUEST['query']) ? htmlspecialchars($_REQUEST['query']) : '';
 
 //Searchbar
-$html .= '<form id="search" method="POST">
+$html .= '<form id="search" method="GET">
         '.$selectBoxHtml.'
         <input type="hidden" name="view" value="search" />
         <input type="text" name="query" id="query" value="' . $query_val . '"/>

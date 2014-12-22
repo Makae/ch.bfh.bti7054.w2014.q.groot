@@ -53,9 +53,9 @@
     public function extendedRender($template, $args) {
       $html = Utilities::getFileContent($template);
 
-      $tpl_php = $this->_prepareFors($html);
+      $tpl_php = $this->_prepareVariables($html, $args);
+      $tpl_php = $this->_prepareFors($tpl_php);
       $tpl_php = $this->_prepareIfs($tpl_php);
-      $tpl_php = $this->_prepareVariables($tpl_php, $args);
 
       return $this->_templateInclude($template, $tpl_php, $args);
     }
@@ -96,6 +96,7 @@
     */
     private function _prepareIfs($html) {
       $matches = array();
+      // Rreplace the
       preg_match_all('/\{\/?if[^\}]*}/mi', $html, $matches, PREG_OFFSET_CAPTURE);
 
       if(count($matches[0]) % 2 != 0)
@@ -107,14 +108,14 @@
       foreach($matches as $match) {
         $match_str = $match[0];
         $match_len = $match[1];
-        // is {for}
+        // is {if}
         if(!preg_match('/\{\/if[^\}]*/i', $match_str)) {
           $depth++;
           $len_before = strlen($html);
           $html = $this->_replaceIfOpen($html, $match_len + $len_diff, $match_str, $depth);
           $len_after = strlen($html);
           $len_diff += $len_after - $len_before;
-        // is {/for}
+        // is {/if}
         } else {
           $len_before = strlen($html);
           $html = $this->_replaceIfClose($html, $match_len + $len_diff, $match_str, $depth);
@@ -192,22 +193,21 @@
       return $html;
     }
 
-    private function _replaceIfOpen($html, $position, $tmpl_for, $depth) {
+    private function _replaceIfOpen($html, $position, $tmpl_if, $depth) {
       $matches = array();
-      preg_match('/condition=\"(\$?[^"]*)\"/i', $tmpl_for, $matches);
+      preg_match('/condition=\"(\$?[^"]*)\"/i', $tmpl_if, $matches);
       $condition = $matches[1];
-      $html = preg_replace('/(\$[a-zA-Z0-9_]+)(\.)([a-zA-Z0-9_]+)/mi', '$1[\'$3\']', $html);
-      $php_for = '<?php if(' . $condition . ') { ?>';
+      $php_if = '<?php if(' . $condition . ') { ?>';
       $num = 1;
-      $html = str_replace($tmpl_for, $php_for, $html, $num);
+      $html = str_replace($tmpl_if, $php_if, $html, $num);
 
       return $html;
     }
 
-    private function _replaceIfClose($html, $position, $tmpl_for, $depth) {
-      $php_for = '<?php } ?>';
+    private function _replaceIfClose($html, $position, $tmpl_if, $depth) {
+      $php_if = '<?php } ?>';
       $num = 1;
-      $html = str_replace($tmpl_for, $php_for, $html, $num);
+      $html = str_replace($tmpl_if, $php_if, $html, $num);
 
       return $html;
     }

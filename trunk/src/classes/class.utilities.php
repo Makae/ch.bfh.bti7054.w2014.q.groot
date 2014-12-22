@@ -183,6 +183,30 @@
 
   }
 
+  public static function pagination($current, $max, $link, $prevnext=2) {
+    $start = max($current-$prevnext, 0);
+    $end = min($max, $start + 1 + 2 * $prevnext);
+    $links = array();
+    for($now = $start; $now < $end; $now++) {
+      $links[] = array('label' => $now + 1,
+                       'link' => Utilities::templateReplace($link, array('page' => $now)),
+                       'current' => $now == $current
+                       );
+    }
+
+    $args = array(
+      'start' => array('label' => '&lt;&lt;', 'link' => Utilities::templateReplace($link, array('page' => 0)),'current' => false),
+      'links' => $links,
+      'end' => array('label' => '&gt;&gt;', 'link' => Utilities::templateReplace($link, array('page' => $max - 1)),'current' => false),
+      'current' => $current,
+      'canPrev' => $current != 0,
+      'canNext' => $current != $max-1
+    );
+
+    $pagination = TemplateRenderer::instance()->extendedRender('theme/templates/snippets/pagination.html', $args);
+    return $pagination;
+  }
+
 
   }
 ?>

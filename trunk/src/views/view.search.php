@@ -25,32 +25,37 @@
       // Here comes the processing of the field-parameters
     }
 
-    private function _getSearchResult($str, $category) {
+    private function _getSearchResult($str, $category, $page=0, $size=10) {
       $category = !isset($category) || $category == null || $category == '' ? null : $category;
-      $books = Core::instance()->getDb()->searchBooks($str, $category);
+      $books = Core::instance()->getDb()->searchBooks($str, $category, $page, $size);
       if($str != '') {
         foreach($books as $key => $book) {
           $books[$key]['title'] = Utilities::highlight($book['title'], $str);
           $books[$key]['description'] = Utilities::highlight($book['description'], $str);
         }
       }
-      return $books;
+      $total = Core::instance()->getDb()->countSearchBooks($str, $category);
+      $result = array('books' => $books, 'total' => $total);
+      return $result;
     }
 
     public function render() {
       $query = isset($_REQUEST['query']) ? $_REQUEST['query'] : null;
       $cat = isset($_REQUEST['cat']) ? $_REQUEST['cat'] : null;
-      $result = $this->_getSearchResult($query, $cat);
+      $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;
+      $result = $this->_getSearchResult($query, $cat, $page, 10);
+
       $args = array(
-        'title' => 'Search',
-        'books' => $result,
+        'books' => $result['books'],
         'text_details' => i('To the details')
       );
-
       $content = TemplateRenderer::instance()->extendedRender('theme/templates/snippets/booklist.html', $args);
+
+      $pagination = Utilities::pagination($page, $result['total'], '?view=search&query='. $query . '&cat' . $cat . '&page={page}');
       $args = array(
         'title' => i('We found following books for you'),
-        'result' => $content
+        'result' => $content,
+        'pagination' => $pagination
         );
       return TemplateRenderer::instance()->extendedRender('theme/templates/views/search.html', $args);
     }

@@ -520,6 +520,8 @@
           $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1` $4 `$5`', $val) . ' ';
         } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)){
           $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3`', $val) . ' ';
+        } else if(preg_match("/(.*\([^\)]+\))(\s+[Aa][Ss]\s+)([a-zA-Z0-9]+)/", $val)) {
+          $add = preg_replace("/(.*\([^\)]+\))(\s+[Aa][Ss]\s+)([a-zA-Z0-9]+)/", '$1$2`$3`', $val) . ' ';
         } else {
           $add = '`' . $val . '`';
         }
