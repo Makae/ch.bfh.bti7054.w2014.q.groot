@@ -17,17 +17,23 @@
       return null;
     }
 
-    public function ajaxBooklist() {
-      return "lol";
+    public function ajaxAutocomplete() {
+      $query = isset($_REQUEST['query']) ? $_REQUEST['query'] : null;
+      $cat = isset($_REQUEST['cat']) ? $_REQUEST['cat'] : null;
+      $num = isset($_REQUEST['num']) ? $_REQUEST['num'] : 10;
+
+      $result = $this->_getSearchResult($query, $cat, 0, 10, true);
+      return json_encode($result);
+
     }
 
     public function process() {
       // Here comes the processing of the field-parameters
     }
 
-    private function _getSearchResult($str, $category, $page=0, $size=10) {
+    private function _getSearchResult($str, $category, $page=0, $size=10, $only_titles=false) {
       $category = !isset($category) || $category == null || $category == '' ? null : $category;
-      $books = Core::instance()->getDb()->searchBooks($str, $category, $page, $size);
+      $books = Core::instance()->getDb()->searchBooks($str, $category, $page, $size, null, $only_titles);
       if($str != '') {
         foreach($books as $key => $book) {
           $books[$key]['title'] = Utilities::highlight($book['title'], $str);

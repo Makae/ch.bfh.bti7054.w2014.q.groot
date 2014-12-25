@@ -86,7 +86,7 @@ $query_val = isset($_REQUEST['query']) ? htmlspecialchars($_REQUEST['query']) : 
 $html .= '<form id="search" method="GET">
         '.$selectBoxHtml.'
         <input type="hidden" name="view" value="search" />
-        <input type="text" name="query" id="query" value="' . $query_val . '"/>
+        <input type="text" name="query" id="query" value="' . $query_val . '" autocomplete="off"/>
         <button type="submit" name="search" value="search">Suchen</button>
       </form>';
   //Build up all the navigation points from an array

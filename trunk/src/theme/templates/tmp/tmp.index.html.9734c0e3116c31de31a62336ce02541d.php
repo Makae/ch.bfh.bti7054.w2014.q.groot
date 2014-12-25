@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="<?php if(isset($WWWCSS)) echo $WWWCSS;?>/styles.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600,700,800|Roboto:900,400,700,400italic,500,300,100|&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
-    <script type="text/javascript" src="<?php if(isset($WWWJS)) echo $WWWJS;?>/core.js"></script>
     <script type="text/javascript" src="<?php if(isset($WWWJS)) echo $WWWJS;?>/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="<?php if(isset($WWWJS)) echo $WWWJS;?>/core.js"></script>
   </head>
   <body>
   <div id="header">

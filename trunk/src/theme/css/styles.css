@@ -785,3 +785,37 @@ margin-right:5px;
   font-size:14px;
 }
 
+/*
+ * DHTML / JS
+ */
+
+/* AutoComplete */
+.ac-dropdown {
+ display: inline-block;
+ overflow: hidden;
+ padding:0;
+ margin:0;
+ list-style-type: none;
+ background-color: #FAFAFA;
+}
+
+.ac-dropdown li {
+   padding: 0.5em;
+ }
+
+.ac-dropdown li:hover {
+  background-color: #13353a;
+  color: #FAFAFA;
+  cursor: pointer;
+}
+
+.ac-dropdown li:hover .highlight {
+  background-color: #FAFAFA;
+  color: #13353A;
+}
+/*
+ * @navi_dark: #13353a;
+ * @orange_red: #c7872f;
+ * @ice_blue: #b8e7e6;
+ * @navi_fair: #3ea7ba;
+ */
