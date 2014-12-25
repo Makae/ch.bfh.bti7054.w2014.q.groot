@@ -46,34 +46,10 @@
     $products = $_SESSION['products'];
 
 
-
-    /*
-    $products[] = array('Title' => "Medizinal Studie",
-      'ISBN Number' => "142123", 
-      'Author' => "Messing Hellbert", 
-      'Year of publication' => 2001,
-       'Price' => 29.95,
-       'Currency' => 'CHF',
-       'Available' => 'Sofort',
-       'Language' => 'Deutsch',
-       'Picture' => 'test_medizin.jpg',
-      'Description' => 'Ein aussergewÃ¶hnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben kÃ¶nnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen kÃ¶nnte. ENDE',
-'Original language' => 'DE',
-'Number of Pages' => '245',
-'Version' => '1',
-'Type' => 'Taschenbuch',
-'Genre' => 'Krimi',
-);
-*/
-
     //Array erstellen
     //TODO Array aus DB holen und verifizieren
     foreach($products as $book){
-// var_dump($book);
+
 // exit;
        if($_GET['id'] != $book['ISBN Number']){
           continue;
@@ -91,25 +67,64 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
          $modDescription = $book['Description'];
       }
  
- /*
-      $htmlContent .= "
-        <div class=\"$classProduct\">
-          <div class=\"$classImage\"><img  src=\"".$imagePath.$book['Bild']."\"  />
-          </div>
-          <div class=\"$classDescription\">
-           <p><div class=\"$label1\">$lang_title</div>{$book['Titel']}</p>
-           <p><div class=\"$label1\">$lang_author</div>{$book['Autor']}</p>
-           <div class=\"$classDescriptionText\"><div class=\"$label1\">$lang_description</div>$modDescription</div>
-           <p><div class=\"$label1\">$lang_price</div> {$book['Waehrung']} {$book['Preis']}</p>
-           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
+/*
+ * schwf5: Element in Warenkorb legen 
+ */
+$note = "";
+$found = false;
+
+//Auslesen der BuchID
+if(isset($_GET["id"]))       
+$currentID = $_GET["id"];
+else 
+	$currentID = 0;    
 
 
-           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
-           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
-           <p><div class=\"$label1\">$lang_available</div>{$book['Lieferbar']}</p>
-          </div>
-        </div>";
-*/
+
+//Prüfen ob Seite mit added action geladen wurde (d.h. dass Buch in Korb gelegt wurde)
+if((isset($_GET["action"])) && $_GET["action"]=="added") {
+
+	$amount = $_POST["amountSelection"];
+	//Seite wurde neu geladen. Prüfen, ob bereits ein Warenkorb existiert
+	
+	//Korb existiert schon. Items also in den Warenkorb hinzufügen
+	if(isset($_COOKIE["shoppingCart"])) {
+		
+		//Prüfen, ob dieser Artikel schon hinzugefügt wurde. Wenn ja, den Amount hinzutun
+		$cartArray = json_decode($_COOKIE["shoppingCart"]);
+		
+		foreach($cartArray as $index) {
+		
+			if($index->ID == $currentID) {
+				$note = "Buch war schon im Korb - Anzahl aktualisiert";
+				$index->amount += $amount;
+				setcookie("shoppingCart", json_encode($cartArray));
+				$found = true;
+			}
+		}
+			
+		if(!$found) {
+			array_push($cartArray, array ("ID"=>$currentID, "amount"=>$amount));
+			setcookie("shoppingCart", json_encode($cartArray));
+
+		}
+	}
+
+	//neuen Korb machen mit erstem Item
+	else  { 
+	$cartArray = array	(
+		array ("ID"=>$currentID, "amount"=>$amount));
+	setcookie("shoppingCart", json_encode($cartArray));
+	}
+	
+	//
+	
+	
+}    
+
+
+else 
+	;
 
 $htmlContent .= "
         <div class=\"$classProduct\">
@@ -118,26 +133,49 @@ $htmlContent .= "
           <div class=\"$classDescription\">
 
            $paragraph
-         
 
               <div>
                 <a href='index.php?view=payment&id={$_GET["id"]}'>
                   <input class='buy_button' type='button' value='".$button1."'></input>
                 </a>
+                    
+                  <br>Amount: 
+                  <form action='index.php?view=productdetail&id=$currentID&action=added' method='post'>
+                  <select name='amountSelection'>
+				
+  					 <option value='1'>1</option>
+ 					 <option value='2'>2</option>
+ 					 <option value='3'>3</option>
+ 					 <option value='4'>4</option>
+ 					 <option value='5'>5</option>
+ 					 
+					</select>
+					<input type='submit' name='submit' value='Add to Cart' />
+					</form>
+  		
+  		
+           		
               </div>
+        
            </div>
         </div>";
   
-      
-    }
-//print_r($htmlContent);
 
+    }
+
+
+if(isset($_GET["action"])){
+	
+	$buyState= "Produkt wurde in den Warenkorb gelegt.<br>";
+		
+} else $buyState="";
+	
 $htmlContentBody = "
-        <div id=\"content\">
+		<div id=\"content\">
+        <span style='color:red'>$buyState</span>
+ 		$note
           <h1>$lang_pageTitel</h1>
            $htmlContent
-
-
         </div>
         
 ";
@@ -146,7 +184,7 @@ $htmlContentBody = "
 return $htmlContentBody;
 
 
-    }
+}
 
     public function ajaxCall() {
       // we will return the value as json encoded content
