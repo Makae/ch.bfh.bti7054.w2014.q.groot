@@ -38,8 +38,6 @@
       }
     }
 
-
-
     /*
       @desc: decides which view shall be called and initializes the view
              the process method is then called in which the view can
