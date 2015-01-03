@@ -65,10 +65,14 @@ var search = {
     var left = this.query_input.offset().left;
     var top = this.query_input.offset().top + this.query_input.innerHeight();
 
+    $ddn.attr('data-value', query);
+
     $ddn.css({
       position: 'absolute',
       left : left,
       top : top
+    }).mouseleave(function() {
+      self.setSearchInput($(this).attr('data-value'));
     }).find('li').click(function() {
       self.setSearchInput($(this).html());
       self.hideAutocomplete();
