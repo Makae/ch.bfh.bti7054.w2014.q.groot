@@ -113,11 +113,7 @@
       //Deside, if user is logged in or not and change appearance
       if(Userhandler::instance()->loggedin()){
         $buttons = '<input type="submit" class="headerbutton" name="Logout" value="Logout">';
-        //var_dump($_SESSION);
-        var_dump(Userhandler::instance()->user());
-        //var_dump(Userhandler::instance()->loggedin());
         //getting the values from the protected data array via class.basemodel
-        var_dump($_SESSION['Loggedin']['first_name']);
         if(Userhandler::instance()->user()){
           $_SESSION['Loggedin']['first_name'] = Userhandler::instance()->user()->getValue('first_name');
           $_SESSION['Loggedin']['last_name'] = Userhandler::instance()->user()->getValue('last_name');
