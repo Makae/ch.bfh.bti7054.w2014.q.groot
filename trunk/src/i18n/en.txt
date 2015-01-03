@@ -71,6 +71,12 @@
 "Number of Pages"
 "Buy":
 "Buy"
+"Hello":
+"Hello"
+"Password":
+"Password"
+"User":
+"User"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"

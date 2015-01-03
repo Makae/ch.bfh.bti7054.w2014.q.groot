@@ -207,6 +207,87 @@
     return $pagination;
   }
 
+  /**
+  *  rest-client.docx
+  * Gets the first wiki-text before the Table of Content
+  * @author TSCM
+  * @since 20150102
+  * @param string - a Name or Booktitle , exp: "Lord of the Rings"
+  * @return string - html code line
+  *Explanation
+//Base Url:
+http://en.wikipedia.org/w/api.php?action=query
 
-  }
+//tell it to get revisions:
+&prop=revisions
+
+//define page titles separated by pipes. In the example i used t-shirt company threadless
+&titles=whatever|the|title|is
+
+//specify that we want the page content
+&rvprop=content
+
+//I want my data in JSON, default is XML
+&format=json
+
+//lets you choose which section you want. 0 is the first one.
+&rvsection=0
+
+//tell wikipedia to parse it into html for you
+&rvparse=1
+
+//only geht the "first"-Description of the wikipage, the one before the Table of Contents
+&exintro=1
+
+//if I want to select something, I use action query, update / delete would be different
+&action=query
+  */
+  public function wiki($query){
+    // load Zend classes
+    require_once 'Zend/Loader.php';
+    Zend_Loader::loadClass('Zend_Rest_Client');
+
+    $decodeUtf8 = 0; //is decoding needed? Default not
+    // define search query
+    $wikiQuery = str_replace(" ","_",$query);
+
+    try {
+
+      //initialize REST client
+      $lang = I18n::lang();
+      $wikiLang = strtolower($lang);
+      $webPagePrefix = "http://";
+      $webPageUrl = ".wikipedia.org/w/api.php";
+      //build the wiki api. be sure, that $wikiLang exists, exp: de or en
+      $wikipedia = new Zend_Rest_Client($webPagePrefix.$wikiLang.$webPageUrl);
+      $wikipedia->action('query'); //standard action, i want to GET... 
+      $wikipedia->prop('extracts');//what do i want to extract? page info
+      $wikipedia->exintro('1'); // only extract the intro? (pre-Table of content) 1= yes, 0=now
+      $wikipedia->titles($wikiQuery); //title is the wiki title to be found
+      $wikipedia->format('xml'); //what format should be returned? exp: json, txt, php, 
+      $wikipedia->continue(''); //has to be set, otherwise wikimedia sends a warning
+
+      // perform request
+      // iterate over XML result set
+      $result = $wikipedia->get();
+
+      //print_r($result);
+      $rs = $result->query->pages->page->extract;
+
+      if($decodeUtf8){
+        $rs = utf8_decode($rs);
+      }
+
+      //strip html Tags to get a clean string
+    $rsFinal = strip_tags($rs);
+
+      return $rsFinal;
+
+    } catch (Exception $e) {
+        die('ERROR: ' . $e->getMessage());
+    }
+
+  }//end wiki
+
+}
 ?>

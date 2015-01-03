@@ -148,6 +148,15 @@
 "Buy":
 "Kaufen"
 
+"Hello":
+"Hallo"
+
+"Password":
+"Passwort"
+
+"User":
+"Benutzer"
+
 
 "xxxkeyxxx":
 "xxxtranslationxxx"
