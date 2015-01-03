@@ -87,11 +87,92 @@ var search = {
     var str = str.replace(/(<([^>]+)>)/ig, '');
     this.query_input.val(str);
   }
-}
+};
+
+var wiki = {
+  handler : null,
+  offsetX : 15,
+  offsetY : 15,
+  lastX : null,
+  lastY : null,
+
+  init : function() {
+    var self = this;
+    self.registerHandler();
+    $("*[data-wiki]").each(function() {
+      $(this).mouseover(function(e) {
+        self.lastX = e.pageX + self.offsetX;
+        self.lastY = e.pageY + self.offsetY;
+        $(this).addClass('loading');
+        self.loadWiki($(this));
+      }).mouseleave(function(e) {
+        self.lastX = e.pageX + self.offsetX;
+        self.lastY = e.pageY + self.offsetY;
+        $(this).removeClass('loading');
+        self.hideWiki();
+      });
+    });
+  },
+
+  loadWiki : function($element) {
+    var query = $element.attr('data-wiki');
+    var self = this;
+    $.ajax({
+      type : "POST",
+      url : "?view=ajax&ajax=1&ajax_fn=wiki",
+      data : {query:query},
+      success : function(e) {
+        var asdf = "asdfasdfasd fasdf asdlfh asldkfjha lskdfh laksdhf lkashjdf ladhsflka dfhslkahs dlkjfhas kldh";
+        self.showWiki(asdf);
+        $element.removeClass('loading');
+      }
+    });
+  },
+
+  showWiki : function(html) {
+    if($('.wiki').length == 0) {
+      $wiki = $('<div class="wiki"></div>').css({
+        'top' : this.lastY + 'px',
+        'left' : this.lastX + 'px'
+      }).appendTo('body');
+    } else {
+      $wiki = $('.wiki').css({
+        'top' : this.lastY + 'px',
+        'left' : this.lastX + 'px'
+      });
+    }
+
+    $wiki.html(html);
+
+  },
+
+  hideWiki : function() {
+    $('.wiki').remove();
+  },
+
+  registerHandler : function() {
+    var self = this;
+    this.handler = function(e) {
+      var top = e.pageY + self.offsetY;
+      var left = e.pageX + self.offsetX;
+      $('.wiki').css({
+        'top': top + 'px',
+        'left': left + 'px',
+      })
+    };
+    $('body').mousemove(this.handler);
+  },
+
+  unregisterHandler : function() {
+    $('body').off('mousemove', this.handler);
+  }
+
+};
 
 var core = {
   init : function() {
     search.init();
+    wiki.init();
   }
 };
 
