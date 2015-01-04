@@ -10,7 +10,7 @@
     <div class="col col_10_12">
       <h4><?php if(isset($value['title'])) echo $value['title'];?> - <span class="author" data-wiki="<?php if(isset($value['author'])) echo $value['author'];?>"><?php if(isset($value['author'])) echo $value['author'];?></span></h4>
       <p><?php if(isset($value['description'])) echo $value['description'];?></p>
-      <a href="?view=productdetail&id=<?php if(isset($value['id'])) echo $value['id'];?>" class="button button-primary clearfix"><?php if(isset($text_details)) echo $text_details;?></a>
+      <a href="?view=productdetail&id=<?php if(isset($value['isbn'])) echo $value['isbn'];?>" class="button button-primary clearfix"><?php if(isset($text_details)) echo $text_details;?></a>
     </div>
   </li>
 <?php }   if(isset($_key)) { $key = $_key1;  unset($_key1);}  if(isset($_value)) { $value = $_value1;  unset($_value1);}?>

@@ -13,6 +13,33 @@
 "We found following books for you":
 "Wir haben folgende Bücher für dich gefunden"
 
+"Your are here:":
+"Sie sind hier:"
+
+"view_label_home":
+"Hauptseite"
+
+"view_label_genres":
+"Genres"
+
+"view_label_productdetail":
+"Produktedetail"
+
+"view_label_profile":
+"Profil"
+
+"view_label_search":
+"Suche"
+
+"view_label_shoppingcart":
+"Warenkorb"
+
+"view_label_wishlist":
+"Wunschzettel"
+
+"view_label_hotlist":
+"Hotlist"
+
 "db_genre_key_art":
 "Kunst"
 

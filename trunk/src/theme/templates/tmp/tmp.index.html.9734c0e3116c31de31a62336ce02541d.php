@@ -19,7 +19,7 @@
         <?php if(isset($navi)) echo $navi;?>
       </div>
       <div id="right">
-        <div class="breadcrumb"> <a>Home</a> &gt; <a>Foo</a> &gt; <a>Bar</a> </div>
+        <?php if(isset($breadcrumbs)) echo $breadcrumbs;?>
         <div id="content">
         <?php if(isset($view_content)) echo $view_content;?>
         </div>

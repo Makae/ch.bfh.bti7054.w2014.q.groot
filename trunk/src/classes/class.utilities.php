@@ -110,19 +110,15 @@
     *@param multi dim. array - list of products: e.g.  books [] => $key => $valueoption => Values
     *@return string - html code for a paragraph list
     */
-    public static function buildParagraph($array) {
+    public static function buildParagraph($array, $ignore=array('type', 'version', 'genre')) {
       //init string
       $label1 = "label1";
       $html = "";
-      /*
-
-
-      */
 
           foreach($array as $key => $value){
-//var_dump($key);
+            if(in_array($key, $ignore))
+              continue;
            $key = i($key);
-  //  var_dump($key);
            $html .= "
            <p><div class=\"$label1\">$key: </div>$value</p>
                 ";

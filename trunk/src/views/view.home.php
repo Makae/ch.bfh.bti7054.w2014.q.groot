@@ -25,7 +25,7 @@
       // Here comes the rendering process
     $htmlContent = "";//Main Content
     //Todo generate list from DB
-//var_dump(__METHOD__);   
+//var_dump(__METHOD__);
 //var_dump(Utilities::wiki("Metallica"));
   //$bookList = BookModel::getData();
     $bookList = BookModel::findList(null,null);
@@ -51,97 +51,19 @@
     $lang_description = i("Description").$label_prefix;
     $lang_price = i("Price").$label_prefix;
     $lang_available = "Available".$label_prefix;
-    $lang_pageTitel = i("Search");
+    $lang_pageTitel = i("Home");
     $lang_isbn_nr = "ISBN NR";
-    
+
 //var_dump(Utilities::wiki("Metallica"));
     //detail link
     $detailProductLink = "index.php?view=productdetail";
-    
+    $textDetails = i('To the details');
     //Product array, TODO get from MYSQL DB
     //$products = array();
     $products = $bookList;
-//var_dump($products);
-/*
-    $products[] = array('Title' => "Medizinal Studie",
-      'ISBN Number' => "142123", 
-      'Author' => "Messing Hellbert", 
-      'Year of publication' => 2001,
-       'Price' => 29.95,
-       'Currency' => 'CHF',
-       'Available' => 'Sofort',
-       'Language' => 'Deutsch',
-       'Picture' => 'test_medizin.jpg',
-      'Description' => Utilities::wiki("Metallica"),
-'Original language' => 'DE',
-'Number of Pages' => '245',
-'Version' => '1',
-'Type' => 'Taschenbuch',
-'Genre' => 'Krimi',
-);
-
-    $products[] = array('Title' => "Medizinal Studie1",
-      'ISBN Number' => "142124",
-       'Author' => "Messing Hellbert",
-        'Year of publication' => 2001,
-         'Price' => 29.95,
-         'Currency' => 'CHF',
-         'Available' => 'Sofort',
-         'Language' => 'Deutsch',
-          'Picture' => 'chemibuch.jpg',
-      'Description' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE',
-'Original language' => 'EN',
-'Number of Pages' => '324',
-'Version' => '2',
-'Type' => 'Hörbuch',
-'Genre' => 'Horror',
-);
-
-    $products[] = array('Title' => "Medizinal Studie2",
-      'ISBN Number' => "142125",
-       'Author' => "Messing Querto",
-        'Year of publication' => 2001,
-         'Price' => 29.95,
-         'Currency' => 'CHF',
-         'Available' => 'Sofort',
-         'Language' => 'Deutsch',
-          'Picture' => 'sport.jpg',
-      'Description' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE',
-'Original language' => 'DE',
-'Number of Pages' => '13424',
-'Version' => '1',
-'Type' => 'Taschenbuch',
-'Genre' => 'Kinderbuch',
-);
-
-    $products[] = array('Title' => "Medizinal Studie3",'ISBN Number' => "142126", 'Author' => "Hueber Selkis", 'Year of publication' => 2001, 'Price' => 29.95,'Currency' => 'CHF','Available' => 'Sofort','Language' => 'Deutsch', 'Picture' => 'test_medizin.jpg',
-      'Description' => 'Ein aussergewöhnlich gutes Buch, da vergeht die Zeit wie im Fluge. Man kann fast nicht so schnell lesen als dass man mitschreiben könnte. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-
-"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accuEinfach fantastisch, 2 von 7 Sterne. Oder noch mehr Zeichen als dass ich die darstellen könnte. ENDE',
-'Original language' => 'DE',
-'Number of Pages' => '1824',
-'Version' => '1',
-'Type' => 'Taschenbuch',
-'Genre' => 'Fantasy',
-);
-
-*/
-//$_SESSION['products'] = $products;
-
-    //Array erstellen
     //TODO Array aus DB holen und verifizieren
     foreach($products as $book){
-// var_dump($book);
+    // var_dump($book);
       //too long text?
       if(strlen ( $book['description'] ) > $maxDescriptionCharlenght)
       {
@@ -171,28 +93,26 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
           </div>
         </div>";
         */
-
+        $book['author'] = trim($book['author']);
          $htmlContent .= "
         <div class=\"$classProduct\">
-          <div><img  class=\"$classImage\" src=\"".$book['cover']."\"  />
-          </div>
-          <div class=\"$classDescription\">
-           <p><a href=\"$detailProductLink&id={$book['isbn']}\"><div class=\"$label1\">$lang_title</div>{$book['title']}</a></p>
-           <p><div class=\"$label1\">$lang_author</div>{$book['author']}</p>
+          <div class=\"col col_3_12\"><img class=\"$classImage\" src=\"".$book['cover']."\"  /></div>
+          <div class=\"$classDescription col col_9_12\">
+           <p><div class=\"$label1\">$lang_title</div>{$book['title']}</p>
+           <p><div class=\"$label1\">$lang_author</div><span data-wiki=\"{$book['author']}\">{$book['author']}</span></p>
            <div class=\"$classDescriptionText\"><div class=\"$label1\">$lang_description</div>$modDescription</div>
            <p><div class=\"$label1\">$lang_price</div> {$book['currency']} {$book['price']}</p>
            <p><div class=\"$label1\">$lang_available</div>{$book['available']}</p>
+           <a href=\"$detailProductLink&id={$book['isbn']}\" class=\"button button-primary clearfix\">{$textDetails}</a>
           </div>
         </div>";
-      
+
     }
 //print_r($htmlContent);
 
 $htmlContentBody = "
-        <div id=\"content\">
           <h1> $lang_pageTitel</h1>
            $htmlContent
-        </div>
 ";
 
 return $htmlContentBody;

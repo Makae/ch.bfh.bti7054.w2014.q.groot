@@ -69,7 +69,6 @@
         $name = $viewlet->name();
         $fn = 'viewlet' . ucfirst($name); // function which is called on th view
         $call_pair = array($this->view, $fn);
-
         $val = null;
         if(is_callable($call_pair))
           $val = call_user_func_array($call_pair, array());
@@ -108,16 +107,17 @@
         return $response;
       }
 
+
       $args = array(
         'WWWROOT' => WWWROOT,
         'WWWTHEME' => WWWTHEME,
         'WWWCSS' => WWWCSS,
         'WWWJS' => WWWJS,
-        'header' => $this->viewlets['header']->render(),
-        'navi' => $this->viewlets['navi']->render(),
-        'footer' => $this->viewlets['footer']->render(),
         'view_content' => $this->view->render()
       );
+
+      foreach($this->viewlets as $key => $viewlet)
+        $args[$key] = $viewlet->render();
 
       header('Content-Type: text/html; charset=utf-8');
       return TemplateRenderer::instance()->extendedRender('theme/templates/index.html', $args);
@@ -129,6 +129,11 @@
 
     public function getViewKey() {
       return $this->view_key;
+    }
+
+    public function getViewUrl($view_key=null) {
+      $view_key = is_null($view_key) ? $this->view_key : $view_key;
+      return WWWROOT . '?view=' . $view_key;
     }
 
     public function isAjaxRequest() {

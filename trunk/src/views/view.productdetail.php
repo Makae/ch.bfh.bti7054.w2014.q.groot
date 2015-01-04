@@ -24,7 +24,7 @@
     public function render() {
       // Here comes the rendering process
     $htmlContent = "";//Main Content
-    
+
     //id und class Bezeichnungen der HTML Elementen
     $idContent = "content";
     $classProduct = "product-detail";
@@ -38,7 +38,7 @@
     $imagePath = "/src/theme/images/";
     $lang_pageTitel = i("Productview");
     $button1 = ("Buy");
-    
+
     //Product array
     $products = array();
 
@@ -67,18 +67,18 @@
         //not too long, display it all
          $modDescription = $book['description'];
       }
- 
+
 /*
- * schwf5: Element in Warenkorb legen 
+ * schwf5: Element in Warenkorb legen
  */
 $note = "";
 $found = false;
 
 //Auslesen der BuchID
-if(isset($_GET["id"]))       
+if(isset($_GET["id"]))
 $currentID = $_GET["id"];
-else 
-	$currentID = 0;    
+else
+	$currentID = 0;
 
 
 
@@ -87,15 +87,15 @@ if((isset($_GET["action"])) && $_GET["action"]=="added") {
 
 	$amount = $_POST["amountSelection"];
 	//Seite wurde neu geladen. Prüfen, ob bereits ein Warenkorb existiert
-	
+
 	//Korb existiert schon. Items also in den Warenkorb hinzufügen
 	if(isset($_COOKIE["shoppingCart"])) {
-		
+
 		//Prüfen, ob dieser Artikel schon hinzugefügt wurde. Wenn ja, den Amount hinzutun
 		$cartArray = json_decode($_COOKIE["shoppingCart"]);
-		
+
 		foreach($cartArray as $index) {
-		
+
 			if($index->ID == $currentID) {
 				$note = "Buch war schon im Korb - Anzahl aktualisiert";
 				$index->amount += $amount;
@@ -103,7 +103,7 @@ if((isset($_GET["action"])) && $_GET["action"]=="added") {
 				$found = true;
 			}
 		}
-			
+
 		if(!$found) {
 			array_push($cartArray, array ("ID"=>$currentID, "amount"=>$amount));
 			setcookie("shoppingCart", json_encode($cartArray));
@@ -112,19 +112,19 @@ if((isset($_GET["action"])) && $_GET["action"]=="added") {
 	}
 
 	//neuen Korb machen mit erstem Item
-	else  { 
+	else  {
 	$cartArray = array	(
 		array ("ID"=>$currentID, "amount"=>$amount));
 	setcookie("shoppingCart", json_encode($cartArray));
 	}
-	
+
 	//
-	
-	
-}    
 
 
-else 
+}
+
+
+else
 	;
 
 $htmlContent .= "
@@ -136,41 +136,37 @@ $htmlContent .= "
            $paragraph
 
               <div>
-                <a href='index.php?view=payment&id={$_GET["id"]}'>
-                  <input class='buy_button' type='button' value='".$button1."'></input>
-                </a>
-                    
-                  <br>Amount: 
+                  <br>Amount:
                   <form action='index.php?view=productdetail&id=$currentID&action=added' method='post'>
-                  <select name='amountSelection'>
-				
+                  <select name='amountSelection' class='input-border'>
+
   					 <option value='1'>1</option>
  					 <option value='2'>2</option>
  					 <option value='3'>3</option>
  					 <option value='4'>4</option>
  					 <option value='5'>5</option>
- 					 
+
 					</select>
-					<input type='submit' name='submit' value='Add to Cart' />
+					<input class='button button-primary' type='submit' name='submit' value='Add to Cart' />
 					</form>
-  		
-  		
-           		
+
+
+
               </div>
-        
+
            </div>
         </div>";
-  
+
 
     }
 
 
 if(isset($_GET["action"])){
-	
+
 	$buyState= "Produkt wurde in den Warenkorb gelegt.<br>";
-		
+
 } else $buyState="";
-	
+
 $htmlContentBody = "
 		<div id=\"content\">
         <span style='color:red'>$buyState</span>
@@ -178,7 +174,7 @@ $htmlContentBody = "
           <h1>$lang_pageTitel</h1>
            $htmlContent
         </div>
-        
+
 ";
 
 
@@ -186,11 +182,6 @@ return $htmlContentBody;
 
 
 }
-
-    public function ajaxCall() {
-      // we will return the value as json encoded content
-      return json_encode('asdf');
-    }
 
   }
 ?>

@@ -1,6 +1,30 @@
 "my sexy key":
 "My seggsi Schlüssu {replace_me}"
 
+"view_label_home":
+"Home"
+
+"view_label_genres":
+"Genres"
+
+"view_label_productdetail":
+"Product detail"
+
+"view_label_profile":
+"Profil"
+
+"view_label_search":
+"Search"
+
+"view_label_shoppingcart":
+"Shoppingcart"
+
+
+"view_label_wishlist":
+"Wishlist"
+
+"view_label_hotlist":
+"Hotlist"
 
 "Title":
 "Title"

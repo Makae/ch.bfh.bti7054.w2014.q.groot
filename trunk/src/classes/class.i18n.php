@@ -29,16 +29,16 @@
         return static::$lang;
 
       if(isset($_REQUEST['lang']) && static::validLang($_REQUEST['lang']))
-        return static::$lang = $_REQUEST['lang'];
+        return static::$lang = $_SESSION['lang'] = $_REQUEST['lang'];
 
       if(isset($_SESSION['lang']) && static::validLang($_SESSION['lang']))
         return static::$lang = $_SESSION['lang'];
 
       $user = UserHandler::instance()->user();
       if(!is_null($user) && static::validLang($user->lang()))
-        return static::$lang = $user->lang();
+        return static::$lang = $_SESSION['lang'] = $user->lang();
 
-      return static::$lang = DEFAULT_LANGUAGE;
+      return static::$lang = $_SESSION['lang'] = DEFAULT_LANGUAGE;
     }
 
     public static function validLang($lang) {

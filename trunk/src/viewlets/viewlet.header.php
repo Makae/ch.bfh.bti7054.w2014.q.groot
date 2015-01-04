@@ -94,16 +94,18 @@
         </form>';
     //Build up all the navigation points from an array
     $naviElement = "";
-    $naviArray[] = array("link" => "index.php?view=profile", "icon" => "icon_profile", "label" => "Profile" );
-    $naviArray[] = array("link" => "index.php?view=categories", "icon" => "icon_tag", "label" => "Categories" );
-    $naviArray[] = array("link" => "index.php?view=shoppingcart", "icon" => "icon_cart", "label" => "Shopping Cart" );
-    $naviArray[] = array("link" => "index.php?view=wishlist", "icon" => "icon_gift", "label" => "Wishlist" );
-
+    $current_view_url = Controller::instance()->getViewUrl();
+    foreach(I18n::availableLanguages() as $lang) {
+      $naviArray[] = array("link" => $current_view_url . '&lang=' . $lang,
+                           "icon" => "",
+                           "cls" => $lang == I18n::lang() ? 'active' : '',
+                           "label" => strtoupper($lang));
+    }
     //create HTML elements for each navi point
    foreach ($naviArray as $navi){
 
       $navi['label'] = i($navi['label']);
-      $naviElement .= '<li><a class="stdanimation1_2" href="'.$navi["link"].'">'.$navi["label"].'</a></li>';
+      $naviElement .= '<li class="' . $navi['cls'] . '"><a class="stdanimation1_2" href="'.$navi["link"].'">'.$navi["label"].'</a></li>';
     }
 
     $html .= '<ul class="menu menu-main">
@@ -112,7 +114,8 @@
 
       //Deside, if user is logged in or not and change appearance
       if(UserHandler::instance()->loggedin()){
-        $buttons = '<input type="submit" class="headerbutton" name="Logout" value="Logout">';
+        $mask_cls = 'loggedin';
+        $buttons = '<input type="submit" class="button" name="Logout" value="Logout">';
         //getting the values from the protected data array via class.basemodel
         if(UserHandler::instance()->user()){
           //$_SESSION['Loggedin']['first_name'] = UserHandler::instance()->user()->getValue('first_name');
@@ -133,19 +136,19 @@
         $greeting = i('Hello');
        $loginMask = $greeting.' '.$firstName.' '.$lastName;
       }else{
-        $buttons = '<input type="submit" class="headerbutton" name="Login" value="Login"/>';
-        $loginMask = ''.i("User").': <input class="input3 " name="Loginname"  style="width:90px;height:19px;margin:1px;"></input>  <br />
-    '.i("Password").': <input class="input3" type="password" name="Password" style="width:90px;height:19px;margin:1px;"></input>  <br />';
+        $mask_cls = 'loggedout';
+        $buttons = '<input type="submit" class="button" name="Login" value="Login"/>';
+        $loginMask = '<div><label for="Loginname">'.i("User").':</label><input class="" name="Loginname" />  </div>
+    <div><label for="Password">'.i("Password").':</label><input class="" type="password" name="Password" />  </div>';
       }
 
        // $html .= "<div id='login' class='login' style='float:left'>";
-        $html .= '<div style="float:right;margin:0px;padding:0px;text-align:right;color:#FFFF00;" >
-  <form action="" method="POST">
-    '.$loginMask.'
-    '.$buttons.'
-  </form>
-  </div>
-        ';
+        $html .= '<div class="login-mask ' . $mask_cls . '">
+                    <form action="" method="POST">
+                      <div class="mask">'.$loginMask.'</div>
+                      <div class="buttons">'.$buttons.'</div>
+                    </form>
+                  </div>';
 
     return $html;
 }
