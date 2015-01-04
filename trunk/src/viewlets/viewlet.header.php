@@ -119,7 +119,6 @@
           $_SESSION['Loggedin']['last_name'] = UserHandler::instance()->user()->getValue('last_name');
         }
         //echo "<pre>";
-        var_dump(UserHandler::instance()->user());
         if(isset($_SESSION['Loggedin']['first_name']) AND isset($_SESSION['Loggedin']['last_name'])){
           $firstName = $_SESSION['Loggedin']['first_name'];
           $lastName = $_SESSION['Loggedin']['last_name'];
