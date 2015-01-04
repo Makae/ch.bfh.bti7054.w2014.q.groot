@@ -43,7 +43,7 @@
         return UserHandler::instance()->logout();
       }
       //var_dump($function);
-        
+
     }
 
 
@@ -111,14 +111,15 @@
         </ul>';
 
       //Deside, if user is logged in or not and change appearance
-      if(Userhandler::instance()->loggedin()){
+      if(UserHandler::instance()->loggedin()){
         $buttons = '<input type="submit" class="headerbutton" name="Logout" value="Logout">';
         //getting the values from the protected data array via class.basemodel
-        if(Userhandler::instance()->user()){
-          $_SESSION['Loggedin']['first_name'] = Userhandler::instance()->user()->getValue('first_name');
-          $_SESSION['Loggedin']['last_name'] = Userhandler::instance()->user()->getValue('last_name');
+        if(UserHandler::instance()->user()){
+          $_SESSION['Loggedin']['first_name'] = UserHandler::instance()->user()->getValue('first_name');
+          $_SESSION['Loggedin']['last_name'] = UserHandler::instance()->user()->getValue('last_name');
         }
-
+        //echo "<pre>";
+        var_dump(UserHandler::instance()->user());
         if(isset($_SESSION['Loggedin']['first_name']) AND isset($_SESSION['Loggedin']['last_name'])){
           $firstName = $_SESSION['Loggedin']['first_name'];
           $lastName = $_SESSION['Loggedin']['last_name'];
@@ -126,7 +127,7 @@
           $firstName = "";
           $lastName = "";
         }
-        
+
         $greeting = i('Hello');
        $loginMask = $greeting.' '.$firstName.' '.$lastName;
       }else{

@@ -22,9 +22,8 @@
         $this->user = null;
         return;
       }
-
       $id = $_SESSION[UserHandler::SESSION_KEY];
-      $user = new UserModel($id);
+      $this->user = new UserModel($id);
     }
 
     public static function instance() {

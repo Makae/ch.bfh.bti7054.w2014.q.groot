@@ -47,7 +47,7 @@
       return true;
     }
 
-    public static function availableLangauges() {
+    public static function availableLanguages() {
       if(is_null(static::$available_languages))
       static::$available_languages = explode(',', AVAILABLE_LANGUAGES);
       return static::$available_languages;

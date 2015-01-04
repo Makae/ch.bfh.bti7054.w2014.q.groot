@@ -243,6 +243,7 @@ http://en.wikipedia.org/w/api.php?action=query
 &action=query
   */
   public function wiki($query){
+    return "";
     // load Zend classes
     require_once 'Zend/Loader.php';
     Zend_Loader::loadClass('Zend_Rest_Client');
@@ -260,11 +261,11 @@ http://en.wikipedia.org/w/api.php?action=query
       $webPageUrl = ".wikipedia.org/w/api.php";
       //build the wiki api. be sure, that $wikiLang exists, exp: de or en
       $wikipedia = new Zend_Rest_Client($webPagePrefix.$wikiLang.$webPageUrl);
-      $wikipedia->action('query'); //standard action, i want to GET... 
+      $wikipedia->action('query'); //standard action, i want to GET...
       $wikipedia->prop('extracts');//what do i want to extract? page info
       $wikipedia->exintro('1'); // only extract the intro? (pre-Table of content) 1= yes, 0=now
       $wikipedia->titles($wikiQuery); //title is the wiki title to be found
-      $wikipedia->format('xml'); //what format should be returned? exp: json, txt, php, 
+      $wikipedia->format('xml'); //what format should be returned? exp: json, txt, php,
       $wikipedia->continue(''); //has to be set, otherwise wikimedia sends a warning
 
       // perform request
