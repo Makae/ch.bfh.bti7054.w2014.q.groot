@@ -115,13 +115,16 @@
         $buttons = '<input type="submit" class="headerbutton" name="Logout" value="Logout">';
         //getting the values from the protected data array via class.basemodel
         if(UserHandler::instance()->user()){
-          $_SESSION['Loggedin']['first_name'] = UserHandler::instance()->user()->getValue('first_name');
-          $_SESSION['Loggedin']['last_name'] = UserHandler::instance()->user()->getValue('last_name');
-        }
+          //$_SESSION['Loggedin']['first_name'] = UserHandler::instance()->user()->getValue('first_name');
+          //$_SESSION['Loggedin']['last_name'] = UserHandler::instance()->user()->getValue('last_name');
+        //}
         //echo "<pre>";
-        if(isset($_SESSION['Loggedin']['first_name']) AND isset($_SESSION['Loggedin']['last_name'])){
-          $firstName = $_SESSION['Loggedin']['first_name'];
-          $lastName = $_SESSION['Loggedin']['last_name'];
+       // var_dump(UserHandler::instance()->user());
+       // if(isset($_SESSION['Loggedin']['first_name']) AND isset($_SESSION['Loggedin']['last_name'])){
+         // $firstName = $_SESSION['Loggedin']['first_name'];
+         // $lastName = $_SESSION['Loggedin']['last_name'];
+          $firstName = UserHandler::instance()->user()->getValue('first_name');
+          $lastName = UserHandler::instance()->user()->getValue('last_name');
         }else{
           $firstName = "";
           $lastName = "";
@@ -132,7 +135,7 @@
       }else{
         $buttons = '<input type="submit" class="headerbutton" name="Login" value="Login"/>';
         $loginMask = ''.i("User").': <input class="input3 " name="Loginname"  style="width:90px;height:19px;margin:1px;"></input>  <br />
-    '.i("Password").': <input class="input3 " name="Password" style="width:90px;height:19px;margin:1px;"></input>  <br />';
+    '.i("Password").': <input class="input3" type="password" name="Password" style="width:90px;height:19px;margin:1px;"></input>  <br />';
       }
 
        // $html .= "<div id='login' class='login' style='float:left'>";

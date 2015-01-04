@@ -43,7 +43,8 @@
     $products = array();
 
     //TSCM TODO get from DB instead from Session..
-    $products = $_SESSION['products'];
+    //$products = $_SESSION['products'];
+    $products = BookModel::findList(null,null);
 
 
     //Array erstellen
@@ -51,20 +52,20 @@
     foreach($products as $book){
 
 // exit;
-       if($_GET['id'] != $book['ISBN Number']){
+       if($_GET['id'] != $book['isbn']){
           continue;
         }
 
       $paragraph = Utilities::buildParagraph($book);
 
       //too long text?
-      if(strlen ( $book['Description'] ) > $maxDescriptionCharlenght)
+      if(strlen ( $book['description'] ) > $maxDescriptionCharlenght)
       {
-        $book['Description'] = substr ( $book['Description'] , 0 , $maxDescriptionCharlenght );
-        $book['Description'] = $book['Description'] . "...";
+        $book['description'] = substr ( $book['description'] , 0 , $maxDescriptionCharlenght );
+        $book['description'] = $book['description'] . "...";
       }else{
         //not too long, display it all
-         $modDescription = $book['Description'];
+         $modDescription = $book['description'];
       }
  
 /*
@@ -128,7 +129,7 @@ else
 
 $htmlContent .= "
         <div class=\"$classProduct\">
-        <div class=\"$classImage\"><img  src=\"".$imagePath.$book['Picture']."\"  />
+        <div class=\"$classImage\"><img  src=\"".$book['cover']."\"  />
           </div>
           <div class=\"$classDescription\">
 
