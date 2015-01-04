@@ -1,3 +1,6 @@
+"We could not find a suitable wikipedia article":
+"Wir konnten keinen passenden wikipedia artikel finden."
+
 "Check out these books":
 "Schau dir diese Bücher an!"
 

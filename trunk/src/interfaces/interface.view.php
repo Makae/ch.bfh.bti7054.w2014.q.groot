@@ -6,6 +6,5 @@
     function viewletFooter();
     function process();
     function render();
-    function ajaxCall();
   }
 ?>

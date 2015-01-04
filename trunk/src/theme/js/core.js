@@ -104,12 +104,14 @@ var wiki = {
         self.lastX = e.pageX + self.offsetX;
         self.lastY = e.pageY + self.offsetY;
         $(this).addClass('loading');
+        self.active = true;
         self.loadWiki($(this));
       }).mouseleave(function(e) {
         self.lastX = e.pageX + self.offsetX;
         self.lastY = e.pageY + self.offsetY;
         $(this).removeClass('loading');
         self.hideWiki();
+        self.active = false;
       });
     });
   },
@@ -122,8 +124,10 @@ var wiki = {
       url : "?view=ajax&ajax=1&ajax_fn=wiki",
       data : {query:query},
       success : function(e) {
-        var asdf = "asdfasdfasd fasdf asdlfh asldkfjha lskdfh laksdhf lkashjdf ladhsflka dfhslkahs dlkjfhas kldh";
-        self.showWiki(asdf);
+        if(self.active == false)
+          return;
+        var html = '<h4>' + e.query + '</h4><p>' + e.wiki + '</p>';
+        self.showWiki(html);
         $element.removeClass('loading');
       }
     });

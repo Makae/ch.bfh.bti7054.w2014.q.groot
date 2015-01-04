@@ -242,8 +242,7 @@ http://en.wikipedia.org/w/api.php?action=query
 //if I want to select something, I use action query, update / delete would be different
 &action=query
   */
-  public function wiki($query){
-    return "";
+  public static function wiki($query){
     // load Zend classes
     require_once 'Zend/Loader.php';
     Zend_Loader::loadClass('Zend_Rest_Client');
@@ -260,6 +259,8 @@ http://en.wikipedia.org/w/api.php?action=query
       $webPagePrefix = "http://";
       $webPageUrl = ".wikipedia.org/w/api.php";
       //build the wiki api. be sure, that $wikiLang exists, exp: de or en
+      error_reporting(E_ALL);
+ini_set("display_errors", 1);
       $wikipedia = new Zend_Rest_Client($webPagePrefix.$wikiLang.$webPageUrl);
       $wikipedia->action('query'); //standard action, i want to GET...
       $wikipedia->prop('extracts');//what do i want to extract? page info
@@ -271,7 +272,6 @@ http://en.wikipedia.org/w/api.php?action=query
       // perform request
       // iterate over XML result set
       $result = $wikipedia->get();
-
       //print_r($result);
       $rs = $result->query->pages->page->extract;
 
