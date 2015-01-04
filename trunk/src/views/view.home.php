@@ -28,6 +28,9 @@
 //var_dump(__METHOD__);   
 //var_dump(Utilities::wiki("Metallica"));
   //$bookList = BookModel::getData();
+    $bookList = BookModel::findList(null,null);
+ //  echo "<pre>";
+//var_dump($bookList);
 
     //id und class Bezeichnungen der HTML Elementen
     $idContent = "content";
@@ -51,13 +54,15 @@
     $lang_pageTitel = i("Search");
     $lang_isbn_nr = "ISBN NR";
     
-
+//var_dump(Utilities::wiki("Metallica"));
     //detail link
     $detailProductLink = "index.php?view=productdetail";
     
     //Product array, TODO get from MYSQL DB
-    $products = array();
-
+    //$products = array();
+    $products = $bookList;
+//var_dump($products);
+/*
     $products[] = array('Title' => "Medizinal Studie",
       'ISBN Number' => "142123", 
       'Author' => "Messing Hellbert", 
@@ -130,22 +135,24 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 'Genre' => 'Fantasy',
 );
 
-$_SESSION['products'] = $products;
+*/
+//$_SESSION['products'] = $products;
 
     //Array erstellen
     //TODO Array aus DB holen und verifizieren
     foreach($products as $book){
-
+// var_dump($book);
       //too long text?
-      if(strlen ( $book['Description'] ) > $maxDescriptionCharlenght)
+      if(strlen ( $book['description'] ) > $maxDescriptionCharlenght)
       {
-        $modDescription = substr ( $book['Description'] , 0 , $maxDescriptionCharlenght );
+        $modDescription = substr ( $book['description'] , 0 , $maxDescriptionCharlenght );
         $modDescription = $modDescription . "...";
+        var_dump($modDescription);
       }else{
         //not too long, display it all
-         $modDescription = $book['Description'];
+         $modDescription = $book['description'];
       }
- 
+ /*
       $htmlContent .= "
         <div class=\"$classProduct\">
           <div class=\"$classImage\"><img  src=\"".$imagePath.$book['Picture']."\"  />
@@ -161,6 +168,20 @@ $_SESSION['products'] = $products;
            <p><div class=\"$label1\">$lang_available</div>{$book['Available']}</p>
            <p><div class=\"$label1\">$lang_available</div>{$book['Available']}</p>
            <p><div class=\"$label1\">$lang_available</div>{$book['Available']}</p>
+          </div>
+        </div>";
+        */
+
+         $htmlContent .= "
+        <div class=\"$classProduct\">
+          <div><img  class=\"$classImage\" src=\"".$book['cover']."\"  />
+          </div>
+          <div class=\"$classDescription\">
+           <p><a href=\"$detailProductLink&id={$book['isbn']}\"><div class=\"$label1\">$lang_title</div>{$book['title']}</a></p>
+           <p><div class=\"$label1\">$lang_author</div>{$book['author']}</p>
+           <div class=\"$classDescriptionText\"><div class=\"$label1\">$lang_description</div>$modDescription</div>
+           <p><div class=\"$label1\">$lang_price</div> {$book['currency']} {$book['price']}</p>
+           <p><div class=\"$label1\">$lang_available</div>{$book['available']}</p>
           </div>
         </div>";
       

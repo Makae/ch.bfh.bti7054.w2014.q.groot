@@ -160,6 +160,40 @@
 "User":
 "Benutzer"
 
+"id":
+"Id"
+"name":
+"Name"
+"isbn":
+"ISBN"
+"cover":
+"Cover"
+"title":
+"Titel"
+"author":
+"Autor"
+"year_of_publication":
+"Erscheinungsjahr"
+"price":
+"Preis"
+"currency":
+"Währung"
+"available":
+"Verfügbarkeit"
+"language":
+"Sprache"
+"description":
+"Beschreibung"
+"original_language":
+"Originalsprache"
+"number_of_pages":
+"Anzahl Seiten"
+"version":
+"Version"
+"type":
+"Typ"
+"genre":
+"Genre"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"

@@ -58,28 +58,9 @@
   if(!$db->tableExists('book')) {
 
   BookModel::create(array(
-    'name' => "My Book",
-    'isbn' => "D2342f3i",
-    'cover' => "theme/images/books/e.jpg",
-    'title' => "Kennzahlen aus der Wirtschaft",
-    'author' => "Duran Elton",
-    'year_of_publication' => 1998,
-    'price' => 43.10,
-    'currency' => "CHF",
-    'available' => "Sofort",
-    'language' => "Deutsch",
-    'description' => "Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text Hier ist ein Lorem Ipsum Text ",
-    'original_language' => "Englisch",
-    'number_of_pages' => 1872,
-    'version' => 1.2,
-    'type' => "Taschenbuch",
-    'genre' => "Krimi"
-  ));
-
-  BookModel::create(array(
     'name' => "Angel Of The Dark",
     'isbn' => "0062073451",
-    'cover' => "theme/images/books/b.jpg",
+    'cover' => "theme/images/books/0062073451.jpg",
     'title' => "Angel Of The Dark",
     'author' => "Sidney Sheldon",
     'year_of_publication' => 2012,
@@ -102,7 +83,7 @@ Darkangel is the first book in the Witches of Cleopatra Hill, a paranormal roman
 BookModel::create(array(
     'name' => "Max fährt mit",
     'isbn' => "3197495950",
-    'cover' => "theme/images/books/c.jpg",
+    'cover' => "theme/images/books/3197495950.jpg",
     'title' => "Max fährt mit",
     'author' => "Ulrike Fischer",
     'year_of_publication' => 2014,
@@ -121,7 +102,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Wind",
     'isbn' => "3453410831",
-    'cover' => "theme/images/books/d.jpg",
+    'cover' => "theme/images/books/3453410831.jpg",
     'title' => "Wind",
     'author' => "Stephen King",
     'year_of_publication' => 2013,
@@ -146,9 +127,9 @@ Mit Wind legt Stephen King einen achten Roman seines großen Endzeitepos um den 
 BookModel::create(array(
     'name' => "Ein perfekter Freund",
     'isbn' => "3257233787",
-    'cover' => "theme/images/books/e.jpg",
+    'cover' => "theme/images/books/3257233787.jpg",
     'title' => "Ein perfekter Freund",
-    'author' => "Martin Sutter
+    'author' => "Martin Suter
 ",
     'year_of_publication' => 2003,
     'price' => 15.99,
@@ -169,27 +150,7 @@ Martin Suters Romane sind fehlerlos. Die Sprache ist präzis, manchmal von einer
 BookModel::create(array(
     'name' => "Thor: God of Thunder",
     'isbn' => "785168427",
-    'cover' => "theme/images/books/f.jpg",
-    'title' => "Thor: God of Thunder",
-    'author' => "Marvel
-",
-    'year_of_publication' => 2013,
-    'price' => 19.99,
-    'currency' => "CHF",
-    'available' => "Vergriffen",
-    'language' => "DE",
-    'description' => "Der letzte Kampf der Götter. Irgendwo am Ende der Zeit werden alle Götter des Universums als Sklaven gehalten. Dort werden sie gezwungen, eine Maschine zu errichten, die das Antlitz der Schöpfung für immer verändern wird. Was ist der wahre Sinn und Zweck der ... Götterbombe? Und was kann Thor, der letzte freie Gott im Kosmos, tun, um sie und Gorr, den Gottesschlächter, aufzuhalten? Das spektakuläre Finale der Gorr-Saga mit den US-Ausgaben Thor- God of Thunder 7-11 von Jason Aaron und Esad Ribic. Erstmals dabei: Die Mädchen des Donners!",
-    'original_language' => "EN",
-    'number_of_pages' => 136,
-    'version' => 1,
-    'type' => "Taschenbuch",
-    'genre' => "Comic"
-  ));
-
-BookModel::create(array(
-    'name' => "Thor: God of Thunder",
-    'isbn' => "785168427",
-    'cover' => "theme/images/books/g.jpg",
+    'cover' => "theme/images/books/785168427.jpg",
     'title' => "Thor: God of Thunder",
     'author' => "Marvel
 ",
@@ -209,7 +170,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "My Travel Journal: Mein Reisetagebuch",
     'isbn' => "1445486857",
-    'cover' => "theme/images/books/a.jpg",
+    'cover' => "theme/images/books/1445486857.jpg",
     'title' => "My Travel Journal: Mein Reisetagebuch",
     'author' => "Parragon",
     'year_of_publication' => 2012,
@@ -228,7 +189,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Pazifik - Ozean der Zukunft",
     'isbn' => "3782210174",
-    'cover' => "theme/images/books/b.jpg",
+    'cover' => "theme/images/books/3782210174.jpg",
     'title' => "Pazifik - Ozean der Zukunft",
     'author' => "Joachim Feyerabend",
     'year_of_publication' => 2010,
@@ -247,7 +208,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Geschichte der Alchemie",
     'isbn' => "3406616011",
-    'cover' => "theme/images/books/c.jpg",
+    'cover' => "theme/images/books/3406616011.jpg",
     'title' => "Geschichte der Alchemie",
     'author' => "Claus Priesner",
     'year_of_publication' => 2011,
@@ -266,7 +227,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Unter dem Jolly Roger: Piraten im Goldenen Zeitalter",
     'isbn' => "3862414000",
-    'cover' => "theme/images/books/d.jpg",
+    'cover' => "theme/images/books/3862414000.jpg",
     'title' => "Unter dem Jolly Roger: Piraten im Goldenen Zeitalter",
     'author' => "Gabriel Kuhn",
     'year_of_publication' => 2011,
@@ -285,7 +246,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "How to Read a Book",
     'isbn' => "671212095",
-    'cover' => "theme/images/books/e.jpg",
+    'cover' => "theme/images/books/671212095.jpg",
     'title' => "How to Read a Book",
     'author' => "Mortimer J. Adler, Charles Van Doren",
     'year_of_publication' => 1972,
@@ -305,7 +266,7 @@ BookModel::create(array(
     'name' => "JavaScript: The Definitive Guide:
 Activate Your Web Pages (Definitive Guides)",
     'isbn' => "0596805527",
-    'cover' => "theme/images/books/f.jpg",
+    'cover' => "theme/images/books/0596805527.jpg",
     'title' => "JavaScript: The Definitive Guide:
 Activate Your Web Pages (Definitive Guides)",
     'author' => "David Flanagan",
@@ -327,7 +288,7 @@ The 6th edition covers HTML5 and ECMAScript 5. Many chapters have been completel
 BookModel::create(array(
     'name' => "The Adventures of Sherlock Holmes",
     'isbn' => "149964244X",
-    'cover' => "theme/images/books/g.jpg",
+    'cover' => "theme/images/books/149964244X.jpg",
     'title' => "The Adventures of Sherlock Holmes",
     'author' => " Sir Arthur Conan Doyle",
     'year_of_publication' => 2014,
@@ -346,7 +307,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Globi in der Schule",
     'isbn' => "3857033312",
-    'cover' => "theme/images/books/h.jpg",
+    'cover' => "theme/images/books/3857033312.jpg",
     'title' => "Globi in der Schule",
     'author' => "Samuel Glättli,  Jürg Lendenmann",
     'year_of_publication' => 2010,
@@ -365,7 +326,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "The Name of the Wind (Kingkiller Chronicle)",
     'isbn' => "756404746",
-    'cover' => "theme/images/books/i.jpg",
+    'cover' => "theme/images/books/756404746.jpg",
     'title' => "The Name of the Wind (Kingkiller Chronicle)",
     'author' => "Patrick Rothfuss",
     'year_of_publication' => 2008,
@@ -384,7 +345,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Die Schriften von Accra",
     'isbn' => "3257242824",
-    'cover' => "theme/images/books/j.jpg",
+    'cover' => "theme/images/books/3257242824.jpg",
     'title' => "Die Schriften von Accra",
     'author' => "Paulo Coelho",
     'year_of_publication' => 2014,
@@ -405,7 +366,7 @@ Einst fortgegangen aus seiner Heimat Griechenland, um die Welt zu erobern, hat d
 BookModel::create(array(
     'name' => "A Lucky Luke Adventure - Dalton City",
     'isbn' => "1905460139",
-    'cover' => "theme/images/books/d.jpg",
+    'cover' => "theme/images/books/1905460139.jpg",
     'title' => "A Lucky Luke Adventure - Dalton City",
     'author' => "Goscinny",
     'year_of_publication' => 2007,
@@ -424,7 +385,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "On my way to Samarkand: memoirs of a travelling writer",
     'isbn' => "1480208299",
-    'cover' => "theme/images/books/a.jpg",
+    'cover' => "theme/images/books/1480208299.jpg",
     'title' => "On my way to Samarkand: memoirs of a travelling writer",
     'author' => "Garry Douglas Kilworth",
     'year_of_publication' => 2012,
@@ -443,7 +404,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "National Geographic Student World Atlas Fourth Edition",
     'isbn' => "1426317751",
-    'cover' => "theme/images/books/b.jpg",
+    'cover' => "theme/images/books/1426317751.jpg",
     'title' => "National Geographic Student World Atlas Fourth Edition",
     'author' => "National Geographic",
     'year_of_publication' => 2014,
@@ -460,20 +421,20 @@ BookModel::create(array(
   ));
 
 BookModel::create(array(
-    'name' => "The Cannibal's Cookbook : Recipes and Remedies for Human Sacrifice",
-    'isbn' => "0969989504",
-    'cover' => "theme/images/books/c.jpg",
-    'title' => "The Cannibal's Cookbook : Recipes and Remedies for Human Sacrifice",
-    'author' => "Pamela Peck",
-    'year_of_publication' => 1996,
+    'name' => "Omas Kochkniffkladde: Die 500 pfiffigsten Kochtipps",
+    'isbn' => "3939722847",
+    'cover' => "theme/images/books/3939722847.jpg",
+    'title' => "Omas Kochkniffkladde: Die 500 pfiffigsten Kochtipps",
+    'author' => "Regionalia Verlag",
+    'year_of_publication' => 2014,
     'price' => 13.00,
     'currency' => "CHF",
     'available' => "Sofort",
-    'language' => "EN",
+    'language' => "DE",
     'description' => "Keine Beschreibung vorhanden.",
-    'original_language' => "EN",
-    'number_of_pages' => 90,
-    'version' => 4,
+    'original_language' => "DE",
+    'number_of_pages' => 128,
+    'version' => 2,
     'type' => "E-Book",
     'genre' => "Kochen"
   ));
@@ -482,7 +443,7 @@ BookModel::create(array(
     'name' => "Show Me How: 500 Things You Should Know -
 Instructions for Life from the Everyday to the Exotic",
     'isbn' => "0061662577",
-    'cover' => "theme/images/books/d.jpg",
+    'cover' => "theme/images/books/0061662577.jpg",
     'title' => "Show Me How: 500 Things You Should Know -
 Instructions for Life from the Everyday to the Exotic",
     'author' => "Lauren Smith, Derek Fagerstrom",
@@ -501,8 +462,8 @@ Instructions for Life from the Everyday to the Exotic",
 
 BookModel::create(array(
     'name' => "Vegetarisch! Das Goldene von GU: Rezepte zum Glänzen und Genießen",
-    'isbn' => "1411412547",
-    'cover' => "theme/images/books/e.jpg",
+    'isbn' => "3833822015",
+    'cover' => "theme/images/books/3833822015.jpg",
     'title' => "Vegetarisch! Das Goldene von GU: Rezepte zum Glänzen und Genießen",
     'author' => "Alessandra Redies",
     'year_of_publication' => 2011,
@@ -521,7 +482,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Im Tal des Fuchses",
     'isbn' => "3442382599",
-    'cover' => "theme/images/books/f.jpg",
+    'cover' => "theme/images/books/3442382599.jpg",
     'title' => "Im Tal des Fuchses",
     'author' => "Charlotte Link",
     'year_of_publication' => 2013,
@@ -543,7 +504,7 @@ Ein sonniger Augusttag, ein einsam gelegener Parkplatz zwischen Wiesen und Felde
 BookModel::create(array(
     'name' => "Die Eule mit der Beule",
     'isbn' => "3789167061",
-    'cover' => "theme/images/books/g.jpg",
+    'cover' => "theme/images/books/3789167061.jpg",
     'title' => "Die Eule mit der Beule",
     'author' => "Susanne Weber",
     'year_of_publication' => 2013,
@@ -563,7 +524,7 @@ Die kleine Eule hat eine Beule. Der Fuchs pustet, die Maus bringt ein Pflaster u
 BookModel::create(array(
     'name' => "Der Drachenflüsterer",
     'isbn' => "3570400026",
-    'cover' => "theme/images/books/h.jpg",
+    'cover' => "theme/images/books/3570400026.jpg",
     'title' => "Der Drachenflüsterer",
     'author' => "Boris Koch",
     'year_of_publication' => 2010,
@@ -592,7 +553,7 @@ All-Age-Fantasy für alle Fans von Cornelia Funke, Kai Meyer, Philip Pullman und
 BookModel::create(array(
     'name' => "Honigtod",
     'isbn' => "1495319792",
-    'cover' => "theme/images/books/i.jpg",
+    'cover' => "theme/images/books/1495319792.jpg",
     'title' => "Honigtod",
     'author' => "Hanni Münzer",
     'year_of_publication' => 2014,
@@ -617,7 +578,7 @@ BookModel::create(array(
 Guardians of the Galaxy 0.1-3, Guardians of the Galaxy:
 Tomorrow's Avengers 1",
     'isbn' => "3862018822",
-    'cover' => "theme/images/books/j.jpg",
+    'cover' => "theme/images/books/3862018822.jpg",
     'title' => "Guardians of the Galaxy: Bd. 1 Originalstories:
 Guardians of the Galaxy 0.1-3, Guardians of the Galaxy:
 Tomorrow's Avengers 1",
@@ -638,7 +599,7 @@ Tomorrow's Avengers 1",
 BookModel::create(array(
     'name' => "400 Reisen, die Sie nie vergessen werden",
     'isbn' => "3866902409",
-    'cover' => "theme/images/books/a.jpg",
+    'cover' => "theme/images/books/3866902409.jpg",
     'title' => "400 Reisen, die Sie nie vergessen werden",
     'author' => "Keith Bellows",
     'year_of_publication' => 2011,
@@ -657,7 +618,7 @@ BookModel::create(array(
 BookModel::create(array(
     'name' => "Geografie - Brandenburg Grundschule: 5./6. Schuljahr - Arbeitsheft",
     'isbn' => "3060646163",
-    'cover' => "theme/images/books/b.jpg",
+    'cover' => "theme/images/books/3060646163.jpg",
     'title' => "Geografie - Brandenburg Grundschule: 5./6. Schuljahr - Arbeitsheft",
     'author' => "Silke Schulze",
     'year_of_publication' => 2004,
@@ -679,7 +640,7 @@ BookModel::create(array(
     'name' => "Wochenplan Deutsch 4. Schuljahr:
 Jede Woche übersichtlich auf einem Bogen",
     'isbn' => "3866320647",
-    'cover' => "theme/images/books/c.jpg",
+    'cover' => "theme/images/books/3866320647.jpg",
     'title' => "Wochenplan Deutsch 4. Schuljahr:
 Jede Woche übersichtlich auf einem Bogen",
     'author' => "Ulrike Stolz",
@@ -699,7 +660,7 @@ Jede Woche übersichtlich auf einem Bogen",
 BookModel::create(array(
     'name' => "Fachkunde für Garten- und Landschaftsbau: Lehrbuch",
     'isbn' => "3582041565",
-    'cover' => "theme/images/books/d.jpg",
+    'cover' => "theme/images/books/3582041565.jpg",
     'title' => "Fachkunde für Garten- und Landschaftsbau: Lehrbuch",
     'author' => "Holger Seipel",
     'year_of_publication' => 2013,
@@ -790,11 +751,11 @@ if(!$db->tableExists('genre')) {
   if(!$db->tableExists('bookgenre')) {
     BookGenreModel::create(array(
         'book_id' => 0,
-        'genre_id' => 5
+        'genre_id' => 3
     ));
     BookGenreModel::create(array(
         'book_id' => 1,
-        'genre_id' => 5
+        'genre_id' => 2
     ));
     BookGenreModel::create(array(
         'book_id' => 2,
