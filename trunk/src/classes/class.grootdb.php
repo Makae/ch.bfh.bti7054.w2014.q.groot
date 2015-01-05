@@ -11,7 +11,7 @@
                '  LEFT JOIN {%table_genre%} as g ON (bg.genre_id = g.id)' .
                '  WHERE {%conditions%} {%orders%} {%limit%}';
 
-      $args = $this->_prepareArgs(BookModel::table(), null, $columns, 'title ASC', array($page, $size));
+      $args = $this->_prepareArgs(BookModel::table(), null, $columns, 'title ASC', array($page*$size, $size));
       $args['table_book_genre'] = BookGenreModel::table();
       $args['table_genre'] = GenreModel::table();
       $args['conditions'] = $conditions;

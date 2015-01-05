@@ -47,10 +47,11 @@
     }
 
     public function render() {
+      $page_size = 10;
       $query = isset($_REQUEST['query']) ? $_REQUEST['query'] : null;
       $cat = isset($_REQUEST['cat']) ? $_REQUEST['cat'] : null;
       $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;
-      $result = $this->_getSearchResult($query, $cat, $page, 10);
+      $result = $this->_getSearchResult($query, $cat, $page, $page_size);
 
       $args = array(
         'books' => $result['books'],
@@ -58,7 +59,7 @@
       );
       $content = TemplateRenderer::instance()->extendedRender('theme/templates/snippets/booklist.html', $args);
 
-      $pagination = Utilities::pagination($page, $result['total'], '?view=search&query='. $query . '&cat' . $cat . '&page={page}');
+      $pagination = Utilities::pagination($page, $result['total'], $page_size, '?view=search&query='. $query . '&cat' . $cat . '&page={page}');
       $args = array(
         'title' => i('We found following books for you'),
         'result' => $content,

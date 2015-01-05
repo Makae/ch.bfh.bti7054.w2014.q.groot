@@ -560,11 +560,11 @@ button:hover {
   border-bottom: 1px solid #13353a;
 }
 
-#shoppingTable tr:nth-of-type(2) {
+#shoppingTable tr:nth-of-type(even) {
   background-color:#F0F0F0;
 }
 
-#shoppingTable tr:nth-of-type(2) input {
+#shoppingTable tr:nth-of-type(even) input {
   background-color:#F0F0F0;
   border-color: #F0F0F0;
   cursor: pointer;

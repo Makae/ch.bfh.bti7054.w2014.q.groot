@@ -179,9 +179,11 @@
 
   }
 
-  public static function pagination($current, $max, $link, $prevnext=2) {
-    $start = max($current-$prevnext, 0);
-    $end = min($max, $start + 1 + 2 * $prevnext);
+  public static function pagination($current, $max, $page_size, $link, $prevnext=2) {
+    $min_page = $current - $prevnext;
+    $max_page = ceil($max / $page_size);
+    $start = max($min_page, 0);
+    $end = (int) min($max_page, $start + 1 + 2 * $prevnext);
     $links = array();
     for($now = $start; $now < $end; $now++) {
       $links[] = array('label' => $now + 1,
@@ -193,10 +195,10 @@
     $args = array(
       'start' => array('label' => '&lt;&lt;', 'link' => Utilities::templateReplace($link, array('page' => 0)),'current' => false),
       'links' => $links,
-      'end' => array('label' => '&gt;&gt;', 'link' => Utilities::templateReplace($link, array('page' => $max - 1)),'current' => false),
+      'end' => array('label' => '&gt;&gt;', 'link' => Utilities::templateReplace($link, array('page' => $end - 1)),'current' => false),
       'current' => $current,
-      'canPrev' => $current != 0,
-      'canNext' => $current != $max-1
+      'canPrev' => $current != 0 && $start != 0,
+      'canNext' => $current != $end-1 && $end != $max_page
     );
 
     $pagination = TemplateRenderer::instance()->extendedRender('theme/templates/snippets/pagination.html', $args);
