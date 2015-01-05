@@ -69,7 +69,7 @@
       {
         $modDescription = substr ( $book['description'] , 0 , $maxDescriptionCharlenght );
         $modDescription = $modDescription . "...";
-        var_dump($modDescription);
+        //var_dump($modDescription);
       }else{
         //not too long, display it all
          $modDescription = $book['description'];

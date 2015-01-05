@@ -1,9 +1,9 @@
 @import url('iconset.css');
 /*
- * @navi_dark: #13353a;
- * @orange_red: #c7872f;
+ * @navi_dark: #16a085;
+ * @orange_red: #f1c40f;
  * @ice_blue: #b8e7e6;
- * @navi_fair: #3ea7ba;
+ * @navi_fair: #34495e;
  */
 html, body {
   margin: 0;
@@ -21,7 +21,7 @@ html, body {
 
 #header {
   height: 80px;
-  background-color: #13353a;
+  background-color: #16a085;
 
   /*-webkit-box-shadow: 0px 3px 5px -3px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 3px 5px -3px rgba(0,0,0,0.75);
@@ -36,7 +36,7 @@ html, body {
 #main {
   overflow: hidden;
   min-height: 700px;
-  background-color: #13353a;
+  background-color: #16a085;
 }
 
 #main > div {
@@ -47,7 +47,7 @@ html, body {
   float: left;
   width: 20%;
   min-height: 100%;
-  background-color: #13353a;
+  background-color: #16a085;
 }
 
 #sub-menu {
@@ -92,13 +92,13 @@ html, body {
 
   height: 80px;
   color: #FAFAFA;
-  background-color: #13353a;
+  background-color: #16a085;
   float: none;
 }
 
 #footer > div:hover {
   cursor: pointer;
-  color: #13353a;
+  color: #16a085;
   background-color: #FAFAFA;
 }
 
@@ -129,12 +129,12 @@ h1 {
 
 h2 {
   font-size: 30px;
-  color: #13353a;
+  color: #16a085;
 }
 
 h3 {
   font-size: 26px;
-  color: #13353a;
+  color: #16a085;
 }
 
 p {
@@ -149,12 +149,12 @@ a,
 a:link,
 a:visited,
 a:active {
-  color: #3ea7ba;
+  color: #34495e;
   text-decoration: none;
 }
 
 a:hover {
-  color: #c7872f;
+  color: #f1c40f;
   text-decoration: none;
   cursor: pointer;
 }
@@ -175,16 +175,16 @@ a.button {
   padding: 1px 1.25em;
   height: 2em;
   line-height: 2em;
-  border: 1px solid #13353a;
+  border: 1px solid #16a085;
   border-radius: 2px;
   background: none;
   background-color: #FAFAFA;
-  color: #13353a;
+  color: #16a085;
 }
 
 .button:hover {
   cursor: pointer;
-  background-color: #13353a;
+  background-color: #16a085;
   color: #FAFAFA;
 }
 
@@ -232,7 +232,7 @@ span.highlight {
 }
 
 #logo:hover > span {
-  color: #13353a;
+  color: #16a085;
   background-color: #FAFAFA;
   transform: translate3d(0, 0, 0) scale(1.25);
 }
@@ -263,7 +263,7 @@ span.highlight {
 .menu li:hover a,
 .menu li:hover>span {
   display: inline-block;
-  color: #c7872f;
+  color: #f1c40f;
 }
 
 #sub-menu .menu li:hover {
@@ -369,7 +369,7 @@ span.highlight {
 
 .menu-main > li.active a,
 .menu-main > li a:hover {
-  color: #13353a;
+  color: #16a085;
   background-color: #FAFAFA;
 }
 
@@ -393,7 +393,7 @@ input, select, button {
 }
 
 .input-border {
-  border: 1px solid #13353a;
+  border: 1px solid #16a085;
 }
 
 button {
@@ -406,7 +406,7 @@ button {
 input.button:hover,
 button:hover {
   border: 1px solid #FAFAFA;
-  background-color: #13353a;
+  background-color: #16a085;
   color: #FAFAFA;
 }
 
@@ -557,7 +557,7 @@ button:hover {
 }
 
 #shoppingTable tr {
-  border-bottom: 1px solid #13353a;
+  border-bottom: 1px solid #16a085;
 }
 
 #shoppingTable tr:nth-of-type(even) {
@@ -572,7 +572,7 @@ button:hover {
 
 #shoppingTable td {
   padding: 7px;
-  border-right: 1px solid #13353a;
+  border-right: 1px solid #16a085;
 }
 
 #shoppingTable td:last-of-type {
@@ -726,11 +726,11 @@ button:hover {
 }
 
 .pagination li {
-  color: #3ea7ba;
+  color: #34495e;
 }
 
 .pagination li.active a {
-  color: #c7872f;
+  color: #f1c40f;
 }
 
 .pagination li:first-child {
@@ -757,7 +757,7 @@ $lines-to-show: 3;*/
   margin: 0;
   padding: 24px 0;
   /* border: 1px solid #000; */
-  border-bottom: 1px dashed #13353A;
+  border-bottom: 1px dashed #16a085;
 }
 
 .product:first-of-type {
@@ -898,14 +898,14 @@ margin-right:5px;
  }
 
 .ac-dropdown li:hover {
-  background-color: #13353a;
+  background-color: #16a085;
   color: #FAFAFA;
   cursor: pointer;
 }
 
 .ac-dropdown li:hover .highlight {
   background-color: #FAFAFA;
-  color: #13353A;
+  color: #16a085;
 }
 
 /* Wiki */
@@ -941,7 +941,7 @@ margin-right:5px;
   margin-left: 3px;
   width: 24px;
   height: 24px;
-  color: #3ea7ba;
+  color: #34495e;
   font-family: "ElegantIcons";
   background-repeat: no-repeat;
 }
@@ -954,8 +954,8 @@ margin-right:5px;
 }
 
 /*
- * @navi_dark: #13353a;
- * @orange_red: #c7872f;
+ * @navi_dark: #16a085;
+ * @orange_red: #f1c40f;
  * @ice_blue: #b8e7e6;
- * @navi_fair: #3ea7ba;
+ * @navi_fair: #34495e;
  */
