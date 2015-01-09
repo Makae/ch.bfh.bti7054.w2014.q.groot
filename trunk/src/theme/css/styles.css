@@ -39,6 +39,9 @@ html, body {
 
 #container {
   padding-top: 80px;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
 }
 
 #main {
@@ -902,6 +905,7 @@ margin-right:5px;
 
 /* AutoComplete */
 .ac-dropdown {
+  z-index: 200;
  display: inline-block;
  overflow: hidden;
  padding:0;
