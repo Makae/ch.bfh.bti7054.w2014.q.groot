@@ -26,6 +26,48 @@
 "view_label_hotlist":
 "Hotlist"
 
+"view_label_manageuser":
+"Manage User"
+
+"db_genre_key_art":
+"Art"
+
+"db_genre_key_childrens_book":
+"Children's book"
+
+"db_genre_key_comic":
+"Comic"
+
+"db_genre_key_cooking":
+"Cooking"
+
+"db_genre_key_crime":
+"Thriller"
+
+"db_genre_key_fantasy":
+"Fantasy"
+
+"db_genre_key_geographic":
+"Geography"
+
+"db_genre_key_horror":
+"Horror"
+
+"db_genre_key_professional_literature":
+"Tech. book"
+
+"db_genre_key_roman":
+"Novel"
+
+"db_genre_key_sports":
+"Sports"
+
+"db_genre_key_travelling":
+"Travelling"
+
+"db_genre_key_science":
+"Science"
+
 "Title":
 "Title"
 "Author":
@@ -136,6 +178,13 @@
 "Type"
 "genre":
 "Genre"
+
+"Manage User":
+"Manage User"
+"first_name":
+"First name"
+"last_name":
+"Last name"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"

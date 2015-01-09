@@ -28,7 +28,7 @@ public function makeMenu(){
   $naviArray[] = array("link" => "index.php?view=shoppingcart", "icon" => "icon_cart", "label" => "Shopping Cart" );
   $naviArray[] = array("link" => "index.php?view=wishlist", "icon" => "icon_gift", "label" => "Wishlist" );
   $naviArray[] = array("link" => "index.php?view=hotlist", "icon" => "icon_grid-2x2", "label" => "Hotlist" );
-
+  $naviArray[] = array("link" => "index.php?view=manageuser", "icon" => "icon_profile", "label" => "Manage User" );
 
   $linkList = "";
 

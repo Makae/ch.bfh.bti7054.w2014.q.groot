@@ -36,7 +36,8 @@
       'password' => Utilities::hash('12345', USER_SALT),
       'first_name' => 'Bruce',
       'last_name' => 'Banner',
-      'lang' => 'de'
+      'lang' => 'de',
+      'isAdmin' => true
     ));
     UserModel::create(array(
       'user_name' => 'thor',

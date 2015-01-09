@@ -40,6 +40,9 @@
 "view_label_hotlist":
 "Hotlist"
 
+"view_label_manageuser":
+"Benutzer verwalten"
+
 "db_genre_key_art":
 "Kunst"
 
@@ -221,6 +224,13 @@
 "Typ"
 "genre":
 "Genre"
+
+"Manage User":
+"Benutzer verwalten"
+"first_name":
+"Vorname"
+"last_name":
+"Nachname"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"
