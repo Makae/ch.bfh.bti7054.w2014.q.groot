@@ -600,12 +600,12 @@ button:hover {
 }
 
 #shoppingTable tr:nth-of-type(even) {
-  background-color:#F0F0F0;
+  background-color:#b8e7e6;
 }
 
 #shoppingTable tr:nth-of-type(even) input {
-  background-color:#F0F0F0;
-  border-color: #F0F0F0;
+  background-color:#b8e7e6;
+  border-color: #b8e7e6;
   cursor: pointer;
 }
 

@@ -369,15 +369,17 @@
       );
     }
 
-    /*
-      @args
-        $values : array('key' => 'value'
-        eg. array('name' => 'ruedi');
-    */
+    /**
+     * Prepares an array of values for updatie-sql statement
+     *
+     * Escapes values and surounds the columnname with "`"
+     *
+     * @param array $values - As Exapmple: array('column' => 'value', 'column2' => 'value2');
+     * @return string $sql - SQL section for update-values
+     */
     protected function _prepareUpdateValues($values=null) {
       if(is_null($values))
         return '';
-
 
       $this->_prepareValues($values);
 
@@ -394,12 +396,14 @@
       return $sql;
     }
 
-    /*
-      @args
-        $col : string -> Column definition as string
-        $col : array(a,b) -> Column name and column definition seperated in 2-value-array
-        eg. array('category', 'VARCHAR(50)');'
-    */
+    /**
+     * Prepares a column definition
+     * Is used for creating a table
+     * Escapes values and surounds the columnname with "`"
+     *
+     * @param array $values - As Exapmple: array('amount', 'INT(10)');
+     * @return string $sql - SQL section for update-values
+     */
     protected function _prepareColumnDefinition($col=null) {
       if(is_null($col))
         return '';
@@ -416,18 +420,15 @@
       return '`' . $this->_esc($col[0]). '` ' . $this->_esc($col[1]);
     }
 
-    /*
-     @desc: Generates the limit part of a select query
-     @args:
-       $limit:
-         Type String:
-           returns "LIMIT $limit"
-         Type Array:
-           Length = 1
-             returns "LIMIT $limit[0]"
-           Length = 2
-             returns "LIMIT $limit[0], $limit[1]"
-    */
+    /**
+     * Generates the limit part of a select query
+     *
+     * @param string $type - limit section of query as string e.g. "0,1"
+     * @param array<string> $single - array with only one entry with string e.g. "0,1"
+     * @param array<int> $pair - array with pair of values e.g. array(0, 1);
+     *
+     * @return limit-section of a sql-query
+     */
     protected function _prepareLimitSql($limit=null) {
       if(is_null($limit))
         return '';
@@ -444,15 +445,13 @@
         return $this->_esc('LIMIT ' . $limit[0]);
     }
 
-    /*
-     @desc: Generates the orders part of a select query
-     @args:
-       $limit:
-         Type String:
-           returns "ORDER BY $orders"
-         Type Array:
-          returns "ORDER BY $limit[0],$limit[1],$limit[2],..."
-    */
+    /**
+     * Generates the orders part of a select query
+     *
+     * @param string $orders - order as string. Returns "ORDER BY $orders"
+     * @param array<string> $orders - multiple order parts. Returns "ORDER BY $orders[0],$orders[1],$orders[2],..."
+     * @return string $sql - orders-section of a sql-query
+     */
     protected function _prepareOrdersSql($orders=null) {
       if(is_null($orders))
         return '';
@@ -465,24 +464,21 @@
       return $this->_esc('ORDER BY ' . $orders);
     }
 
-    /*
-     @desc: Generates the conditions part of a query
-     @args:
-       $conditions:
-         Type String:
-           returns "WHERE $conditions"
-         Type Indexed 2D-Array: {'key1'=>'value1', 'key2'=>array('value2_1', 'value2_2')}
-           @desc: each array element is concatenated by an " AND " if a value is an array its
-                  values are concatenated inside a Group by an " OR "
-           @args:
-            array-value
-              Type : String
-                adds ... " AND $key == $value"
-              Type : Array
-                adds ... " AND ($key == $value OR $key == $value2) "
-
-         returns "WHERE $composed_conditions"
-    */
+    /**
+     * Generates the conditions part of a query
+     *
+     * If an mixed array as conditions is provided, the conditions are concatenated by an "AND"
+     * If an value inside this mixed array is defined as an array the values inside this array
+     * are then concatenated by an "OR".
+     * Example:
+     *  @value string $value - adds ... " AND $key == $value"
+     *  @value array $value - adds ... " AND ($key == $value OR $key == $value2) "
+     *
+     * @param string $conditions - returns "WHERE $conditions"
+     * @param array<mixed> $conditions - E.g. {'key1'=>'value1', 'key2'=>array('value2_1', 'value2_2')}
+     * @return The composed SQL-Conditions
+     *
+     */
     protected function _prepareConditionsSql($conditions=null) {
       if(is_null($conditions))
         return '';
@@ -522,6 +518,14 @@
       return 'WHERE ' . $cond;
     }
 
+    /**
+     * Prepares a value of an SQL-Query
+     * It encases it inside an apostroph if string,
+     * otherwise not. Additionally it escapes the values
+     *
+     * @param mixed $values - values to be prepared
+     * @return mixed $values - returns the prepared values
+     */
     protected function _prepareValues($values) {
       if(!is_array($values)) {
         $val = $this->_esc($values);
@@ -536,45 +540,54 @@
       return $values;
     }
 
-    // @desc: sugar for table-Entities
+    /**
+     * Sugar for prepareing table-entities
+     */
     protected function _prepareTableSql($value=null, $default='*') {
       return $this->_prepareEntitiesSql($value, $default);
     }
 
-    // @desc: sugar for column-Entities
+    /**
+     * Sugar for prepareing column-entities
+     */
     protected function _prepareColumnSql($value=null, $default=null) {
       return $this->_prepareEntitiesSql($value, $default);
     }
 
-    /*
-      @desc: Concatenates table Entities
-      @args: $default = null allows for * in cols statement
-    */
-    protected function _prepareEntitiesSql($value=null, $default=null) {
-      if(is_null($value)) {
+    /**
+     * Concatenates table Entities
+     *
+     * It encases the entities with an "`"
+     *
+     * @param null $entities - allows for $default to be returned as cols statement
+     * @param string $entities - the entity name
+     * @param array<string> $entities - the entities as array
+     */
+    protected function _prepareEntitiesSql($entities=null, $default=null) {
+      if(is_null($entities)) {
         if(!is_null($default))
           return $default;
         else
           throw new Exception('No Entity defined for SQL-Query');
       }
 
-      if(!is_array($value))
-        $value = array($value);
+      if(!is_array($entities))
+        $entities = array($entities);
 
       $result = '';
       $add = '';
-      foreach($value as $val) {
-        $val = trim($val);
-        if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.?)([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)) {
-          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.?)([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3` $4 `$5`', $val) . ' ';
-        } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)) {
-          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1` $4 `$5`', $val) . ' ';
-        } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", $val)){
-          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3`', $val) . ' ';
-        } else if(preg_match("/(.*\([^\)]+\))(\s+[Aa][Ss]\s+)([a-zA-Z0-9]+)/", $val)) {
-          $add = preg_replace("/(.*\([^\)]+\))(\s+[Aa][Ss]\s+)([a-zA-Z0-9]+)/", '$1$2`$3`', $val) . ' ';
+      foreach($entities as $entity) {
+        $entity = trim($entity);
+        if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.?)([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", $entity)) {
+          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.?)([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3` $4 `$5`', $entity) . ' ';
+        } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", $entity)) {
+          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)\s+([aA][sS]\s+)?([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1` $4 `$5`', $entity) . ' ';
+        } else if(preg_match("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", $entity)){
+          $add = preg_replace("/^([a-zA-Z][a-zA-Z0-9_-]*)(\.)([a-zA-Z][a-zA-Z0-9_-]*)$/", '`$1`$2`$3`', $entity) . ' ';
+        } else if(preg_match("/(.*\([^\)]+\))(\s+[Aa][Ss]\s+)([a-zA-Z0-9]+)/", $entity)) {
+          $add = preg_replace("/(.*\([^\)]+\))(\s+[Aa][Ss]\s+)([a-zA-Z0-9]+)/", '$1$2`$3`', $entity) . ' ';
         } else {
-          $add = '`' . $val . '`';
+          $add = '`' . $entity . '`';
         }
         $result .= $result == '' ? $add : ', ' . $add;
       }

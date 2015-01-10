@@ -115,6 +115,7 @@
         static::_validateColumns($conditions);
 
       $result = Core::instance()->getDb()->select(static::$TABLE, $conditions, $columns);
+
       return $result;
     }
 
@@ -134,6 +135,23 @@
       $data = Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, $columns);
 
       return static::childInstance($data['id']);
+    }
+
+    /**
+     * Finds the first row in the db which match the provided conditions.
+     * Use this method if the interaction via the model is not necessary.
+     *
+     * @param array $conditions - The conditions array.
+     * @param array $columns The - columns which will be returned
+     *
+     * @return array $data - An the data of the db-row
+     */
+    public static function findFirstPlain($conditions, $columns=array('id')) {
+      static::_initTable();
+      if(!is_null($conditions))
+        static::_validateColumns($conditions);
+      return  Core::instance()->getDb()->selectFirst(static::$TABLE, $conditions, $columns);
+
     }
 
     /**

@@ -6,5 +6,6 @@
 
   // The testdata file contains default data
   require_once('testdata.php');
+
   echo $core->render();
 ?>
