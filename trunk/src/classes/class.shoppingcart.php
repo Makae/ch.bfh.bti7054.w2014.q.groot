@@ -4,7 +4,6 @@
  * Autor: F.Schwab
  * Eine Instanz dieser Klasse wird erzeugt um den Warenkorb anzeigen zu lassen.
  * Als Argumente für den Konstruktor kommt ein Array mit den bereits gesammelten Items mit.
- * 
  */
 
 class ShoppingCart {
@@ -13,6 +12,7 @@ class ShoppingCart {
 	private $items = array ();
 	private $totalPrice = 0;
 	private $userID = "";
+	private $subTotal = 0;
 	
 	function __construct($carArray) {
 		$this->items = $carArray;
@@ -46,12 +46,7 @@ class ShoppingCart {
 	}
 	
 	public function calculatePrice() {
-		$totalPrice = 0;
-		foreach ( $this->items as $ID => $itemObject ) { // foreach loop für assoziatives array: Index und dann den Wert mit => auflösen
-			$totalItemPrice = $itemObject->price * $itemObject->quantity;
-			$totalPrice += $totalItemPrice;
-		}
-		return $totalPrice;
+		return $this->subTotal;
 	}
 	
 	public function displayCart() {
@@ -60,22 +55,62 @@ class ShoppingCart {
 		if (sizeof ( $this->items ) == 0)
 			return "Your shopping cart is empty.";
 		
-		$table = "";
-		$table = "<p>In ihrem Warenkorb befinden sich: " . sizeof ( $this->items ) . " Elemente</p>" . "<table id='shoppingTable'>" . "<tr id='tableTopics'><td>Artikel-Nr.</td><td>Anzahl</td><td></td><td></td><td>Preis</td><td></td>";
+		$table = ""; //Erstellen des HTML Contents, der von der displayCart() Funktion dann zurückgegeben wird
 		
+		$table = "<p>In ihrem Warenkorb befinden sich: " . sizeof ( $this->items ) . " Elemente</p>" . "<table id='shoppingTable'>" . "<tr id='tableTopics'>
+				<td>Artikel-Nr.</td>
+				<td>Titel</td>
+				<td>Anzahl</td>
+				<td></td><td></td><td>Preis</td><td></td>";
+		
+		/* Die Tabelle zur Anzeige der in den Korb gelegten Items wird aufbereitet. Der Remove Button wird hinter jeden Zeileneintrag mit der entsprechenden Post Variable
+		 * gesetzt und die + und - Buttons werden angehängt 
+		 * Update 30.12: Anstatt meiner Lösung unten hätte ich besser die +/- Buttons auch schon bei der Generierung mit den Actions belegen sollen.
+		 */
 		foreach ( $this->items as $index ) {
 			$ID2del = $index->ID;
-			$table = $table . "<tr id=$TID onclick=''><td>$index->ID</td><td name='amount'>$index->amount</td>
+			$list = BookModel::findList(array('isbn' => array($index->ID)), null);
+			$title = $list[0]['title'];
+			$price = $list[0]['price'];
+			$totPrice = $price * $index->amount;
+			
+			$table = $table . "<tr id=$TID onclick=''><td>$index->ID</td>
+			<td>$title</td>
+			<td name='amount'>$index->amount</td>
 	 	 	<td>
 	 	 	<input type='button' id='plusButton' value='+'></input></td>
 	 	 	<td><input type='button' id='minusButton' value='-'></input></td>
-	 	 	<td></td>
+	 	 	<td>$totPrice</td>
 	 	 	<td><form action='" . Controller::instance ()->getViewUrl ( 'shoppingcart' ) . "&remove=$ID2del' method='post'><input type='submit' value='Remove'></input></form></td>
 	 	 	</tr>";
-			
+		
 			$TID ++;
+			$this->subTotal+=$totPrice;
 		}
 		
+		
+		
+		/*
+		 * Totaler Wert des Warenkorbs
+		 */
+		
+		$table = $table . "
+				<tr>
+		<td></td><td></td><td></td><td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		</tr>
+		<tr>
+		<td></td><td></td><td></td><td></td>
+		<td>Sub Total:</td>
+		<td>$this->subTotal</td>
+		<td></td>
+		</tr>";
+		
+		/*
+		 * 
+		 */
 		$table = $table . "</table>
 	 			<form action='index.php?view=shoppingcart' method='post' class='clear-form'>
 	 			<input type='submit' value='Empty Cart' class='button button-primary'></input>
@@ -103,9 +138,10 @@ class ShoppingCart {
 	 			function myFunction(x) {
 	 			rowIndex = x.rowIndex
 	 			window.alert(rowIndex)
-
 				}
 
+				
+				
 	 			function alertInnerHTML(e) {
    					 e = e || window.event;//IE
 	 				rownumber = this.parentNode.id;
@@ -113,12 +149,12 @@ class ShoppingCart {
 
 	 				console.log('Zeilennummer: '+rownumber + ' Spalte:' +cellNumber);
 
-	 				if(cellNumber==2) {
+	 				if(cellNumber==3) {
 	 				console.log('increase');
 	 				increase(rownumber);
 	 				}
 
-	 				if(cellNumber==3) {
+	 				if(cellNumber==4) {
 	 				decrease(rownumber);
 	 				}
 
@@ -147,22 +183,7 @@ class ShoppingCart {
 		
 		return $table;
 	}
-	public function displayTest() {
-		$table = "";
-		$table = "<br>In ihrem Warenkorb befinden sich: " . sizeof ( $this->items ) . " Elemente" . "<table border='1'>" . "<tr id='tableTopics'><td>Artikel-Nr.</td><td>Anzahl</td><td>Preis</td>";
-		
-		foreach ( $this->items as $index ) {
-			$table = $table . "<tr><td>$index->ID</td><td>$index->amount</td><td></td>
-	 		<td>
-	 		<form action='index.php' method='post'><input type='submit' value='Remove'></input>
-	 		</form>
-	 		</td></tr>";
-		}
-		
-		$table = $table . "</table>";
-		
-		return $table;
-	}
+
 }
 
 ?>
