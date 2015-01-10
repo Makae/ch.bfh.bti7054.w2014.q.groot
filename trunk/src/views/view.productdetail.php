@@ -168,12 +168,10 @@ if(isset($_GET["action"])){
 } else $buyState="";
 
 $htmlContentBody = "
-		<div id=\"content\">
         <span style='color:red'>$buyState</span>
  		$note
           <h1>$lang_pageTitel</h1>
            $htmlContent
-        </div>
 
 ";
 
