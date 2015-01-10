@@ -1,4 +1,10 @@
 <?php
+  /**
+   * This class provides a interface for joining
+   * two table together
+   *
+   * @state experimental
+   */
   abstract class Join {
     const JOIN_LEFT = 'LEFT';
     const JOIN_RIGHT = 'LEFT';

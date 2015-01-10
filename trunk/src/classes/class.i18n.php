@@ -174,7 +174,7 @@
 
   }
   /**
-   * Suger for calling I18N::translate($key, $args)
+   * Sugar for calling I18N::translate($key, $args)
    *
    * Attention, this calles the current official active Instance language.
    * -> for calling the translation to an other language do it via:

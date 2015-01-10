@@ -431,6 +431,10 @@ input, select, button {
   line-height: 2em;
 }
 
+select {
+  height: 2.4em;
+}
+
 .input-border {
   border: 1px solid #16a085;
 }
