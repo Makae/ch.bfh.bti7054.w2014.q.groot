@@ -1,12 +1,12 @@
 <?php
-  /*
-    @author: M. Käser
-    @date: 25. 10. 2014
-    @desc: Baseclass for all Tests. When an a childclass are then added
-           to the static children list of the abstract base class.
-           it subclass need to habe test[NAME] functions which are automatically
-           called by the Base class
-  */
+  /**
+   * Baseclass for all Tests. When an a childclass are then added
+   * to the static children list of the abstract base class.
+   * it subclass need to habe test[NAME] functions which are automatically
+   * called by the Base class
+   * @author: M. Käser
+   * @date: 25. 10. 2014
+   */
   abstract class BaseTest {
     const CMP_E = 1;
     const CMP_NE = 2;

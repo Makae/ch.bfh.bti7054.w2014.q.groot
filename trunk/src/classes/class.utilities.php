@@ -7,7 +7,9 @@
   class Utilities {
 
     /**
-     * returns the contents of a file
+     * Get content of a file
+     *
+     * @param string $file_content - content of the file
      */
     public static function getFileContent($file_path) {
       if(!file_exists($file_path))
@@ -21,12 +23,24 @@
       return $text;
     }
 
+    /**
+     * Enclose (highlight) a substring
+     *
+     * @param string $str - haystack string
+     * @param regex $search - search regex, the whole string has to match, when no replace
+     * @param regex $replace - replace regex for string
+     */
     public static function highlight($str, $search, $replace="<span class='highlight'>$0</span>") {
       return preg_replace('/' . $search .'/i', $replace, $str);
     }
 
     /**
      * replaces keys in an associative array inside a template with its values
+     *
+     * @param string $template - string with the markers inside
+     * @param assoc-array $args - keys represent the markers, the values are then the replacements of those markers
+     * @param string $prefix - the prefix of the marker
+     * @param string $suffix - the suffix of the marker
      */
     public static function templateReplace($template, $args, $prefix='{', $suffix='}') {
       foreach($args as $key => $value)
@@ -36,6 +50,10 @@
 
     /**
      * Prefixes and suffixes a value
+     *
+     * @param string $value
+     * @param string $prefix
+     * @param string $suffix
      */
     public static function varIt($value, $prefix='{', $suffix='}') {
       return $prefix . $value . $suffix;
@@ -43,6 +61,7 @@
 
     /**
      * Checks if an array is associative or not
+     * @param array $array
      */
     public static function isAssoc($array) {
         return array_keys($array) !== range(0, count($array) - 1);
@@ -50,6 +69,9 @@
 
     /**
      * Hashes a string
+     *
+     * @param string $str
+     * @param string $salt
      */
     public static function hash($str, $salt) {
       return md5($str . $salt);
