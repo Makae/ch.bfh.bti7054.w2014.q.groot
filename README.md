@@ -1,5 +1,5 @@
 # Readme
-Hello and wellcome to the groot project.
+Hello and welcome to the groot project.
 A project wich was developed for the "Web Programming" Module at the BFH-Bern.
 
 [Visit BFH-Bern](http://http://www.ti.bfh.ch/)
