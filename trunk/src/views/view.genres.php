@@ -22,8 +22,7 @@
     }
 
     private function _getBooksByGenre($genre, $page=0, $size=4) {
-      $books = Core::instance()->getDb()->booksByGenre($genre, $page, $size);
-      return $books;
+      return Core::instance()->getDb()->booksByGenre($genre, $page, $size);
     }
 
     public function render() {
@@ -32,16 +31,11 @@
       $page = 0;
       $size = 4;
       foreach($genres as $genre) {
-        $books = $this->_getBooksByGenre($genre['value'], $page, $size);
-        if(count($books) == 0)
+        $showcase = $this->_getShowCase($genre['value']);
+
+        if(is_null($showcase))
           continue;
 
-        $args = array(
-          'books' => $books,
-          'style' => 'showcase',
-          'text_details' => i('To the details')
-        );
-        $showcase = TemplateRenderer::instance()->extendedRender('theme/templates/snippets/showcase.html', $args);
         $showcase_set[] = array('genre' => $genre['label'], 'showcase' => $showcase);
       }
       $args = array(
@@ -51,9 +45,35 @@
       return TemplateRenderer::instance()->extendedRender('theme/templates/views/genres.html', $args);
     }
 
-    public function ajaxCall() {
-      // we will return the value as json encoded content
-      return json_encode('asdf');
+    private function _getShowCase($genre, $page=0, $size=4) {
+      $books = $this->_getBooksByGenre($genre, $page, $size);
+
+      if(count($books) == 0)
+        return null;
+
+      $args = array(
+        'books' => $books,
+        'style' => 'showcase',
+        'text_details' => i('To the details'),
+        'navigation' => true,
+        'prev_hidden' => $page == 0,
+        'config' => urlencode(json_encode(array(
+          'page' => $page,
+          'size' => $size,
+          'request' => Controller::instance()->getViewUrl() . '&ajax=1&ajax_fn=nextShowcasePage&page={%page%}&size={%size%}&genre=' . $genre
+        )))
+      );
+      return TemplateRenderer::instance()->extendedRender('theme/templates/snippets/showcase.html', $args);
+    }
+
+    public function ajaxNextShowcasePage() {
+      $genre = isset($_REQUEST['genre']) ? $_REQUEST['genre'] : null;
+      $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 0;
+      $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : 4;
+
+      $result = $this->_getShowCase($genre, $page, $size);
+      return json_encode(array('html' => $result));
+
     }
 
   }

@@ -173,10 +173,77 @@ var wiki = {
 
 };
 
+var showcase = {
+  init : function() {
+    var self = this;
+    $(".showcase-wrapper[data-config]").each(function() {
+      var config = JSON.parse(decodeURIComponent($(this).attr('data-config')));
+      config.instance = $(this);
+
+      $(this).find(".nav.prev").click(function() {
+        if(config.page == 0 || config.loading)
+          return;
+
+        config.loading = true;
+        self.getPage(config.request, config.page-1, config.size, function(result){
+          config.loading = false;
+          self.pageLoaded(result, config);
+          config.page--;
+          self.updateNavigation(config);
+        });
+      });
+
+      $(this).find(".nav.next").click(function() {
+        if(config.loading == true)
+          return;
+
+        config.loading = true;
+        self.getPage(config.request, config.page+1, config.size, function(result){
+          config.loading = false;
+          self.pageLoaded(result, config);
+          config.page++;
+          self.updateNavigation(config);
+        });
+      });
+    });
+  },
+
+  getPage : function(request, page, size, callback) {
+    var url = request.replace('{%page%}', page).replace('{%size%}', size);
+    $.ajax({
+      type : "POST",
+      url : url,
+      success : function(e) {
+        callback(e)
+      }
+    });
+  },
+
+  pageLoaded : function(e, config) {
+    if(e.html == null)
+      return;
+    this.updateContent(e.html, config);
+  },
+
+  updateContent : function(content, config) {
+    var new_showcase = $(content).find(".showcase");
+    config.instance.find('.showcase').html(new_showcase);
+  },
+
+  updateNavigation : function(config) {
+    if(config.page == 0)
+      config.instance.find(".nav.prev").addClass('hidden');
+    else
+      config.instance.find(".nav.prev").removeClass('hidden');
+  }
+
+}
+
 var core = {
   init : function() {
     search.init();
     wiki.init();
+    showcase.init();
   }
 };
 

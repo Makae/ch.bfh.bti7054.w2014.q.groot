@@ -638,6 +638,68 @@ button:hover {
 /*
  * showcase.html
  */
+
+.showcase-wrapper {
+  position: relative;
+}
+
+.showcase-wrapper .nav {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  opacity: 0.3;
+  background-color: rgba(22, 160, 133, 0.8);
+  cursor: pointer;
+}
+
+.showcase-wrapper .nav.hidden {
+  -webkit-transform: translate3d(-100%, 0, 0);
+  -moz-transform: translate3d(-100%, 0, 0);
+  -ms-transform: translate3d(-100%, 0, 0);
+  -o-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+
+.showcase-wrapper .nav:hover {
+  opacity: 1;
+}
+
+.showcase-wrapper .nav.prev {
+  left: 0;
+}
+
+.showcase-wrapper .nav.next {
+  right: 0;
+}
+
+.showcase-wrapper .nav span {
+  position: absolute;
+  display: block;
+  top: 50%;
+  margin-top: -20px;
+  height: 40px;
+  width: 40px;
+  font-size:40px;
+  color: #FAFAFA;
+}
+
+.showcase-wrapper .nav.prev span {
+  left: 50%;
+  margin-left: -20px;
+}
+
+.showcase-wrapper .nav.next span {
+  right: 50%;
+  margin-right: -20px;
+}
+
+.showcase {
+  margin: 0;
+  padding: 0;
+}
+
 .showcase li a {
   position: relative;
   display: block;
@@ -658,7 +720,7 @@ button:hover {
   right: 0;
   padding: 10%;
   opacity: 0;
-  background-color: rgba(19,53,58, 0);
+  background-color: rgba(22, 160, 133, 0.8);
   -webkit-transform: translate3d(0, 0, 0) scale(0.5);
   -moz-transform: translate3d(0, 0, 0) scale(0.5);
   -ms-transform: translate3d(0, 0, 0) scale(0.5);
@@ -678,7 +740,7 @@ button:hover {
   bottom: 0;
   left: 0;
   opacity: 1;
-  background-color: rgba(19, 53, 58, 0.8);
+  background-color: rgba(22, 160, 133, 0.8);
   -webkit-transform: translate3d(0, 0, 0) scale(1);
   -moz-transform: translate3d(0, 0, 0) scale(1);
   -ms-transform: translate3d(0, 0, 0) scale(1);

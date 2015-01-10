@@ -1,16 +1,28 @@
 {if condition="isset($title)"}
   {$title}
 {/if}
-<ul class="showcase style-{$style} row">
-{for array="$books"}
-  <li class="col col_3_12">
-    <a href="?view=productdetail&id={$value.isbn}" class="">
-      <img src="{$value.cover}" class="cover" />
-      <div class="overlay stdanimation1_2">
-        <h4>{$value.title}</h4>
-        <div class="author">{$value.author}</div>
-      </div>
-    </a>
-  </li>
-{/for}
-</ul>
+<div class="showcase-wrapper" {if condition="isset($config)"} data-config="{$config}" {/if}>
+  {if condition="$navigation"}
+  <div class="nav prev stdanimation1_2 {if condition="isset($prev_hidden) && $prev_hidden == true"} hidden {/if}">
+    <span class="arrow_carrot-left arrow"></span>
+  </div>
+  {/if}
+  <ul class="showcase style-{$style} row">
+  {for array="$books"}
+    <li class="col col_3_12">
+      <a href="?view=productdetail&id={$value.isbn}" class="">
+        <img src="{$value.cover}" class="cover" />
+        <div class="overlay stdanimation1_2">
+          <h4>{$value.title}</h4>
+          <div class="author">{$value.author}</div>
+        </div>
+      </a>
+    </li>
+  {/for}
+  </ul>
+  {if condition="$navigation"}
+  <div class="nav next stdanimation1_2">
+    <span class="arrow_carrot-right arrow"></span>
+  </div>
+  {/if}
+</div>
