@@ -30,14 +30,10 @@
     //do translation
     $footerpoint["label"] = i($footerpoint["label"]);
 
-    $footerList .= '
-    
-            <div class="'.$footerClass.'" ><a href="'.$footerpoint["link"].'">'.$footerpoint["label"].'</a></div>
-    
-    ';
+    $footerList .= '<li class="'.$footerClass.'" ><a href="'.$footerpoint["link"].'">'.$footerpoint["label"].'</a></li>';
   }
 
-    return $footerList;
+    return '<ul>' . $footerList .'</ul>';
 
 /*
       return '<div class="impressum stdanimation1_2">Impressum</div>
@@ -47,7 +43,7 @@
       <div class="impressum stdanimation1_2">Support Hotline</div>';
       */
     }
-    
+
 
     public function ajaxCall() {
 

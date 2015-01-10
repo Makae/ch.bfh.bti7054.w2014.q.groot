@@ -1,12 +1,14 @@
 <?php
-  /*
-    @author: M. Käser
-    @date:   17.11.2014
-    @descr:  The autloader automatically loads a required class or interface
-             if the class has not been found.
-             The Class is build up generically and can be included in other Projects
-             as well. Just set the AUTOLOAD_FOLDERS accordingly
-  */
+  /**
+   * The autloader automatically loads a required class or interface
+   * if the class has not been found.
+   *
+   * The Class is build up generically and can be included in other Projects
+   * as well. Just set the AUTOLOAD_FOLDERS accordingly
+   *
+   * @author: M. Käser
+   * @date:   17.11.2014
+   */
   class Autoload {
     private static $folders = array();
 
@@ -23,13 +25,14 @@
       }
     }
 
-/*
-  @args:
-    @path:    Path of the folder from the root directory
-    @match:   Regex which checks if the called class matches the pattern
-    @search:  Search-Regex for the file-string
-    @replace: Replace-Pattern for the file-string
-*/
+    /**
+     * Adds a folder to the possible pathes of the autoloader
+     *
+     * @param path - Path of the folder from the root directory
+     * @param match - Regex which checks if the called class matches the pattern
+     * @param search - Search-Regex for the file-string
+     * @param replace - Replace-Pattern for the file-stri*ng
+     */
     public static function addFolder($path, $match, $search, $replace) {
       Autoload::$folders[] = array('path' => $path,
                                    'match' => $match,

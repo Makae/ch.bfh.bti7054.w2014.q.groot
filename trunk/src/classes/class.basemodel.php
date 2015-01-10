@@ -1,4 +1,8 @@
 <?php
+  /**
+   * The BaseModel handles all the DB-Interaction for
+   * creating updating and reading data.
+   */
   abstract class BaseModel {
     const DATA_UNDEF = 1;
     const DATA_DRAFT = 2;
@@ -18,14 +22,12 @@
     // associative array. The keys in this arrays correspond to the $COLUMN_NAMES-values
     protected $data;
 
-    /*
-      @desc: Constructor of loading data in the model
-      @args: Either provid id XOR $data
-        $id : int -> id in the database
-        $data : array -> data to load into th data array
-                this does not create a new entry in the db
-                use Model::create($data) instead
-    */
+    /**
+     * Constructor for loading data in the model
+     * Either provide the id XOR $data
+     * @param int id - id in the database
+     * @param array data - data to load into th data array this does not create a new entry in the db use Model::create($data) instead
+     */
     public function __construct($id=null, $data=null) {
       static::_initTable();
 
@@ -51,11 +53,13 @@
       $this->data = $data;
     }
 
-    /*
-      @desc: instantiates a child instance from the BaseModel-Class
-      @return: if the id is not found or not defined null is returned
-               else an instance of the child class
-    */
+    /**
+     * instantiates a child instance from the BaseModel-Class
+     *
+     * @param int id - the id inside of the database
+     * @return: if the id is not found or not defined null is returned
+     *          else an instance of the child class
+     */
     protected static function childInstance($id=null) {
       if($id == null)
         return null;
@@ -64,9 +68,10 @@
       return new $cls($id);
     }
 
-    /*
-      @desc: creates and saves a new Model to the data,
-             returns the a new Instance of the model
+    /**
+     * Creates and saves a new Model to the data
+     *
+     * @return a new Instance of the model
     */
     public static function create($data) {
       static::_initTable();
@@ -99,8 +104,8 @@
      * Find all rows in the db which match the provided conditions.
      * Use this method if the interaction via the model is not necessary.
      *
-     * @param array $conditions The conditions array.
-     * @param array $columns The columns which will be returned
+     * @param array $conditions - The conditions array.
+     * @param array $columns - The columns which will be returned
      *
      * @return array<array<mixed>> Associative-table array
      */
@@ -113,6 +118,15 @@
       return $result;
     }
 
+    /**
+     * Finds the first row in the db which match the provided conditions.
+     * Use this method if the interaction via the model is not necessary.
+     *
+     * @param array $conditions - The conditions array.
+     * @param array $columns The - columns which will be returned
+     *
+     * @return ConcreteModel $model - An instance of the relevant model
+     */
     public static function findFirst($conditions, $columns=array('id')) {
       static::_initTable();
       if(!is_null($conditions))
@@ -122,10 +136,12 @@
       return static::childInstance($data['id']);
     }
 
-    /*
-      @descr: updates the data of the model in the database.
-              if not already in the db the model-data is now added.
-    */
+    /**
+     * Updates the data of the model in the database.
+     * if not already in the db the model-data is now added.
+     *
+     * @param array $data - The new data... if null it updates the current data
+     */
     public function update($data=null) {
 
       if(is_array($data))
@@ -147,25 +163,47 @@
 
     }
 
+    /**
+     * Deletes the Entry from the database
+     */
     public function delete() {
       Core::instance()->getDb()->delete(static::$TABLE, array(
         'id' => $this->id()
       ));
     }
-
+    /**
+     *  Sugar for getting the id inside the current data-property
+     *
+     * @return int $id - the current id
+     */
     public function id() {
       return $this->data['id'];
     }
 
+    /**
+     * Return the data-array
+     *
+     * @return array<mixed> $data - the data of the current model
+     */
     public function getData() {
       return $this->data;
     }
 
+    /**
+     * Get a specific value form the data-property
+     *
+     * @return mixed $value - the requested value or void
+     */
     public function getValue($key) {
       if(array_key_exists($key, $this->data))
         return $this->data[$key];
     }
 
+    /**
+     * Sets the data-property with new vales.
+     *
+     * @param array<mixed> $data - The data as an assoc-array
+     */
     public function setData($data) {
       foreach($this->data as $key => $value)
         $this->setValue($key, $value);
@@ -177,10 +215,10 @@
       $this->data[$key] = $value;
     }
 
-    /*
-      @descr: has to be called by all static methods
-              to ensure the table exists
-    */
+    /**
+     * Has to be called by all static methods to ensure the table exists.
+     * Creates the table with the provided column-settings of the child-class
+     */
     private static function _initTable() {
       $db = Core::instance()->getDb();
 
@@ -195,28 +233,46 @@
       $db->createTable(static::$TABLE, $db_columns);
     }
 
+    /**
+     * Returns the table of the child class
+     *
+     * @return string $table
+     */
     public static function table() {
       return static::$TABLE;
     }
 
+    /**
+     *  Returns the colum names of the child class
+     *
+     * @return array<string> $names
+     */
     public static function column_names() {
       return static::$COLUMN_NAMES;
     }
 
-    /*
-      @desc: Saves the current data via the Model::create() method
-             and updates the data and data_status properties
-    */
+    /**
+     * Saves the current data via the Model::create() method
+     * and updates the data and data_status properties
+     */
     private function _saveUpdate() {
       $instance = static::create($this->data);
       $this->data = $instance->getData();
       $this->data_status = BaseModel::DATA_DB;
     }
 
+    /**
+     * Validates the provided column-name array (if they exist in the
+     * ChildClass config)
+     *
+     * @param array<string> $columns
+     * @return bool $valid - TRUE or exception thrown
+     */
     private static function _validateColumns($columns) {
       foreach($columns as $key => $value)
         if(!in_array($key, static::$IGNORE_KEYS) && !in_array($key, static::$COLUMN_NAMES))
           throw new Exception("The requested column " . static::$TABLE . "::$key in BaseModel::find does not exist");
+      return true;
     }
 
   }

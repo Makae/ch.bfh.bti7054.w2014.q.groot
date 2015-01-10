@@ -65,15 +65,7 @@
     foreach($products as $book){
     // var_dump($book);
       //too long text?
-      if(strlen ( $book['description'] ) > $maxDescriptionCharlenght)
-      {
-        $modDescription = substr ( $book['description'] , 0 , $maxDescriptionCharlenght );
-        $modDescription = $modDescription . "...";
-        //var_dump($modDescription);
-      }else{
-        //not too long, display it all
-         $modDescription = $book['description'];
-      }
+      $modDescription = Utilities::cutText($book['description'], $maxDescriptionCharlenght);
  /*
       $htmlContent .= "
         <div class=\"$classProduct\">

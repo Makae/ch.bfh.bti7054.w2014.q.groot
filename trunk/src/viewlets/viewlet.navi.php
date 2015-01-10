@@ -28,18 +28,23 @@ public function makeMenu(){
   $naviArray[] = array("link" => "index.php?view=shoppingcart", "icon" => "icon_cart", "label" => "Shopping Cart" );
   $naviArray[] = array("link" => "index.php?view=wishlist", "icon" => "icon_gift", "label" => "Wishlist" );
   $naviArray[] = array("link" => "index.php?view=hotlist", "icon" => "icon_grid-2x2", "label" => "Hotlist" );
+  $naviArray[] = array("type" => 'seperator', "cls" => "seperator-top" );
   $naviArray[] = array("link" => "index.php?view=manageuser", "icon" => "icon_profile", "label" => "Manage User" );
 
   $linkList = "";
 
   //create a list item for every array found
   foreach($naviArray as $navipoint){
-    //do translation
+    if(isset($navipoint['type']) && $navipoint['type'] == 'seperator') {
+      $linkList .= '<li class="seperator ' . $navipoint['cls'] . '"></li>';
+      continue;
+    }
+    $li_cls = isset($navipoint['cls']) ? ' ' . $navipoint["cls"] : '';
     $navipoint["label"] = i($navipoint["label"]);
-
+    $cls = $classSpan . ' ' . $navipoint["icon"];
     $linkList .= '
-            <li class="'.$classLi.'">
-              <span class="'.$classSpan.' '.$navipoint["icon"].'"></span>
+            <li class="'.$classLi . $li_cls . '">
+              <span class="' . $cls . '"></span>
               <a class="'.$classSpan.'" href="'.$navipoint["link"].'">'.$navipoint["label"].'</a>
             </li>
     ';

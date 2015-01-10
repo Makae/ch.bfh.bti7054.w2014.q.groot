@@ -1,9 +1,13 @@
 <?php
-  /*
+  /**
+   * This class provides a simple interface for interacting with
+   * the MySQL-Database
+   *
+   * The DB uses the singleton pattern
+   *
    * @author: M. Käser
    * @date: 05.10.2014
-   * @desc: This class provides a simple interface for interacting with
-   *        the MySQL-Database
+   *
    */
   class DB {
     protected static $instance = null;
@@ -14,12 +18,16 @@
     protected $db = null;
     // Prevents executing the create table method if the table was already created
     protected $table_cache = array();
-    /*
-      @trivia: connection to the database, it is necessary for
-               php to clearly identify which requests has to be sent where
-    */
     protected $con = null;
 
+    /**
+     * Creates an utf8-connection to the database
+     *
+     * @param string $host
+     * @param string $user
+     * @param string $pwd
+     * @param string $db
+     */
     protected function __construct($host=null, $user=null, $pwd=null, $db=null) {
       $this->host = is_null($host) ? DB_HOST : $host;
       $this->user = is_null($user) ? DB_USER : $user;
@@ -32,10 +40,21 @@
       mysql_set_charset('utf8', $this->con);
     }
 
+    /**
+     * Closes the DB-Connection
+     */
     public function __destruct() {
       mysql_close($this->con);
     }
 
+    /**
+     * Singleton call for creating the instance
+     * Creates a new instance if it does not already exist
+     *
+     * It differentiates, if the called class is inherited
+     *
+     * @return DB $instance - The instance
+     */
     public static function instance($host=null, $user=null, $pwd=null, $db=null) {
       if(self::$instance != null)
         return self::$instance;
@@ -44,34 +63,39 @@
       return self::$instance = new $cls($host, $user, $pwd, $db);
     }
 
-    // @desc: sugar for mysql_query
+    /**
+     * Sugar for calling mysql_query
+     */
     public function query($sql) {
-      $result = mysql_query($sql, $this->con);
       if(SQL_DEBUGGING === true) {
         echo "<pre>";
         var_dump($sql);
         echo "</pre>";
       }
+      $result = mysql_query($sql, $this->con);
       return $result;
     }
 
-    /*
-      @descr: checks if a table exists
-      @copied from: http://php.net/manual/en/function.mysql-tablename.php#41830
-    */
+    /**
+     * checks if a table exists
+     * @source: http://php.net/manual/en/function.mysql-tablename.php#41830
+     */
     public function tableExists($table) {
       if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) == 1)
         return true;
       return false;
     }
 
-  /*
-   @args:
-     $table / $columns: check _prepareEntitiesSql();
-     $conditions: check _prepareConditionsSql();
-     $orders: check _prepareOrdersSql();
-     $limit: check _prepareLimitSql();
-  */
+    /**
+     * Selects the content of a table by providing different parameters
+     * which are then inserted in the SQL-Query
+     *
+     * @param mixed $table -  check _prepareEntitiesSql();
+     * @param mixed $conditions - check _prepareConditionsSql();
+     * @param mixed $columns - check _prepareEntitiesSql();
+     * @param mixed $orders - check _prepareOrdersSql();
+     * @param mixed $limit - check _prepareLimitSql();
+    */
     public function select($table, $conditions=null, $columns=null, $orders=null, $limit=null) {
       $query = 'SELECT {%columns%} FROM {%table%} {%conditions%} {%orders%} {%limit%}';
       $args = $this->_prepareArgs($table, $conditions, $columns, $orders, $limit);
@@ -80,10 +104,11 @@
       $result = $this->query($query);
       return $this->_assocRows($result);
     }
+
     /**
      * Joins two tables and returns relation
      *
-     * @state indevelopment
+     * @state experimental
      */
     public function join($left, $right, $type, $conditions=null, $join_columns=null, $orders=null, $limit=null) {
       $query = 'SELECT {%columns%} FROM {%table_left%} as {%name_left%} {%join%} {%table_right%} AS {%name_right%} ON ({%name_left%}.{%column_left%} = {%name_right%}.{%column_right%}) {%conditions%} {%orders%} {%limit%}';
@@ -97,9 +122,11 @@
     }
 
 
-    /*
-      @desc: sugar for returning the first entry inside the select()-response
-    */
+    /**
+     * Sugar for returning the first entry inside the select()-response
+     *
+     * @return array<mixed> $entry - the first entry inside the found Relation
+     */
     public function selectFirst($table, $conditions=null, $columns=null, $orders=null, $limit='0,1') {
       $data = $this->select($table, $conditions, $columns, $orders, $limit);
       if(count($data) > 0)
@@ -107,11 +134,14 @@
       return null;
     }
 
-  /*
-   @args:
-     $table / $columns: check _prepareEntitiesSql();
-     $conditions: check _prepareConditionsSql();
-  */
+   /**
+    * Updates the content of a Relation by provided values when
+    * the provided conditions match
+    *
+    * @param mixed $table -  check _prepareEntitiesSql();
+    * @param mixed $conditions - check _prepareConditionsSql();
+    * @param mixed $columns - check _prepareEntitiesSql();
+    */
     public function update($table, $values=null, $conditions=null) {
       $query = 'UPDATE {%table%} SET {%column_values%} {%conditions%}';
       $args = $this->_prepareArgs($table, $conditions);
@@ -122,6 +152,13 @@
       return $result;
     }
 
+   /**
+    * Deletes content of a table by provided values when
+    * the provided conditions match
+    *
+    * @param mixed $table -  check _prepareEntitiesSql();
+    * @param mixed $conditions - check _prepareConditionsSql();
+    */
     public function delete($table, $conditions) {
       $query = 'DELETE FROM {%table%} {%conditions%}';
       $args = $this->_prepareArgs($table, $conditions);
@@ -129,19 +166,29 @@
       $this->query($query);
     }
 
+    /**
+     * Truncates a table
+     *
+     * $param string $table - the name of the table which shall be truncated
+     */
     public function truncate($table) {
       $query = 'TRUNCATE TABLE `' . $this->_esc($table) . '`';
       $this->query($query);
     }
 
+    /**
+     * Deletes a table
+     *
+     * $param string $table - the name of the table which shall be truncated
+     */
     public function drop($table) {
       $query = 'DROP TABLE `' . $this->_esc($table) . '`';
       $this->query($query);
     }
 
-    /*
-      @descr: Return a fetched mysql-resource as an associative array
-    */
+    /**
+     * Return a fetched mysql-resource as an associative array
+     */
     protected function _assocRows($resource) {
       $rows = array();
 
@@ -151,29 +198,22 @@
       return $rows;
     }
 
-    /*
-      @desc: Sugar for single, returns the new id
-    */
+    /**
+     * Sugar for single insert, returns the new id
+     */
     public function insertSingle($table, $data, $columns=null) {
       $this->insert($table, $data, $columns);
       return mysql_insert_id($this->con);
     }
 
-    /*
-      @desc: Insert method for sql entries.
-      @args:
-        $table : String
-
-        $rows:
-          Type Assoc-Array
-            @desc: Contains the column-names in the keys and the values in the values
-          Type Index-Array
-            @desc: Contains the values, it requires columns definitions in the $args array
-                    Each row has to have the same number of elements as the columns array
-        $columns:
-          Type Index-Array
-            @desc: Contains the column-names. When tho $rows-Array is associative only the
-                   row-keys which matches the columns are saved.
+    /**
+     * Insert method for sql entries.
+     *
+     * @param String $table - the table name
+     *
+     * @param Assoc-Array $data - Contains the column-names in the keys and the values in the values
+     * @param Index-Array $data - Contains the values, it requires columns definitions in the $args array. Each row has to have the same number of elements as the columns array
+     * @param Index-Array $rows - Contains the column-names. When tho $rows-Array is associative only the row-keys which matches the columns are saved.
     */
     public function insert($table, $data, $columns=null) {
       $query = 'INSERT INTO {%table%} ({%columns%}) VALUES {%values%}';
@@ -219,12 +259,13 @@
       $this->query($query);
     }
 
-    /*
-      @def: Creates a new Table in the DB. IF no column is an ID Column is automatically generated
-      @args: $table : assoc_array
-             $columns : assoc_array
-             $add_id_column : Boolean
-             $primary_column : String, name of the column which has the primary key
+    /**
+     * Creates a new Table in the DB. IF no column is an ID Column is automatically generated
+     *
+     * @param string $table - the name of the Table
+     * @param array<ColumnDefinition> $columns : Array with ColumnDefinitions, check _prepareColumnDefinition
+     * @param boolean $add_id_column - Do automatically add an column with the name ID
+     * @param string $primary_column - Name of the column which shall be set as the primary key
     */
     public function createTable($table, $columns=null, $add_id_column=true, $primary_column=false) {
       if(in_array($table, $this->table_cache))
@@ -254,12 +295,12 @@
     }
 
 
-    /*
-      @desc: Add collumns to a Table
-      @args:
-        $table : String
-        $columns : array -> check _prepareColumnDefinietion();
-    */
+    /**
+     * Add collumns to a Table
+     *
+     * @param string $table - name of the table
+     * @param array<ColumnDefinition> $columns : Array with ColumnDefinitions, check _prepareColumnDefinition
+     */
     protected function addColumns($table, $columns) {
       $template = 'ALTER TABLE {%table%} ADD COLUMN {%colum%};';
       $query = 'START TRANSACTION;';
@@ -274,28 +315,31 @@
       $this->query($query);
     }
 
-    /*
-      @desc: sugar for escaping mysql-String
-      @trivia: Escaping the mysql_string is necessary
-               in order to prevent SQL-Injection attacks
-    */
+    /**
+     * sugar for escaping mysql-String
+     *
+     * @param string $term - the term to be escaped
+     */
     protected function _esc($term) {
       return mysql_real_escape_string($term);
     }
 
-    /*
-      @desc: Sugar for calling the
-             Uilities::templateReplace method
-             with the right parameters
-    */
+    /**
+     * Sugar for calling the Uilities::templateReplace method
+     * with the right parameters
+     *
+     * @param string $template - the string of the template with the placeholders
+     * @param Assoc-Array $args - the values which shall be replaced inside the template
+     */
     protected function _queryTemplate($template, $args) {
       return Utilities::templateReplace($template, $args, '{%', '%}');
     }
 
-    /*
-      @def: prepares multiple arguments and returns an assoc-array
-
-    */
+    /**
+     * Sugar for preparing multiple arguments.
+     *
+     * @return Assoc-Array
+     */
     protected function _prepareArgs($table=null, $conditions=null, $columns=null, $orders=null, $limit=null) {
       return array(
         'table' => $this->_prepareTableSql($table),
@@ -306,6 +350,13 @@
       );
     }
 
+    /**
+     * Sugar for preparing join-specific arguments.
+     *
+     *
+     * @state experimental
+     * @return Assoc-Array
+     */
     protected function _prepareJoinArgs($left, $right, $type='LEFT') {
       return array(
         'table_left' => $this->_prepareEntitiesSql($left[0]),

@@ -1,9 +1,9 @@
 @import url('iconset.css');
 /*
- * @navi_dark: #16a085;
+ * @main_color: #16a085;
  * @orange_red: #f1c40f;
  * @ice_blue: #b8e7e6;
- * @navi_fair: #34495e;
+ * @ivory_white: #fafafa;
  */
 html, body {
   margin: 0;
@@ -101,11 +101,10 @@ html, body {
 }
 
 #footer {
-  padding-top: 31px;
-  padding-left: 16.5em;
+  overflow: hidden;;
+  padding-left: 20%;
   /*width: 100%;*/
 
-  height: 80px;
   color: #FAFAFA;
   background-color: #16a085;
   float: none;
@@ -165,7 +164,7 @@ a,
 a:link,
 a:visited,
 a:active {
-  color: #34495e;
+  color: #16a085;
   text-decoration: none;
 }
 
@@ -267,6 +266,13 @@ span.highlight {
   list-style-type: none;
 }
 
+.menu li.seperator-top {
+  border-top: 1px dashed #FAFAFA;
+  margin-top: 0.4em;
+  padding: 0;
+  margin-bottom: 0.4em;
+}
+
 .menu li>span {
   color: #FAFAFA;
 }
@@ -288,6 +294,14 @@ span.highlight {
   -ms-transform: translate3d(0.5em, 0, 0) scale(1.1);
   -o-transform: translate3d(0.5em, 0, 0) scale(1.1);
   transform: translate3d(0.5em, 0, 0) scale(1.1);
+}
+
+#sub-menu .menu li.seperator:hover {
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
 }
 
 #sub-menu .menu li:hover>span {
@@ -350,14 +364,23 @@ span.highlight {
   color: #FAFAFA;
 }
 
- /*TODO finalisieren, margin etc und links */
-.impressum{
- display:inline;
- border:1px solid #FAFAFA;
- margin-top: 10px;
- padding-left: 10px;
- padding: 10px;
+.impressum {
+  display:inline;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding: 10px;
 }
+
+.impressum a {
+  color: #FAFAFA;
+}
+
+.impressum a:hover,
+.impressum a:active,
+.impressum a:focus {
+  color: #f1c40f;
+}
+
 /*
  * Main menu
  */
@@ -379,7 +402,7 @@ span.highlight {
 
 .menu-main > li a {
   display: inline-block;
-  padding: 0 1em;
+  padding: 0 1.5em;
   line-height: 80px;
 }
 
@@ -742,7 +765,7 @@ button:hover {
 }
 
 .pagination li {
-  color: #34495e;
+  color: #16a085;
 }
 
 .pagination li.active a {
@@ -962,7 +985,7 @@ margin-right:5px;
   margin-left: 3px;
   width: 24px;
   height: 24px;
-  color: #34495e;
+  color: #16a085;
   font-family: "ElegantIcons";
   background-repeat: no-repeat;
 }
@@ -975,8 +998,8 @@ margin-right:5px;
 }
 
 /*
- * @navi_dark: #16a085;
+ * @main_color: #16a085;
  * @orange_red: #f1c40f;
  * @ice_blue: #b8e7e6;
- * @navi_fair: #34495e;
+ * @ivory_white: #fafafa;
  */

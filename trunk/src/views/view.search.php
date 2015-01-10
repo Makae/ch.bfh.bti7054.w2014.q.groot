@@ -38,7 +38,8 @@
         foreach($books as $key => $book) {
           $books[$key]['title'] = Utilities::highlight($book['title'], $str);
           $books[$key]['author'] = trim($books[$key]['author']);
-          $books[$key]['description'] = Utilities::highlight($book['description'], $str);
+          $description = Utilities::cutText($book['description'], 300);
+          $books[$key]['description'] = Utilities::highlight($description, $str);
         }
       }
       $total = Core::instance()->getDb()->countSearchBooks($str, $category);

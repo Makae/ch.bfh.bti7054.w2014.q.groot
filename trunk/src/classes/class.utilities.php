@@ -1,14 +1,14 @@
 <?php
-    /*
-    @author: M. Käser
-    @date:   25.10.2014
-    @desc:   Utilities Class bundles commonly used methods
-  */
+    /**
+     * Utilities Class bundles commonly used methods
+     * @author M. Käser
+     * @date 25.10.2014
+     */
   class Utilities {
 
-    /*
-      @desc: returns the contents of a file
-    */
+    /**
+     * returns the contents of a file
+     */
     public static function getFileContent($file_path) {
       if(!file_exists($file_path))
         throw new Exception("File $file_path doesn't exist");
@@ -25,38 +25,32 @@
       return preg_replace('/' . $search .'/i', $replace, $str);
     }
 
-    /*
-      @desc: replaces keys in an associative array inside a template with its values
-    */
+    /**
+     * replaces keys in an associative array inside a template with its values
+     */
     public static function templateReplace($template, $args, $prefix='{', $suffix='}') {
       foreach($args as $key => $value)
         $template = str_ireplace(static::varIt($key, $prefix, $suffix), $value, $template);
       return $template;
     }
 
-    /*
-      @desc: Prefixes and suffixes a value
-    */
+    /**
+     * Prefixes and suffixes a value
+     */
     public static function varIt($value, $prefix='{', $suffix='}') {
       return $prefix . $value . $suffix;
     }
 
-    /*
-      @desc: Checks if an array is associative or not
-    */
+    /**
+     * Checks if an array is associative or not
+     */
     public static function isAssoc($array) {
         return array_keys($array) !== range(0, count($array) - 1);
     }
 
-    /*
-      @desc: hashes a string
-      @trivia: adding a salt-portion to the hasing method (Here MD5)
-               allows the method to be more secure. If no salt is added, hashed
-               passwords would look exactly the same in each DB. eg. Amazon / Google / GrootShop...
-               If one DB is hacked and the hacker nows the hashes for the passwords
-               he can simply reverse engineer the real passwords of the other sites
-               which aswell do not use a salt-portion to disguise their passwords.
-    */
+    /**
+     * Hashes a string
+     */
     public static function hash($str, $salt) {
       return md5($str . $salt);
     }
@@ -64,8 +58,8 @@
     /**
     * Creates a Selectbox in html with the option and
     * @author TSCM
-    *@param array - list of option => Values
-    *@return string - html code for a select statement
+    * @param array - list of option => Values
+    * @return string - html code for a select statement
     */
     public static function buildSelectbox($array, $selectName, $activeValue) {
 
@@ -212,33 +206,33 @@
   * @since 20150102
   * @param string - a Name or Booktitle , exp: "Lord of the Rings"
   * @return string - html code line
-  *Explanation
-//Base Url:
-http://en.wikipedia.org/w/api.php?action=query
-
-//tell it to get revisions:
-&prop=revisions
-
-//define page titles separated by pipes. In the example i used t-shirt company threadless
-&titles=whatever|the|title|is
-
-//specify that we want the page content
-&rvprop=content
-
-//I want my data in JSON, default is XML
-&format=json
-
-//lets you choose which section you want. 0 is the first one.
-&rvsection=0
-
-//tell wikipedia to parse it into html for you
-&rvparse=1
-
-//only geht the "first"-Description of the wikipage, the one before the Table of Contents
-&exintro=1
-
-//if I want to select something, I use action query, update / delete would be different
-&action=query
+  * Explanation
+  * //Base Url:
+  * http://en.wikipedia.org/w/api.php?action=query
+  *
+  * //tell it to get revisions:
+  * &prop=revisions
+  *
+  * //define page titles separated by pipes. In the example i used t-shirt company threadless
+  * &titles=whatever|the|title|is
+  *
+  * //specify that we want the page content
+  * &rvprop=content
+  *
+  * //I want my data in JSON, default is XML
+  * &format=json
+  *
+  * //lets you choose which section you want. 0 is the first one.
+  * &rvsection=0
+  *
+  * //tell wikipedia to parse it into html for you
+  * &rvparse=1
+  *
+  * //only geht the "first"-Description of the wikipage, the one before the Table of Contents
+  * &exintro=1
+  *
+  * //if I want to select something, I use action query, update / delete would be different
+  * &action=query
   */
   public static function wiki($query){
     // load Zend classes
@@ -257,8 +251,7 @@ http://en.wikipedia.org/w/api.php?action=query
       $webPagePrefix = "http://";
       $webPageUrl = ".wikipedia.org/w/api.php";
       //build the wiki api. be sure, that $wikiLang exists, exp: de or en
-      error_reporting(E_ALL);
-ini_set("display_errors", 1);
+
       $wikipedia = new Zend_Rest_Client($webPagePrefix.$wikiLang.$webPageUrl);
       $wikipedia->action('query'); //standard action, i want to GET...
       $wikipedia->prop('extracts');//what do i want to extract? page info
@@ -287,6 +280,26 @@ ini_set("display_errors", 1);
     }
 
   }//end wiki
+
+  /**
+   * Cuts a text at the provided length.
+   * If the cut is made between a word, the whole word is truncated.
+   *
+   * @param $text - text to be cut
+   * @param $maxLength - maximum length of text
+   * @param $suffix - suffix which is added if the text is too long
+   */
+  public static function cutText($text, $maxLength, $suffix='...') {
+    // Text is too long, shorten it
+    if(strlen($text) > $maxLength) {
+      $text = substr($text, 0, $maxLength);
+      // cut after a space
+      $text = substr($text, 0, strrpos($text, ' '));
+      return $text . $suffix;
+    }
+    //not too long, return it all
+    return $text;
+  }
 
 }
 ?>
