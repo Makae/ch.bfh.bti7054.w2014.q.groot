@@ -630,8 +630,17 @@ button:hover {
   cursor: pointer;
 }
 
-.clear-form {
+.action-wrapper {
   margin-top: 24px;
+  overflow: hidden;
+  max-width: 800px;
+}
+
+.action-wrapper .next {
+  float:right;
+}
+.clear-form {
+  display:inline-block;
 }
 
 
@@ -997,6 +1006,16 @@ margin-right:5px;
   font-size:14px;
 }
 
+/*
+ * Payment
+ */
+#deliveryAddress .column1 {
+  margin-top: 0.45em;
+}
+
+form input[type="reset"] {
+  margin-right: 3px;
+}
 /*
  * DHTML / JS
  */

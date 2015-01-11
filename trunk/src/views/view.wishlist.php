@@ -23,7 +23,7 @@
 
     public function render() {
       // Here comes the rendering process
-      return "Here will be the wishlist render soon ... ";
+      return "This menu entry is for stylistic purposes only";
     }
 
     public function ajaxCall() {

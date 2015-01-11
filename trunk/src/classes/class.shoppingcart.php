@@ -7,33 +7,33 @@
  */
 
 class ShoppingCart {
-	
+
 	const classInfo = "shoppingCart";
 	private $items = array ();
 	private $totalPrice = 0;
 	private $userID = "";
 	private $subTotal = 0;
-	
+
 	function __construct($carArray) {
 		$this->items = $carArray;
 	}
-	
+
 	public function getUserID() {
 		return $this->userID;
 	}
-	
+
 	public function setUserID($userID) {
 		$this->userID = $userID;
 	}
-	
+
 	public function emptyCart() {
 		$this->items = array ();
 	}
-	
+
 	public function removeItemCompletely($ID) {
 		unset ( $this->items [$ID] );
 	}
-	
+
 	public function removeItem($ID, $quant) {
 		if ($this->items [$ID] == 0 || $this->items [$ID] < $quant)
 			return false;
@@ -44,11 +44,11 @@ class ShoppingCart {
 			return true;
 		}
 	}
-	
+
 	public function calculatePrice() {
 		return $this->subTotal;
 	}
-	
+
 	public function getCart() {
 		$cart = array();
 		foreach ( $this->items as $index ) {
@@ -56,15 +56,15 @@ class ShoppingCart {
 		}
 		return $cart;
 	}
-	
+
 	public function displayCart() {
 		$TID = 0;
-		
+
 		if (sizeof ( $this->items ) == 0)
 			return i("Your shopping cart is empty.");
-		
+
 		$table = ""; //Erstellen des HTML Contents, der von der displayCart() Funktion dann zurückgegeben wird
-		
+
 		$table = "<p>".i('Your shoppingcart contains').": " . sizeof ( $this->items ) . " ".i('product(s)')."</p>" . "<table id='shoppingTable'>" . "<tr id='tableTopics'>
 		<td>".i('isbn')."</td>
 		<td>".i('Amount')."</td>
@@ -73,9 +73,9 @@ class ShoppingCart {
 		<td></td>
 		<td>".i('Price')."</td>
 		<td></td>";
-		
+
 		/* Die Tabelle zur Anzeige der in den Korb gelegten Items wird aufbereitet. Der Remove Button wird hinter jeden Zeileneintrag mit der entsprechenden Post Variable
-		 * gesetzt und die + und - Buttons werden angehängt 
+		 * gesetzt und die + und - Buttons werden angehängt
 		 * Update 30.12: Anstatt meiner Lösung unten hätte ich besser die +/- Buttons auch schon bei der Generierung mit den Actions belegen sollen.
 		 */
 		foreach ( $this->items as $index ) {
@@ -84,7 +84,7 @@ class ShoppingCart {
 			$title = $list[0]['title'];
 			$price = $list[0]['price'];
 			$totPrice = $price * $index->amount;
-			
+
 			$table = $table . "<tr id=$TID onclick=''><td>$index->ID</td>
 			<td>$title</td>
 			<td name='amount'>$index->amount</td>
@@ -94,17 +94,17 @@ class ShoppingCart {
 	 	 	<td>$totPrice</td>
 	 	 	<td><form action='" . Controller::instance ()->getViewUrl ( 'shoppingcart' ) . "&remove=$ID2del' method='post'><input type='submit' value='Remove'></input></form></td>
 	 	 	</tr>";
-		
+
 			$TID ++;
 			$this->subTotal+=$totPrice;
 		}
-		
-		
-		
+
+
+
 		/*
 		 * Totaler Wert des Warenkorbs
 		 */
-		
+
 		$table = $table . "
 				<tr>
 		<td></td><td></td><td></td><td></td>
@@ -118,23 +118,22 @@ class ShoppingCart {
 		<td>$this->subTotal</td>
 		<td></td>
 		</tr>";
-		
+
 		/*
-		 * 
+		 *
 		 */
 		$table = $table . "</table>
-	 			<form action='index.php?view=shoppingcart' method='post' class='clear-form'>
+	 			<div class='action-wrapper'><form action='index.php?view=shoppingcart' method='post' class='clear-form'>
 	 			<input type='submit' value='".i('Empty cart')."' class='button button-primary'></input>
 	 			<input type='hidden' name='clearCart'></input></form>";
 	 	//Add Button go to payment
 
 			$table = $table . "
-				<a href='index.php?view=payment'>
+				<a href='index.php?view=payment' class='next'>
                   <input class='button button-primary' type='button' value='".i('Go to payment')."'></input>
-                </a>
-
+                </a></div>
 			";
-		
+
 		// Hier den JavascriptCode rein: Erhöhen liest Anzahl aus, zählt eins dazu und reloaded the page mit dem GET Paramter: &update=ID&Amount=NEUER AMOUNT
 		$table = $table . "
 	 			<script type='text/javascript'>
@@ -159,8 +158,8 @@ class ShoppingCart {
 	 			window.alert(rowIndex)
 				}
 
-				
-				
+
+
 	 			function alertInnerHTML(e) {
    					 e = e || window.event;//IE
 	 				rownumber = this.parentNode.id;
@@ -199,7 +198,7 @@ class ShoppingCart {
 
 
 	 	</script>";
-		
+
 		return $table;
 	}
 

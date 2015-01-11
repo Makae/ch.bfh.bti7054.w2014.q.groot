@@ -50,7 +50,7 @@
           break;
 
           case "shippingMethod":
-          
+
             if($poster == 'deliveryAddress'){
               $result = "";
             }else{
@@ -188,20 +188,20 @@
       }
 
 
-      
+
 
       //a form to submit to myself
       $html .= "<div id='deliveryAddress' class=".GrootPaymentView::visibility("deliveryAddress"). ">";
       $html .= '
-      <div class="hidden"><input name="deliveryAddressStore"></input></div> 
+      <div class="hidden"><input name="deliveryAddressStore"></input></div>
       <form action="" method="POST">
-      <h1>'.$title1.'</h1><br />
-        <div class="column1">'.i("first_name").'</div><div class=""><input class="input1 " value="'.$firstName.'" name="firstname"></input></div><br />
-        <div class="column1">'.i("last_name").'</div><div class=""><input class="input1" value="'.$lastName.'" name="lastname"></input></div><br />
-        <div class="column1">'.i("streetname").'</div><div class=""><input class="input1" value="'.$streetname.'" name="street"></input></div><br />
-        <div class="column1">'.i("zip").'</div><div class=""><input class="input1" value="'.$zip.'" name="plz"></input></div><br />
+      <h1>'.$title1.'</h1>
+        <div class="column1">'.i("first_name").'</div><div class=""><input class="input1 " value="'.$firstName.'" name="firstname"></input></div>
+        <div class="column1">'.i("last_name").'</div><div class=""><input class="input1" value="'.$lastName.'" name="lastname"></input></div>
+        <div class="column1">'.i("streetname").'</div><div class=""><input class="input1" value="'.$streetname.'" name="street"></input></div>
+        <div class="column1">'.i("zip").'</div><div class=""><input class="input1" value="'.$zip.'" name="plz"></input></div>
         <div class="column1">'.i("city").'</div><div class=""><input class="input1" value="'.$city.'" name="country"></input></div><br />
-        <input type="submit" class="button button-primary" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'">
+        <input type="reset" class="button button-primary" value="'.i("Reset").'"><input type="submit" class="button button-primary" value="'.i("Confirm").'"/>
         <input class="input1" type="hidden" name="poster" value="deliveryAddress"></input>
       </form>';
       $html .= '</div>';
@@ -211,13 +211,13 @@
       //a form to submit to myself
       $html .= "<div id='shippingMethod' class=".GrootPaymentView::visibility("shippingMethod").">";
       $html .= '
-      <div class="hidden"><input name="shippingMethodStore"></input></div> 
+      <div class="hidden"><input name="shippingMethodStore"></input></div>
       <form action="" method="POST">
       <h1>'.$title2.'</h1><br />
         <div class="column2">'.i("Home delivery").'</div><div class="column2"><input type="radio" name="shippingMethod" value="Home delivery" checked></input></div>
         <div class="column2" >'.i("Nearest store").'</div><div class="column2"><input type="radio" name="shippingMethod" value="Nearest Store"></input></div>
         <div class="column2">'.i("Other").'</div><div class="column2"><input type="radio" name="shippingMethod" value="Other"></input></div>
-        <div class="bottomButton"><input  type="submit" class="button button-primary" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"></div>
+        <div class="bottomButton"><input type="reset" class="button button-primary" value="'.i("Reset").'"><input  type="submit" class="button button-primary" value="'.i("Confirm").'"/></div>
         <input class="input1" type="hidden" name="poster" value="shippingMethod"></input>
       </form>';
       $html .= '</div>';
@@ -226,7 +226,7 @@
       //a form to submit to myself
       $html .= "<div id='paymentMethod' class=".GrootPaymentView::visibility("paymentMethod"). ">";
       $html .= '
-      <div class="hidden"><input name="paymentMethodStore"></input></div> 
+      <div class="hidden"><input name="paymentMethodStore"></input></div>
       <form action="" method="POST">
       <h1>'.$title3.'</h1><br />
         <div class="column2">'.i("Visa").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Visa" checked></input></div>
@@ -235,7 +235,7 @@
         <div class="column2">'.i("Check").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Check"></input></div>
         <div class="column2">'.i("PayPal").'</div><div class="column2"><input type="radio" name="paymentMethod" value="PayPal"></input></div>
         <div class="column2">'.i("Other").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Other"></input></div>
-        <div class="bottomButton"><input  type="submit" class="button button-primary" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"></div>
+        <div class="bottomButton"><input type="reset" class="button button-primary" value="'.i("Reset").'"><input  type="submit" class="button button-primary" value="'.i("Confirm").'"/></div>
         <input class="input1" type="hidden" name="poster" value="paymentMethod"></input>
       </form>';
       $html .= '</div>';
@@ -247,14 +247,14 @@
       //onclick JS funktion
       $html .= "<div id='giftBox' class=".GrootPaymentView::visibility("giftBox"). ">";
       $html .= '
-      <div class="hidden"><input name="giftBox"></input></div> 
+      <div class="hidden"><input name="giftBox"></input></div>
       <form action="" method="POST">
       <h1>'.$title4.'</h1><br />
         <h3>'.i("Is it a gift?").'</h3>
         <div class="column2">'.i("No").'</div><div class="column2"><input type="radio" name="giftBox" value="No" checked></input></div>
         <div class="column2">'.i("Yes").'</div><div class="column2"><input type="radio" name="giftBox" value="Yes"></input></div>
         <div class="column2">'.i("Bemerkung").':</div><div class="column2"><textarea name="comment" rows="10" cols="80"></textarea></div>
-        <div class="bottomButton"><input id="fakeSubmitButton" type="button" onclick="orderConfirmation()" class="button button-primary" value="'.i("Confirm").'"/><input id="realSubmitButton"  type="submit" class="button button-primary hidden" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"></div>
+        <div class="bottomButton"><input id="realSubmitButton"  type="submit" class="button button-primary hidden" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"><input id="fakeSubmitButton" type="button" onclick="orderConfirmation()" class="button button-primary" value="'.i("Confirm").'"/></div>
         <input class="input1" type="hidden" name="poster" value="giftBox"></input>
       </form>';
       $html .= '</div>';
@@ -265,7 +265,7 @@
       //a form to submit to myself
       $html .= "<div id='orderComplete' class=".GrootPaymentView::visibility("orderComplete"). ">";
       $html .= '
-      <div class="hidden"><input name="orderComplete"></input></div> 
+      <div class="hidden"><input name="orderComplete"></input></div>
       <h1>'.$title5.'</h1><br />
         <h3>'.i("thx_for_order_msg").'</h3>
           '.i("email_send_msg").' '.$email.' <br>
@@ -278,7 +278,7 @@
 
         //if the order is completed and accepted, send an email to the user email with the previous saved content
         if(GrootPaymentView::visibility("orderComplete") != "hidden"){
-            $email_adress  = $email; //"marcel.tschanz@bluemail.ch"; 
+            $email_adress  = $email; //"marcel.tschanz@bluemail.ch";
 
             $email_title   = i("Order from Groot Shop");
 
@@ -309,7 +309,7 @@
             foreach($cart as $cartIsbn => $cartAmount){
               $list = BookModel::findList(array('isbn' => array($cartIsbn)), null);
               $title = $list[0]['title'];
-              $emailContent .= i('title').".$title."  ".i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
+              $emailContent .= i('title').$title."  ".i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
             }
 
             $emailContent .= "--------------------------------\n";
@@ -320,7 +320,7 @@
 
             $email_message = $emailContent;
             //TSCM Bitte beim Testen auskommentiert, weil es jedes mal wieder eine Email an mich versantd hat
-            mail($email_adress, $email_title, $email_message); 
+            mail($email_adress, $email_title, $email_message);
         }
       $html .= '</div>';
 

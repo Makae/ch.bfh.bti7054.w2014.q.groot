@@ -17,10 +17,10 @@
 
  //array mit link, icon, label
   // mit i übersetzen
-  $footerArray[] = array("link" => "index.php?view=impressum", "icon" => "icon_house_alt", "label" => "Impressum" );
-  $footerArray[] = array("link" => "index.php?view=contact", "icon" => "icon_tag", "label" => "Contact" );
-  $footerArray[] = array("link" => "index.php?view=version", "icon" => "icon_profile", "label" => "Shop version" );
-  $footerArray[] = array("link" => "index.php?view=support", "icon" => "icon_gift", "label" => "Support" );
+  $footerArray[] = array("link" => "index.php?view=home", "icon" => "icon_house_alt", "label" => "Impressum" );
+  $footerArray[] = array("link" => "index.php?view=home", "icon" => "icon_tag", "label" => "Contact" );
+  $footerArray[] = array("link" => "index.php?view=home", "icon" => "icon_profile", "label" => "Shop version" );
+  $footerArray[] = array("link" => "index.php?view=home", "icon" => "icon_gift", "label" => "Support" );
 
   $footerList = "";
 

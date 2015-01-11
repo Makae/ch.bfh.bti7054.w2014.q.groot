@@ -27,13 +27,14 @@ public function makeMenu(){
   $naviArray[] = array("link" => "index.php?view=profile", "icon" => "icon_profile", "label" => "Profile" );
   $naviArray[] = array("link" => "index.php?view=genres", "icon" => "icon_tag", "label" => "Genres" );
   $naviArray[] = array("link" => "index.php?view=shoppingcart", "icon" => "icon_cart", "label" => "Shopping Cart" );
-  $naviArray[] = array("link" => "index.php?view=wishlist", "icon" => "icon_gift", "label" => "Wishlist" );
-  $naviArray[] = array("link" => "index.php?view=hotlist", "icon" => "icon_grid-2x2", "label" => "Hotlist" );
+  $naviArray[] = array("link" => "index.php?view=home", "icon" => "icon_gift", "label" => "Wishlist" );
+  $naviArray[] = array("link" => "index.php?view=home", "icon" => "icon_grid-2x2", "label" => "Hotlist" );
 
 
   //only admin user can access this navi links
   $isAdmin = Utilities::checkIsAdmin();
   if($isAdmin){
+    $naviArray[] = array("type" => "seperator", "cls" => 'seperator-top' );
     $naviArray[] = array("link" => "index.php?view=administration", "icon" => "icon_profile", "label" => "Administration" );
   }
 
