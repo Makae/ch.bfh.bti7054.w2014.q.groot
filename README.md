@@ -33,6 +33,14 @@ User, PWD:
 * max, 12345 (admin)
 
 ## Specific information regarding the BFH Project
+
+### Infos regarding the Website
+* Following Elements do only have a stylistic purpose without any functionality:
+  * The Whishlist in the left menu
+  * The Hotlist in the left menu
+  * The Links in the footer
+
+### Feature list
 This list is based on the introduction presentation.
 The paths show which files show the fulfilling of the requirements the best.
 After the file path there might be a ":methodName()" which specifies the
@@ -56,12 +64,12 @@ exact method.
   * administrator view
     * **Login** with user **max** (pwd: **12345**)
     * view/view.manageuser.php
-    * [HULK] wo schüsch no?
+    * [MARCEL] wo schüsch no?
 * using HTML, CSS, and JavaScript
   * Web forms and form validation (incl. regular expressions)
     * view/view.manageuser.php
-    * theme/js/[HULK]
-    * [HULK] wo schüsch no?
+    * theme/js/[MARCEL]
+    * [MARCEL] wo schüsch no?
   * cookies and sessions
     * classes/class.shoppingcart.php:displayCart() -> cookies
     * classes/class.userhandler.php -> user-session
@@ -83,4 +91,4 @@ exact method.
   * calling external Web services
     * classes/class.utilities.php:wiki() -> method for calling the wikipedia rest client
   * sending mails
-    * [HULK] wo?
+    * [MARCEL] wo?
