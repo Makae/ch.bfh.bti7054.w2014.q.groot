@@ -21,7 +21,7 @@
   <?php }   if(isset($_key)) { $key = $_key1;  unset($_key1);}  if(isset($_value)) { $value = $_value1;  unset($_value1);}?>
   </ul>
   <?php if($navigation) { ?>
-  <div class="nav next stdanimation1_2">
+  <div class="nav next stdanimation1_2  <?php if(isset($prev_hidden) && $prev_hidden == true) { ?> hidden <?php } ?>">
     <span class="arrow_carrot-right arrow"></span>
   </div>
   <?php } ?>

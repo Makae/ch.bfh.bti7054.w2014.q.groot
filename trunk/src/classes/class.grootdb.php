@@ -67,6 +67,22 @@
       return $this->_assocRows($result);
     }
 
+    /**
+     * Returns numbers of books by a genre
+     *
+     * @param int $num
+     */
+    public function countBookyByGenre($genre) {
+      $query = 'SELECT count(*) as num FROM {%table%} as bg {%conditions%}';
+
+      $args = $this->_prepareArgs(BookGenreModel::table(), array('bg.genre_id' => $genre));
+      $query = $this->_queryTemplate($query, $args);
+      $result = $this->query($query);
+
+      $row = $this->_assocRows($result);
+      return $row[0]['num'];
+    }
+
 
   }
 ?>

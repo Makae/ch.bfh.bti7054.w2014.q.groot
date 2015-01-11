@@ -48,6 +48,8 @@
     private function _getShowCase($genre, $page=0, $size=4) {
       $books = $this->_getBooksByGenre($genre, $page, $size);
 
+      $num_books = Core::instance()->getDb()->countBookyByGenre($genre);
+
       if(count($books) == 0)
         return null;
 
@@ -56,7 +58,8 @@
         'style' => 'showcase',
         'text_details' => i('To the details'),
         'navigation' => true,
-        'prev_hidden' => $page == 0,
+        'prev_hidden' => $num_books <= $size,
+        'next_hidden' => count($books) < $size,
         'config' => urlencode(json_encode(array(
           'page' => $page,
           'size' => $size,

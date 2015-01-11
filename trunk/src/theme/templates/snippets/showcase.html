@@ -21,7 +21,7 @@
   {/for}
   </ul>
   {if condition="$navigation"}
-  <div class="nav next stdanimation1_2">
+  <div class="nav next stdanimation1_2  {if condition="isset($prev_hidden) && $prev_hidden == true"} hidden {/if}">
     <span class="arrow_carrot-right arrow"></span>
   </div>
   {/if}

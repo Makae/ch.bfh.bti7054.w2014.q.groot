@@ -33,7 +33,7 @@
       'isAdmin' => false,
       'streetname' => 'Schwalbenweg',
       'streetnumber' => '10a',
-     'zip' => 3012,
+      'zip' => 3012,
       'city' => 'Bern',
       'state' => 'Schweiz',
       'email' => 'marcel.tschanz@bluemail.ch'
@@ -781,102 +781,101 @@ if(!$db->tableExists('genre')) {
   if(!$db->tableExists('bookgenre')) {
     BookGenreModel::create(array(
         'book_id' => 0,
-        'genre_id' => 3
+        'genre_id' => 2
     ));
     BookGenreModel::create(array(
         'book_id' => 1,
-        'genre_id' => 2
+        'genre_id' => 3
     ));
     BookGenreModel::create(array(
         'book_id' => 2,
-        'genre_id' => 5
+        'genre_id' => 4
     ));
     BookGenreModel::create(array(
         'book_id' => 3,
-        'genre_id' => 5
+        'genre_id' => 2
     ));
     BookGenreModel::create(array(
         'book_id' => 4,
-        'genre_id' => 5
+        'genre_id' => 8
     ));
     BookGenreModel::create(array(
         'book_id' => 5,
-        'genre_id' => 5
+        'genre_id' => 9
     ));
     BookGenreModel::create(array(
         'book_id' => 6,
-        'genre_id' => 5
+        'genre_id' => 10
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 7,
+        'genre_id' => 10
     ));
     BookGenreModel::create(array(
         'book_id' => 8,
-        'genre_id' => 5
+        'genre_id' => 13
     ));
     BookGenreModel::create(array(
         'book_id' => 9,
-        'genre_id' => 5
+        'genre_id' => 12
     ));
     BookGenreModel::create(array(
         'book_id' => 10,
-        'genre_id' => 5
+        'genre_id' => 12
     ));
 
-
-    BookGenreModel::create(array(
-        'book_id' => 10,
-        'genre_id' => 1
-    ));
     BookGenreModel::create(array(
         'book_id' => 11,
-        'genre_id' => 1
+        'genre_id' => 12
     ));
     BookGenreModel::create(array(
         'book_id' => 12,
-        'genre_id' => 1
+        'genre_id' => 3
     ));
     BookGenreModel::create(array(
         'book_id' => 13,
-        'genre_id' => 1
+        'genre_id' => 4
     ));
     BookGenreModel::create(array(
         'book_id' => 14,
-        'genre_id' => 1
+        'genre_id' => 2
     ));
     BookGenreModel::create(array(
         'book_id' => 15,
-        'genre_id' => 1
+        'genre_id' => 8
     ));
     BookGenreModel::create(array(
         'book_id' => 16,
-        'genre_id' => 1
+        'genre_id' => 9
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 17,
+        'genre_id' => 10
     ));
     BookGenreModel::create(array(
         'book_id' => 18,
-        'genre_id' => 1
+        'genre_id' => 11
     ));
     BookGenreModel::create(array(
         'book_id' => 19,
-        'genre_id' => 1
+        'genre_id' => 13
     ));
     BookGenreModel::create(array(
         'book_id' => 20,
-        'genre_id' => 1
+        'genre_id' => 12
     ));
 
     BookGenreModel::create(array(
-        'book_id' => 20,
-        'genre_id' => 2
-    ));
-    BookGenreModel::create(array(
         'book_id' => 21,
-        'genre_id' => 2
+        'genre_id' => 13
     ));
     BookGenreModel::create(array(
         'book_id' => 22,
-        'genre_id' => 2
+        'genre_id' => 3
     ));
     BookGenreModel::create(array(
         'book_id' => 23,
-        'genre_id' => 2
+        'genre_id' => 4
     ));
     BookGenreModel::create(array(
         'book_id' => 24,
@@ -884,31 +883,27 @@ if(!$db->tableExists('genre')) {
     ));
     BookGenreModel::create(array(
         'book_id' => 25,
-        'genre_id' => 2
+        'genre_id' => 8
     ));
     BookGenreModel::create(array(
         'book_id' => 26,
-        'genre_id' => 2
+        'genre_id' => 9
+    ));
+    BookGenreModel::create(array(
+        'book_id' => 27,
+        'genre_id' => 10
     ));
     BookGenreModel::create(array(
         'book_id' => 28,
-        'genre_id' => 2
+        'genre_id' => 11
     ));
     BookGenreModel::create(array(
         'book_id' => 29,
-        'genre_id' => 2
+        'genre_id' => 12
     ));
     BookGenreModel::create(array(
         'book_id' => 30,
-        'genre_id' => 2
-    ));
-    BookGenreModel::create(array(
-        'book_id' => 31,
-        'genre_id' => 3
-    ));
-    BookGenreModel::create(array(
-        'book_id' => 32,
-        'genre_id' => 3
+        'genre_id' => 12
     ));
 }
 
