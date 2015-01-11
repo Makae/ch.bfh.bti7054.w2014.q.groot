@@ -63,13 +63,12 @@ exact method.
     * classes/class.shoppingcart.php -> Shopping cart object
   * administrator view
     * **Login** with user **max** (pwd: **12345**)
-    * view/view.manageuser.php
-    * [MARCEL] wo schüsch no?
+    * view/view.administration.php
 * using HTML, CSS, and JavaScript
   * Web forms and form validation (incl. regular expressions)
-    * view/view.manageuser.php
-    * theme/js/[MARCEL]
-    * [MARCEL] wo schüsch no?
+    * view/view.administration.php
+    * theme/js/
+    * core.js
   * cookies and sessions
     * classes/class.shoppingcart.php:displayCart() -> cookies
     * classes/class.userhandler.php -> user-session
@@ -91,4 +90,4 @@ exact method.
   * calling external Web services
     * classes/class.utilities.php:wiki() -> method for calling the wikipedia rest client
   * sending mails
-    * [MARCEL] wo?
+    * views/view.payment.php  -> mail($email_adress, $email_title, $email_message);  prepare mail content and send it
