@@ -92,7 +92,7 @@ class ShoppingCart {
 	 	 	<input type='button' id='plusButton' value='+'></input></td>
 	 	 	<td><input type='button' id='minusButton' value='-'></input></td>
 	 	 	<td>$totPrice</td>
-	 	 	<td><form action='" . Controller::instance ()->getViewUrl ( 'shoppingcart' ) . "&remove=$ID2del' method='post'><input type='submit' value='Remove'></input></form></td>
+	 	 	<td><form action='" . Controller::instance ()->getViewUrl ( 'shoppingcart' ) . "&remove=$ID2del' method='post'><input type='submit' value='".i('Remove')."'></input></form></td>
 	 	 	</tr>";
 
 			$TID ++;
