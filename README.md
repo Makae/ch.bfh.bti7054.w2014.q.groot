@@ -1,5 +1,5 @@
 # Readme
-Hello and welcome to the groot project.
+Welcome to the groot project.
 A project wich was developed for the "Web Programming" Module at the BFH-Bern.
 
 [Visit BFH-Bern](http://http://www.ti.bfh.ch/)
@@ -8,22 +8,24 @@ A project wich was developed for the "Web Programming" Module at the BFH-Bern.
 It is aussumed that the project is used on a xampp installation.
 Please notice you can provide different values for the user, password, db and installation-folder but you have to change the **config.php** file in order to do that.
 1. Create folder **groot** in htdocs of apache
-2. Check out or download the zip of Groot from Github
-  1. Move the content of **groot/trunk/src** to the newly created groot folder of htdocs
+2. Clone the project or download the zip of Groot from Github
+  * Move the content of **groot/trunk/src** to the newly created groot folder of the htdocs directory
 3. Create db with name **groot** -> **utf8_unicode_ci** on your MySQL-Server
 4. Create user for the db groot
-  1. User: **groot**, PWD: **groot**
+  * User: **groot**,
+  * Password: **groot**
 5. Install ZEND Framework via PEAR for Wikipedia REST client
-  1. [Install](https://code.google.com/p/zend/)
+  * [Install](https://code.google.com/p/zend/)
 
 ## Problems
 When running the application an error might occure with the TemplateEngine.
-If this occures please **set the rights** of the tmp folder inside **theme/templates/** to **0755**
+If this occures please **set the rights** of the **tmp** folder inside **theme/templates/** to **0755**
 Basically the user executing the php-application has to have read and write rights inside this folder.
 
 # Additional informations
 ## Users
 Following users are created by the testdata.php File.
+And can be used for the login inside the Website.
 User, PWD:
 * tony, 12345
 * hulk, 12345
@@ -32,7 +34,9 @@ User, PWD:
 
 ## Specific information regarding the BFH Project
 This list is based on the introduction presentation.
-The paths show which files show the fulfilling of the requirements the best:
+The paths show which files show the fulfilling of the requirements the best.
+After the file path there might be a ":methodName()" which specifies the
+exact method.
 * a Web frontend with a mixture of static and dynamic content
   * Navigation Menu:
     * viewlets/viewlet.navi.php -> Main menu
@@ -64,11 +68,11 @@ The paths show which files show the fulfilling of the requirements the best:
     * classes/class.i18n.php -> session, language-value
 * a backend for
   * generating HTML on demand
-    * classes/class.templaterenderer.php -> Rendering Engine vor dynamic content
+    * classes/class.templaterenderer.php:extendedRender() -> Rendering Engine vor dynamic content
     * theme/templates -> Template folder for Renderer
-    * views/view.search.php:render -> Call of rendering
+    * views/view.search.php:render() -> Call of rendering
   * storing content in files and a database
-    * classes/class.templaterenderer.php:_templateInclude -> saves temporary php-file
+    * classes/class.templaterenderer.php:_templateInclude() -> saves and reads temporary php-file
     * theme/templates/tmp -> folder in which the renderer saves the temporary files
     * classes/class.db.php -> database class which provides the first layer to the mysql-db
     * classes/clase.basemodel.php -> BaseModel for easy read and write to the database
@@ -77,6 +81,6 @@ The paths show which files show the fulfilling of the requirements the best:
     * classes/class.userhandler.php -> handling user login and user logout
     * viewlets/viewlet.header.php -> data from user, passed to class.userhander.php
   * calling external Web services
-    * classes/class.utilities.php:wiki -> method for calling the wikipedia rest client
+    * classes/class.utilities.php:wiki() -> method for calling the wikipedia rest client
   * sending mails
     * [HULK] wo?
