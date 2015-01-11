@@ -66,8 +66,9 @@ class ShoppingCart {
 		$table = ""; //Erstellen des HTML Contents, der von der displayCart() Funktion dann zurückgegeben wird
 		
 		$table = "<p>".i('Your shoppingcart contains').": " . sizeof ( $this->items ) . " ".i('product(s)')."</p>" . "<table id='shoppingTable'>" . "<tr id='tableTopics'>
-		<td>".i('Item-Nr.')."</td>
+		<td>".i('isbn')."</td>
 		<td>".i('Amount')."</td>
+		<td>".i('Title')."</td>
 		<td></td>
 		<td></td>
 		<td>".i('Price')."</td>
