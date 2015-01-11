@@ -307,7 +307,9 @@
             $myCart = new ShoppingCart ( $myArray );
             $cart = $myCart->getCart();
             foreach($cart as $cartIsbn => $cartAmount){
-                $emailContent .= i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
+              $list = BookModel::findList(array('isbn' => array($cartIsbn)), null);
+              $title = $list[0]['title'];
+              $emailContent .= i('title').".$title."  ".i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
             }
 
             $emailContent .= "--------------------------------\n";

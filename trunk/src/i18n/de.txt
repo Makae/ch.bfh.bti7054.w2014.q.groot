@@ -339,7 +339,7 @@
 "greetings_from_groot_team_msg":
 "Viel Spass beim Lesen - Ihr Groot Book Shop Team"
 "Nearest Store":
-"Zur nächsten Verkaufsstelle"
+"Zur Partner Verkaufsstelle"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"
