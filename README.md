@@ -90,4 +90,4 @@ exact method.
   * calling external Web services
     * classes/class.utilities.php:wiki() -> method for calling the wikipedia rest client
   * sending mails
-    * views/view.payment.php
+    * views/view.payment.php  -> mail($email_adress, $email_title, $email_message);  prepare mail content and send it
