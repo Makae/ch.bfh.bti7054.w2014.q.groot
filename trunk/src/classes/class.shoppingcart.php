@@ -49,6 +49,14 @@ class ShoppingCart {
 		return $this->subTotal;
 	}
 	
+	public function getCart() {
+		$cart = array();
+		foreach ( $this->items as $index ) {
+			$cart[$index->ID] = $index->amount;
+		}
+		return $cart;
+	}
+	
 	public function displayCart() {
 		$TID = 0;
 		
