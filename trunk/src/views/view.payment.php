@@ -309,7 +309,7 @@
             foreach($cart as $cartIsbn => $cartAmount){
               $list = BookModel::findList(array('isbn' => array($cartIsbn)), null);
               $title = $list[0]['title'];
-              $emailContent .= i('title').".$title."  ".i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
+              $emailContent .= i('title')." ".$title."  ".i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
             }
 
             $emailContent .= "--------------------------------\n";
