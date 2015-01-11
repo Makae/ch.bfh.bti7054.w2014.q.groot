@@ -53,15 +53,17 @@ class ShoppingCart {
 		$TID = 0;
 		
 		if (sizeof ( $this->items ) == 0)
-			return "Your shopping cart is empty.";
+			return i("Your shopping cart is empty.");
 		
 		$table = ""; //Erstellen des HTML Contents, der von der displayCart() Funktion dann zurückgegeben wird
 		
-		$table = "<p>In ihrem Warenkorb befinden sich: " . sizeof ( $this->items ) . " Elemente</p>" . "<table id='shoppingTable'>" . "<tr id='tableTopics'>
-				<td>Artikel-Nr.</td>
-				<td>Titel</td>
-				<td>Anzahl</td>
-				<td></td><td></td><td>Preis</td><td></td>";
+		$table = "<p>".i('Your shoppingcart contains').": " . sizeof ( $this->items ) . " ".i('product(s)')."</p>" . "<table id='shoppingTable'>" . "<tr id='tableTopics'>
+		<td>".i('Item-Nr.')."</td>
+		<td>".i('Amount')."</td>
+		<td></td>
+		<td></td>
+		<td>".i('Price')."</td>
+		<td></td>";
 		
 		/* Die Tabelle zur Anzeige der in den Korb gelegten Items wird aufbereitet. Der Remove Button wird hinter jeden Zeileneintrag mit der entsprechenden Post Variable
 		 * gesetzt und die + und - Buttons werden angehängt 
@@ -113,8 +115,16 @@ class ShoppingCart {
 		 */
 		$table = $table . "</table>
 	 			<form action='index.php?view=shoppingcart' method='post' class='clear-form'>
-	 			<input type='submit' value='Empty Cart' class='button button-primary'></input>
+	 			<input type='submit' value='".i('Empty cart')."' class='button button-primary'></input>
 	 			<input type='hidden' name='clearCart'></input></form>";
+	 	//Add Button go to payment
+
+			$table = $table . "
+				<a href='index.php?view=payment'>
+                  <input class='button button-primary' type='button' value='".i('Go to payment')."'></input>
+                </a>
+
+			";
 		
 		// Hier den JavascriptCode rein: Erhöhen liest Anzahl aus, zählt eins dazu und reloaded the page mit dem GET Paramter: &update=ID&Amount=NEUER AMOUNT
 		$table = $table . "

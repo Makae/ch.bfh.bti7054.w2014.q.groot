@@ -14,7 +14,7 @@
   define('USER_SALT', '!$9*+P/l_o');
 
   define('DEFAULT_LANGUAGE', 'de');
-  define('AVAILABLE_LANGUAGES', 'de,fr,en');
+  define('AVAILABLE_LANGUAGES', 'de,en');
 
   define('DB_HOST', 'localhost');
   define('DB_USER', 'groot');

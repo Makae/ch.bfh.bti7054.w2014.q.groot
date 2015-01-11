@@ -1,4 +1,11 @@
 <?php
+  /*
+  *
+  *header part of the site content
+  * contains the search, genre-selectbox, language selector and the login window
+  *
+  */
+
   class GrootHeaderViewlet implements IViewlet {
 
     public static function name() {
@@ -26,9 +33,9 @@
           $user = isset($_POST['Loginname']) ? $_POST['Loginname'] : $user ;
           $password = isset($_POST['Password']) ? $_POST['Password'] : $password ;
           if(UserHandler::instance()->login($user, $password)){
-            return "User is logged in";//UserHandler::instance()->login($user, $password);
+            return "User is logged in";
           }else{
-            return "User is NOT logged in";//UserHandler::instance()->login($user, $password);
+            return "User is NOT logged in";
           }
         }else{
 
@@ -42,7 +49,6 @@
       if(isset($_POST['Logout'])){
         return UserHandler::instance()->logout();
       }
-      //var_dump($function);
 
     }
 
@@ -59,15 +65,7 @@
 
     //Build html
     $html = "";
-    /*
-    $html .= '
-      <div id="'.$divId.'">
-          <span class="'.$classIcon.'">'.$grootLogoChar.'</span>
-        </div>
-    ';
-  */
-    #create selectbox from array
-    //GenreModel::distinct('key');
+
     $selectBox = GenreModel::getTranslatedGenres();
     array_unshift($selectBox, array('value' => '', 'label'=> i('All')));
     $cat = isset($_REQUEST['cat']) ? htmlspecialchars($_REQUEST['cat']) : null;
@@ -90,7 +88,7 @@
           '.$selectBoxHtml.'
           <input type="hidden" name="view" value="search" />
           <input type="text" name="query" id="query" value="' . $query_val . '" autocomplete="off"/>
-          <button type="submit" name="search" value="search">Suchen</button>
+          <button type="submit" name="search" value="search">'.i("Search").'</button>
         </form>';
     //Build up all the navigation points from an array
     $naviElement = "";
@@ -118,14 +116,6 @@
         $buttons = '<input type="submit" class="button" name="Logout" value="Logout">';
         //getting the values from the protected data array via class.basemodel
         if(UserHandler::instance()->user()){
-          //$_SESSION['Loggedin']['first_name'] = UserHandler::instance()->user()->getValue('first_name');
-          //$_SESSION['Loggedin']['last_name'] = UserHandler::instance()->user()->getValue('last_name');
-        //}
-        //echo "<pre>";
-       // var_dump(UserHandler::instance()->user());
-       // if(isset($_SESSION['Loggedin']['first_name']) AND isset($_SESSION['Loggedin']['last_name'])){
-         // $firstName = $_SESSION['Loggedin']['first_name'];
-         // $lastName = $_SESSION['Loggedin']['last_name'];
           $firstName = UserHandler::instance()->user()->getValue('first_name');
           $lastName = UserHandler::instance()->user()->getValue('last_name');
         }else{
@@ -142,7 +132,6 @@
     <div><label for="Password">'.i("Password").':</label><input class="" type="password" name="Password" />  </div>';
       }
 
-       // $html .= "<div id='login' class='login' style='float:left'>";
         $html .= '<div class="login-mask ' . $mask_cls . '">
                     <form action="" method="POST">
                       <div class="mask">'.$loginMask.'</div>

@@ -5,7 +5,7 @@
 //
 
 //Delete all tables if Request is clear_tables, for test purpuses
-//TODO if you go live, delete this part.
+// if you go live and have stable data, delete this part.
   $db = Core::instance()->getDb();
   //if(isset($_REQUEST['clear_tables']) && $_REQUEST['clear_tables'] == true) {
     $db->drop('user');
@@ -29,30 +29,59 @@
       'password' => Utilities::hash('12345', USER_SALT),
       'first_name' => 'Tony',
       'last_name' => 'Stark',
-      'lang' => 'de'
+      'lang' => 'de',
+      'isAdmin' => false,
+      'streetname' => 'Schwalbenweg',
+      'streetnumber' => '10a',
+     'zip' => 3012,
+      'city' => 'Bern',
+      'state' => 'Schweiz',
+      'email' => 'marcel.tschanz@bluemail.ch'
     ));
+
     UserModel::create(array(
       'user_name' => 'hulk',
       'password' => Utilities::hash('12345', USER_SALT),
       'first_name' => 'Bruce',
       'last_name' => 'Banner',
       'lang' => 'de',
-      'isAdmin' => true
+      'isAdmin' => true,
+      'streetname' => 'Tiefenaugasse',
+      'streetnumber' => '17',
+      'zip' => 3012,
+      'city' => 'Bern',
+      'state' => 'Schweiz',
+      'email' => 'marcel.tschanz@bluemail.ch'
     ));
     UserModel::create(array(
       'user_name' => 'thor',
       'password' => Utilities::hash('12345', USER_SALT),
       'first_name' => 'Thor',
       'last_name' => 'Odinsson',
-      'lang' => 'de'
+      'lang' => 'de',
+      'isAdmin' => false,
+      'streetname' => 'Molkereiweg',
+      'streetnumber' => '31',
+      'zip' => 3217,
+      'city' => 'Thun',
+      'state' => 'Schweiz',
+      'email' => 'marcel.tschanz@bluemail.ch'
     ));
     UserModel::create(array(
       'user_name' => 'max',
       'password' => Utilities::hash('12345', USER_SALT),
       'first_name' => 'Max',
       'last_name' => 'Muster',
-      'lang' => 'en'
+      'lang' => 'en',
+      'isAdmin' => true,
+      'streetname' => 'Ahornweg',
+      'streetnumber' => '4',
+      'zip' => 4212,
+      'city' => 'New York',
+      'state' => 'USA',
+      'email' => 'marcel.tschanz@bluemail.ch'
     ));
+
   }
 
   //Check if there is the book Table, if not, create some entries

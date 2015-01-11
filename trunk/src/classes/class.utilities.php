@@ -84,26 +84,11 @@
     * @return string - html code for a select statement
     */
     public static function buildSelectbox($array, $selectName, $activeValue) {
-
-
       //init string
       $selectbox_code = "";
       $selectbox_code .= "
         <select name='$selectName'>
       ";
-      /*
-<select name="category">
-          <option value="1">Fantasy</option>
-          <option value="2">Horror</option>
-          <option value="3">Krimi</option>
-          <option value="4">Kinderbuch</option>
-          <option value="5">Berufswelt</option>
-          <option value="6">Kunst</option>
-          <option value="7">Sport</option>
-        </select>
-
-      */
-
 
         foreach ($array as $row){
           $row["label"] = i($row["label"]);
@@ -142,6 +127,124 @@
 
       return $html;
     }
+
+/**
+  * Creates a Inputlist for each entry in the array and wrap around html
+  *@author TSCM
+  *@param multi dim. array - list of products: e.g.  books [] => $key => $valueoption => Values
+  *@return string - html code for a Input list
+  */
+    public static function buildInput($array, $ignore=array('id'), $setValues=false) {
+      //init string
+      $classDiv = "label1 column1";
+      $classInput = "columnWide input1";
+      $classTextarea = "input1";
+      $rows="15";
+      $cols = "75";
+      $html = "";
+
+          foreach($array as $key => $value){
+            //ignore the keys form the ignore list
+            if(in_array($key, $ignore))
+              continue;
+
+
+            $keyTranslated = i($key); //translate key value
+
+            //change value to null, if you only need the Key word list (exp. for creating new books, users)
+            if(!$setValues)
+              $value = NULL;
+
+
+
+            switch ($key) {
+                case "description":
+                  $html .= "
+                    <p><div class=\"$classDiv\" >$keyTranslated:</div><textarea class=\"$classTextarea\" rows=\"$rows\" cols=\"$cols\" name=\"$key\" >$value</textarea></p>
+                  ";
+               
+                  break;
+
+                case "language":
+                  $html .= "
+                    <p><div class=\"$classDiv\" >$keyTranslated:</div>
+
+                        ".Utilities::getHtml("selectLanguage")."
+                    </p>
+                  ";
+               
+                  break;
+
+                  case "isAdmin":
+                  $html .= "
+                    <p><div class=\"$classDiv\" >$keyTranslated:</div>
+
+                        ".Utilities::getHtml("selectIsAdmin")."
+                    </p>
+                  ";
+               
+                  break;
+
+                  //default is an input field
+                default:
+                    $html .= "
+                       <p><div class=\"$classDiv\" >$keyTranslated:</div><input class=\"$classInput\" value=\"$value\" name=\"$key\" /></p>
+                    ";
+            }
+
+          }//end foreach
+
+      return $html;
+    }//end buildInput
+
+
+
+
+  /**
+  * Function to check if the user is logged in and has Admin rights
+  *@author TSCM
+  *@return boolean
+  */
+    public function checkIsAdmin(){
+      if(UserHandler::instance()->loggedin()){
+        if(UserHandler::instance()->user()->getValue('isAdmin') == true){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }
+
+
+/**
+* Function to check if the user is logged in and has Admin rights
+* @author TSCM
+* @param string type of html peace, exp: "selectLanguage"
+* @return string as html code, ready to be posted
+*/
+public function getHtml($type){
+  $html = "";
+  if($type == "selectLanguage"){
+      $html = '
+        <select class="columnWide input1" name="language" size="1">
+                        <option value="de">'.i("German").'</option>
+                        <option value="en">'.i("English").'</option>
+         </select>
+      ';
+  }elseif($type == "selectIsAdmin"){
+	$html = '
+        <select class="columnWide input1" name="isAdmin" size="1">
+                        <option value="0">'.i("Nein").'</option>
+                        <option value="1">'.i("Ja").'</option>
+         </select>
+      ';
+  }
+
+  return $html;
+}
+
 
 /**
   * copyed from 06_php_part03_v08.pdf from web programming lession and altered

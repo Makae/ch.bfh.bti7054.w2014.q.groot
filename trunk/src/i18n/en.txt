@@ -73,9 +73,9 @@
 "Author":
 "Author"
 "Description":
-"Beschreibung"
+"Description"
 "Price":
-"Preis"
+"Price"
 "Available":
 "Available"
 "Profile":
@@ -185,6 +185,113 @@
 "First name"
 "last_name":
 "Last name"
+
+"Administration":
+"Administration"
+"Books":
+"Books"
+"view_label_administration":
+"Administration"
+"no_rights_msg":
+"You don't have the right to do this action!"
+"German":
+"German"
+"English":
+"English"
+"French":
+"French"
+"Add Book":
+"Add Book"
+"user_name":
+"Login name"
+"password":
+"Password"
+"lang":
+"Langauge"
+"isAdmin":
+"Has admin rights"
+"streetname":
+"Streetname"
+"streetnumber":
+"Streetnumber"
+"zip":
+"ZIP"
+"city":
+"City"
+"state":
+"State"
+"Add user":
+"Add user"
+"No":
+"No"
+"Yes":
+"Yes"
+"email":
+"E-Mail"
+"view_label_payment":
+"Payment"
+"Other":
+"Other"
+"Home delivery":
+"Home delivery"
+"Nearest store":
+"Nearest store"
+"Confirm":
+"Confirm"
+"Reset":
+"Reset"
+"Delivery Address":
+"Delivery Address"
+"Shipping Method":
+"Shipping Method"
+"Payment Method":
+"Payment Method"
+"Gift Box":
+"Gift Box"
+"Order":
+"Order"
+"Note":
+"Note"
+"Is it a gift?":
+"Is it a gift?"
+"Order from Groot Shop":
+"Order from Groot Shop"
+"Shoppingcart":
+"Shoppingcart"
+"Your shopping cart is empty.":
+"Your shopping cart is empty."
+"Your shoppingcart contains":
+"Your shoppingcart contains"
+"product(s)":
+"product(s)"
+"Item-Nr.":
+"Item-Nr."
+"Amount":
+"Amount"
+"Empty cart":
+"Empty cart"
+"Remove":
+"Remove"
+"Search":
+"Search"
+"Productview":
+"Productview"
+"Add to cart":
+"Add to cart"
+"Go to payment":
+"Go to payment"
+"thx_for_order_msg":
+"Thank you for your purchase!"
+"email_send_msg":
+"An email was send to the following email-adress:"
+"back_to_main":
+"Back to the main page"
+"order_confirmation_msg":
+"Thank you again for your purchage! Here are the ordering details:"
+"greetings_from_groot_team_msg":
+"Greetings from your Groot Book Shop Team"
+"Nearest Store":
+"Nearest store"
 
 "xxxkeyxxx":
 "xxxtranslationxxx"

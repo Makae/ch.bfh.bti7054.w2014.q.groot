@@ -1,4 +1,10 @@
 <?php
+
+  /**
+  *
+  * This class implements the payment view and process
+  * with it, the user can set his adress and choose giftbox options. after the last confirmation, an Email is sent to the user
+  */
   class GrootPaymentView implements IView {
 
     public function name() {
@@ -32,7 +38,6 @@
       }else{
         $poster = "none";
       }
-//var_dump("poster is = $poster");
 
         switch($function){
 
@@ -46,8 +51,6 @@
 
           case "shippingMethod":
           
- // var_dump($function);
-  //var_dump($poster);
             if($poster == 'deliveryAddress'){
               $result = "";
             }else{
@@ -98,11 +101,6 @@
     public function render() {
       // Here comes the rendering process
 
-      
-
-      //Test to include JAVASCRIPT
-
-
       $js = '
 
 ';
@@ -110,21 +108,43 @@
 
 
       //add Product to session
-      //Only if its not jet there
-      if($_SESSION['shoppingCart']['id'] && $_GET['id']){
+      //Only if its not yet there
+      if(isset($_SESSION['shoppingCart']['id']) && isset($_GET['id'])){
         if(!in_array($_GET['id'],$_SESSION['shoppingCart']['id'])){
           $_SESSION['shoppingCart']['id'][] = $_GET['id'];
         }
       };
-// var_dump($_SESSION['shoppingCart']['id']);
 
-      //create shopping cart id list
-      $htmlList = "Sie haben folgende Produkte gekauft:</br>";
-      foreach($_SESSION['shoppingCart']['id'] as $isbn_number){
+      //add chosen values to session
+      //adress data
+      if(isset($_POST['lastname']))
+        $_SESSION['payment_lastname'] = $_POST['lastname'];
+      if(isset($_POST['firstname']))
+        $_SESSION['payment_firstname'] = $_POST['firstname'];
+      if(isset($_POST['street']))
+        $_SESSION['payment_street'] = $_POST['street'];
+      if(isset($_POST['plz']))
+        $_SESSION['payment_plz'] = $_POST['plz'];
+      if(isset($_POST['country']))
+        $_SESSION['payment_country'] = $_POST['country'];
 
-        $htmlList .= "ISBN NUMBER = $isbn_number </br>";
-      }
-//unset($_SESSION['shoppingCart']['id']);
+      //shipping method
+      if(isset($_POST['shippingMethod']))
+        $_SESSION['payment_shippingMethod'] = $_POST['shippingMethod'];
+
+      //payment method
+      if(isset($_POST['paymentMethod']))
+        $_SESSION['payment_paymentMethod'] = $_POST['paymentMethod'];
+
+      //gift box
+      if(isset($_POST['giftBox']))
+        $_SESSION['payment_giftBox'] = $_POST['giftBox'];
+      if(isset($_POST['comment']))
+        $_SESSION['payment_comment'] = $_POST['comment'];
+
+
+      $htmlList = "";
+
       //translations
       $title1 = i("Delivery Address");
       $title2 = i("Shipping Method");
@@ -143,6 +163,31 @@
       </div>
       ';
 
+
+
+      //Use Userdata if logged in
+      if(UserHandler::instance()->loggedin()){
+        if(UserHandler::instance()->user()){
+          $firstName = UserHandler::instance()->user()->getValue('first_name');
+          $lastName = UserHandler::instance()->user()->getValue('last_name');
+          $streetname = UserHandler::instance()->user()->getValue('streetname');
+          $zip = UserHandler::instance()->user()->getValue('zip');
+          $city = UserHandler::instance()->user()->getValue('city');
+          $email = UserHandler::instance()->user()->getValue('email');
+        }else{
+          $firstName = "";
+          $lastName = "";
+          $streetname = "";
+          $zip = "";
+          $city = "";
+          $email = "";
+        }
+
+        $greeting = i('Hello');
+       $loginMask = $greeting.' '.$firstName.' '.$lastName;
+      }
+
+
       
 
       //a form to submit to myself
@@ -151,12 +196,12 @@
       <div class="hidden"><input name="deliveryAddressStore"></input></div> 
       <form action="" method="POST">
       <h1>'.$title1.'</h1><br />
-        <div class="column1">First Name</div><div class=""><input class="input1 " name="firstname"></input></div><br />
-        <div class="column1">Last Name</div><div class=""><input class="input1" name="lastname"></input></div><br />
-        <div class="column1">Street</div><div class=""><input class="input1" name="street"></input></div><br />
-        <div class="column1">PLZ</div><div class=""><input class="input1" name="plz"></input></div><br />
-        <div class="column1">Country</div><div class=""><input class="input1" name="country"></input></div><br />
-        <input type="submit" class="buy_button" value="Send"/><input type="reset" class="buy_button" value="Reset">
+        <div class="column1">'.i("first_name").'</div><div class=""><input class="input1 " value="'.$firstName.'" name="firstname"></input></div><br />
+        <div class="column1">'.i("last_name").'</div><div class=""><input class="input1" value="'.$lastName.'" name="lastname"></input></div><br />
+        <div class="column1">'.i("streetname").'</div><div class=""><input class="input1" value="'.$streetname.'" name="street"></input></div><br />
+        <div class="column1">'.i("zip").'</div><div class=""><input class="input1" value="'.$zip.'" name="plz"></input></div><br />
+        <div class="column1">'.i("city").'</div><div class=""><input class="input1" value="'.$city.'" name="country"></input></div><br />
+        <input type="submit" class="button button-primary" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'">
         <input class="input1" type="hidden" name="poster" value="deliveryAddress"></input>
       </form>';
       $html .= '</div>';
@@ -164,35 +209,33 @@
 
 
       //a form to submit to myself
-//  var_dump(GrootPaymentView::visibility("shippingMethod"));
       $html .= "<div id='shippingMethod' class=".GrootPaymentView::visibility("shippingMethod").">";
       $html .= '
       <div class="hidden"><input name="shippingMethodStore"></input></div> 
       <form action="" method="POST">
       <h1>'.$title2.'</h1><br />
-        <div class="column2">Home delivery</div><div class="column2"><input type="radio" name="shippingMethod" value="Home delivery" checked></input></div>
-        <div class="column2" >Nearest Store</div><div class="column2"><input type="radio" name="shippingMethod" value="Nearest Store"></input></div>
-        <div class="column2">Other</div><div class="column2"><input type="radio" name="shippingMethod" value="Other"></input></div>
-        <div class="bottomButton"><input  type="submit" class="buy_button" value="Send"/><input type="reset" class="buy_button" value="Reset"></div>
+        <div class="column2">'.i("Home delivery").'</div><div class="column2"><input type="radio" name="shippingMethod" value="Home delivery" checked></input></div>
+        <div class="column2" >'.i("Nearest store").'</div><div class="column2"><input type="radio" name="shippingMethod" value="Nearest Store"></input></div>
+        <div class="column2">'.i("Other").'</div><div class="column2"><input type="radio" name="shippingMethod" value="Other"></input></div>
+        <div class="bottomButton"><input  type="submit" class="button button-primary" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"></div>
         <input class="input1" type="hidden" name="poster" value="shippingMethod"></input>
       </form>';
       $html .= '</div>';
 
 
-//var_dump(GrootPaymentView::visibility("paymentMethod"));
       //a form to submit to myself
       $html .= "<div id='paymentMethod' class=".GrootPaymentView::visibility("paymentMethod"). ">";
       $html .= '
       <div class="hidden"><input name="paymentMethodStore"></input></div> 
       <form action="" method="POST">
       <h1>'.$title3.'</h1><br />
-        <div class="column2">Visa</div><div class="column2"><input type="radio" name="paymentMethod" value="Visa" checked></input></div>
-        <div class="column2">Postfinance</div><div class="column2"><input type="radio" name="paymentMethod" value="Postfinance"></input></div>
-        <div class="column2">Maestro</div><div class="column2"><input type="radio" name="paymentMethod" value="Maestro"></input></div>
-        <div class="column2">Check</div><div class="column2"><input type="radio" name="paymentMethod" value="Check"></input></div>
-        <div class="column2">PayPal</div><div class="column2"><input type="radio" name="paymentMethod" value="PayPal"></input></div>
-        <div class="column2">Other</div><div class="column2"><input type="radio" name="paymentMethod" value="Other"></input></div>
-        <div class="bottomButton"><input  type="submit" class="buy_button" value="Send"/><input type="reset" class="buy_button" value="Reset"></div>
+        <div class="column2">'.i("Visa").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Visa" checked></input></div>
+        <div class="column2">'.i("Postfinance").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Postfinance"></input></div>
+        <div class="column2">'.i("Maestro").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Maestro"></input></div>
+        <div class="column2">'.i("Check").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Check"></input></div>
+        <div class="column2">'.i("PayPal").'</div><div class="column2"><input type="radio" name="paymentMethod" value="PayPal"></input></div>
+        <div class="column2">'.i("Other").'</div><div class="column2"><input type="radio" name="paymentMethod" value="Other"></input></div>
+        <div class="bottomButton"><input  type="submit" class="button button-primary" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"></div>
         <input class="input1" type="hidden" name="poster" value="paymentMethod"></input>
       </form>';
       $html .= '</div>';
@@ -207,11 +250,11 @@
       <div class="hidden"><input name="giftBox"></input></div> 
       <form action="" method="POST">
       <h1>'.$title4.'</h1><br />
-        <h3>Is a Gift?</h3>
-        <div class="column2">NO</div><div class="column2"><input type="radio" name="giftBox" value="No" checked></input></div>
-        <div class="column2">Yes</div><div class="column2"><input type="radio" name="giftBox" value="Yes"></input></div>
-        <div class="column2">Bemerkung:</div><div class="column2"><textarea name="comment" rows="10" cols="80">Here goes your text...</textarea></div>
-        <div class="bottomButton"><input id="fakeSubmitButton" type="button" onclick="orderConfirmation()" class="buy_button" value="Send fake"/><input id="realSubmitButton"  type="submit" class="buy_button" value="Send"/><input type="reset" class="buy_button" value="Reset"></div>
+        <h3>'.i("Is it a gift?").'</h3>
+        <div class="column2">'.i("No").'</div><div class="column2"><input type="radio" name="giftBox" value="No" checked></input></div>
+        <div class="column2">'.i("Yes").'</div><div class="column2"><input type="radio" name="giftBox" value="Yes"></input></div>
+        <div class="column2">'.i("Bemerkung").':</div><div class="column2"><textarea name="comment" rows="10" cols="80"></textarea></div>
+        <div class="bottomButton"><input id="fakeSubmitButton" type="button" onclick="orderConfirmation()" class="button button-primary" value="'.i("Confirm").'"/><input id="realSubmitButton"  type="submit" class="button button-primary hidden" value="'.i("Confirm").'"/><input type="reset" class="button button-primary" value="'.i("Reset").'"></div>
         <input class="input1" type="hidden" name="poster" value="giftBox"></input>
       </form>';
       $html .= '</div>';
@@ -224,20 +267,58 @@
       $html .= '
       <div class="hidden"><input name="orderComplete"></input></div> 
       <h1>'.$title5.'</h1><br />
-        <h3>Besten Dank für die Bestellung!</h3>
-          Es wurde eine Email mit der Bestellung an Sie versand!
-          An matscha7@gmail.com:
+        <h3>'.i("thx_for_order_msg").'</h3>
+          '.i("email_send_msg").' '.$email.' <br>
 
-
+          <a href="index.php?view=home">
+                  <input class="button button-primary" type="button" value="'.i('back_to_main').'"></input>
+                </a>
 
         ';
+
+        //if the order is completed and accepted, send an email to the user email with the previous saved content
         if(GrootPaymentView::visibility("orderComplete") != "hidden"){
-            //$email_adress  = "matscha7@gmail.com";
-            $email_adress  = "marcel.tschanz@bluemail.ch"; 
-            $email_title   = "Bestellung auf Groot Shop"; 
-            $email_message = $htmlList; 
-            //TSCM auskommentiert, da lästig, weil es jedes mal wieder eine Email versandt hat.
-            //mail($email_adress, $email_title, $email_message); 
+            $email_adress  = $email; //"marcel.tschanz@bluemail.ch"; 
+
+            $email_title   = i("Order from Groot Shop");
+
+            $emailContent = "";
+            $emailContent .= "".i("Order from Groot Shop")." \n";
+            $emailContent .= i("order_confirmation_msg")." \n";
+            $emailContent .= " \n";
+            $emailContent .= $title1." \n";
+            $emailContent .= "--------------------------------\n";
+            $emailContent .= i('first_name').":  ".$_SESSION['payment_firstname']." \n";
+            $emailContent .= i('last_name').":  ".$_SESSION['payment_lastname']." \n";
+            $emailContent .= i('streetname').":  ".$_SESSION['payment_street']." \n";
+            $emailContent .= i('zip').":  ".$_SESSION['payment_plz']." \n";
+            $emailContent .= i('city').":  ".$_SESSION['payment_country']." \n";
+            $emailContent .= " \n";
+            $emailContent .= $title2.": ".i($_SESSION['payment_shippingMethod'])." \n";
+            $emailContent .= $title3.": ".i($_SESSION['payment_paymentMethod'])." \n";
+            $emailContent .= $title4.": ".i($_SESSION['payment_giftBox'])." \n";
+            $emailContent .= i('Note').":  ".$_SESSION['payment_comment']." \n";
+            $emailContent .= "--------------------------------\n";
+            $emailContent .= " \n";
+            $emailContent .= $title5." \n";
+
+            //shoppingcart content
+            $myArray = json_decode ( $_COOKIE ["shoppingCart"] );
+            $myCart = new ShoppingCart ( $myArray );
+            $cart = $myCart->getCart();
+            foreach($cart as $cartIsbn => $cartAmount){
+                $emailContent .= i('isbn').":  ".$cartIsbn."  ".$cartAmount."x \n";
+            }
+
+            $emailContent .= "--------------------------------\n";
+            $emailContent .= " \n";
+            $emailContent .= " \n";
+            $emailContent .= i("greetings_from_groot_team_msg")." \n";
+
+
+            $email_message = $emailContent;
+            //TSCM Bitte beim Testen auskommentiert, weil es jedes mal wieder eine Email an mich versantd hat
+            mail($email_adress, $email_title, $email_message); 
         }
       $html .= '</div>';
 
@@ -247,15 +328,10 @@
       foreach($_POST as $key => $value){
         $postedValues .= "key = $key und value = $value </br>";
       }
-      $html .= '
-          <div>
-            The posted Values are: </br>
-            '.$postedValues.'
-         </div>
-         ';
       return $html;
 
     }
+
 
     public function ajaxCall() {
       // we will return the value as json encoded content

@@ -248,7 +248,8 @@ var core = {
 };
 
 function orderConfirmation() {
-  var orderConfirmationInfo = "Are you really sure you want to buy all the previous Stuff? Last chance to abort!"
+  //Are you really sure you want to buy all the previous Stuff? Last chance to abort!
+  var orderConfirmationInfo = "Sind Sie sicher, dass Sie alle Angaben korrekt erfasst haben?"
   result = window.confirm(orderConfirmationInfo);
     if (result){
       document.getElementById("realSubmitButton").click();
@@ -259,6 +260,99 @@ function orderConfirmation() {
 
   };
 
+
+
+  //are the important user fields correctly filled?
+  function validateUser() {
+    var x = document.forms["formUser"]["email"].value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    var user_name = document.forms["formUser"]["user_name"].value;
+    var first_name = document.forms["formUser"]["first_name"].value;
+    var last_name = document.forms["formUser"]["last_name"].value;
+    var password = document.forms["formUser"]["password"].value;
+    var lang = document.forms["formUser"]["lang"].value;
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+      //Not a valid e-mail address
+        alert("Keine korrekte E-Mail Adresse");
+        return false;
+    }else if(!user_name){
+        //Please enter a Loginname
+        alert("Bitte einen Loginname angeben");
+        return false;
+    }else if(!first_name){
+        //Please enter a first name
+        alert("Bitte einen Vorname angeben");
+        return false;
+    }else if(!last_name){
+        //Please enter a last name
+        alert("Bitte einen Nachname angeben");
+        return false;
+    }else if(!password){
+        //Please enter a password
+        alert("Bitte ein Passwort angeben");
+        return false;
+    }else if(!lang){
+      //Please enter a language
+        alert("Bitte eine Sprache angeben");
+        return false;
+    }else{
+      //alert("User successfully created!");
+      alert("Benutzer wurde erfolgreich angelegt!");
+      document.getElementById("createUser").click();
+    }
+  }
+
+  //are the important book fields correctly filled?
+  function validateBook() {
+    var name = document.forms["formBook"]["name"].value;
+    var isbn = document.forms["formBook"]["isbn"].value;
+    var title = document.forms["formBook"]["title"].value;
+    var author = document.forms["formBook"]["author"].value;
+    var price = document.forms["formBook"]["price"].value;
+    var year_of_publication = document.forms["formBook"]["year_of_publication"].value;
+    if (!name) {
+      //Please enter a name
+        alert("Bitte einen Namen angeben");
+        return false;
+    }else if(!isbn){
+      //alert("Please enter a isbn");
+        alert("Bitte eine ISBN Nr angeben");
+        return false;
+    }else if(isbn.length < 8){
+      //isbn is too short!
+        alert("Die ISBN Nummer muss mindestens 8 Zeichen lang sein!");
+        return false;
+    }else if(!Number.isInteger(parseInt(isbn))){
+      //isbn has to be a number
+        alert("Die ISBN muss eine Zahl sein!");
+        return false;
+    }else if(!title){
+      //Please enter a first title
+        alert("Bitte ein Titel angeben");
+        return false;
+    }else if(!author){
+      //Please enter a author
+        alert("Bitte einen Autor angeben");
+        return false;
+    }else if(!price){
+      //Please enter a price
+        alert("Bitte einen Preis angeben");
+        return false;
+    }else if(year_of_publication.length != 4){
+      //The year has to be 4 digits long
+        alert("Das Jahr muss aus 4 Zahlen bestehen");
+        return false;
+    }else if(!Number.isInteger(parseInt(year_of_publication))){
+      //The year of publication has to be a number
+        alert("Das Erscheinungsjahr muss eine Zahl sein");
+        return false;
+    }else{
+      //Book successfully created!
+      alert("Buch wurde erfolgreich angelegt!");
+      document.getElementById("createBook").click();
+    }
+  }
 $(document).ready(function() {
   core.init();
 });

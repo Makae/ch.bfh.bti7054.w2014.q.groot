@@ -1,4 +1,8 @@
 <?php
+//
+// Shows a Product (Book) in its detail
+// you can add an amout to the shopping cart here
+//
   class GrootProductdetailView implements IView {
 
     public function name() {
@@ -37,22 +41,21 @@
     $maxDescriptionCharlenght = 20000;
     $imagePath = "/src/theme/images/";
     $lang_pageTitel = i("Productview");
-    $button1 = ("Buy");
+    $button1 = i("Buy");
 
     //Product array
     $products = array();
 
-    //TSCM TODO get from DB instead from Session..
-    //$products = $_SESSION['products'];
+    //get the product list
     $products = BookModel::findList(null,null);
 
+    //save id
+    if(isset($_GET['id']))
+    $_SESSION['productdetail_id_selected'] = $_GET['id'];
 
-    //Array erstellen
-    //TODO Array aus DB holen und verifizieren
+    //create an arraylist
     foreach($products as $book){
-
-// exit;
-       if($_GET['id'] != $book['isbn']){
+       if($_SESSION['productdetail_id_selected'] != $book['isbn']){
           continue;
         }
 
@@ -136,7 +139,7 @@ $htmlContent .= "
            $paragraph
 
               <div>
-                  <br>Amount:
+                  <br>".i('Amount').":
                   <form action='index.php?view=productdetail&id=$currentID&action=added' method='post'>
                   <select name='amountSelection' class='input-border'>
 
@@ -147,7 +150,7 @@ $htmlContent .= "
  					 <option value='5'>5</option>
 
 					</select>
-					<input class='button button-primary' type='submit' name='submit' value='Add to Cart' />
+					<input class='button button-primary' type='submit' name='submit' value='".i('Add to cart')."' />
 					</form>
 
 
@@ -160,18 +163,22 @@ $htmlContent .= "
 
     }
 
-
+//textmessage, after a product was placed in shoppingcart
 if(isset($_GET["action"])){
-
 	$buyState= "Produkt wurde in den Warenkorb gelegt.<br>";
 
-} else $buyState="";
+} else {
+  $buyState="";
+}
 
+//display page
 $htmlContentBody = "
+		<div id=\"content\">
         <span style='color:red'>$buyState</span>
  		$note
-          <h1>$lang_pageTitel</h1>
+          <h1>".$lang_pageTitel."</h1>
            $htmlContent
+        </div>
 
 ";
 

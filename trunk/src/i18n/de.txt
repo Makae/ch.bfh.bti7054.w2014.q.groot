@@ -232,5 +232,114 @@
 "last_name":
 "Nachname"
 
+"Administration":
+"Administration"
+"Books":
+"Bücher"
+"view_label_administration":
+"Administration"
+"no_rights_msg":
+"Sie haben nicht die nötigen Rechte, um diese Aktion durchzuführen!"
+"German":
+"Deutsch"
+"English":
+"Englisch"
+"French":
+"Französisch"
+"Add Book":
+"Buch hinzufügen"
+"user_name":
+"Loginname"
+"password":
+"Passwort"
+"lang":
+"Sprache"
+"lang":
+"Sprache"
+"isAdmin":
+"Hat Administratorrechte"
+"streetname":
+"Strassenname"
+"streetnumber":
+"Strassennummer"
+"zip":
+"PLZ"
+"city":
+"Stadt"
+"state":
+"Land"
+"Add user":
+"Benutzer hinzufügen"
+"No":
+"Nein"
+"Yes":
+"Ja"
+"email":
+"E-Mail"
+"view_label_payment":
+"Bezahlvorgang"
+"Other":
+"Andere"
+"Home delivery":
+"Lieferung nach Hause"
+"Nearest store":
+"Zur Partner Verkaufsstelle"
+"Confirm":
+"Bestätigen"
+"Reset":
+"Zurücksetzen"
+"Delivery Address":
+"Zustellungsadresse"
+"Shipping Method":
+"Versandart"
+"Payment Method":
+"Bezahlart"
+"Gift Box":
+"Geschenk"
+"Order":
+"Bestellung"
+"Note":
+"Bemerkung"
+"Is it a gift?":
+"Ist es ein Geschenk?"
+"Order from Groot Shop":
+"Bestellung auf Groot Shop"
+"Shoppingcart":
+"Warenkorb"
+"Your shopping cart is empty.":
+"Dein Warenkorb ist leer."
+"Your shoppingcart contains":
+"In Ihrem Warenkorb befinden sich"
+"product(s)":
+"Produkt(e)"
+"Item-Nr.":
+"Artikel-Nr."
+"Amount":
+"Menge"
+"Empty cart":
+"Warenkorb leeren"
+"Remove":
+"Entfernen"
+"Search":
+"Suche"
+"Productview":
+"Produktansicht"
+"Add to cart":
+"In den Warenkorb"
+"Go to payment":
+"Weiter zur Bezahlung"
+"thx_for_order_msg":
+"Besten Dank für die Bestellung!"
+"email_send_msg":
+"Es wurde eine E-Mail mit der Bestellungsbestätigung an folgende Adresse versand:"
+"back_to_main":
+"Zurück zur Hauptseite"
+"order_confirmation_msg":
+"Besten Dank. Hier sind die Bestelldetails:"
+"greetings_from_groot_team_msg":
+"Viel Spass beim Lesen - Ihr Groot Book Shop Team"
+"Nearest Store":
+"Zur nächsten Verkaufsstelle"
+
 "xxxkeyxxx":
 "xxxtranslationxxx"
